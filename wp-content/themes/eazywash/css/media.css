@@ -1,0 +1,214 @@
+@media only screen and (min-width: 1300px) {
+
+    .install .icon {
+        float: left;
+        width: 100%;
+        padding-right: 6rem;
+    }
+
+    .text {
+        float: left;
+        margin-left: -5rem;
+        padding: 0 2rem;
+    }
+
+    .order .icon, .order h4{
+        margin-right: 2rem;
+    }
+
+    .order p{
+        margin-left: -2rem;
+        margin-top: 3.6rem;
+    }
+
+    .pickup .icon {
+        margin-top: 0.5rem;
+    }
+
+    .pickup p{
+        margin-left: -1rem;
+        margin-right: -1rem;
+    }
+
+    .wash-magic .icon {
+        margin-left: 3rem;
+    }
+
+    .wash-magic h4{
+        margin-left: 2rem;
+    }
+
+    .wash-magic p{
+        margin-right: -2rem;
+    }
+
+    .deliver .icon {
+        margin-left: 5rem;
+        margin-top: 1rem;
+    }
+
+    .deliver h4{
+        margin-left: 6rem;
+    }
+    .deliver p{
+        margin-right: -6rem;
+        padding: 0 2rem;
+    }
+
+}
+
+@media only screen and (max-width: 1440px) {
+
+    img.bottom-img {
+        margin-bottom: -195px;
+        width: 420px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    
+    .navbar-collapse ul{
+        margin-left: 1rem;
+    }
+    .navbar-collapse ul li a {
+        width: 100%;
+        font-size: 1.5rem;
+        padding: 0;
+        text-transform: uppercase;
+        font-weight: 400;
+        display: block;
+        padding: 1.2rem 0 0 0;
+    }
+
+    .navbar-collapse ul li a.uk, .navbar-collapse ul li a.dm {
+        display: none;
+    }
+
+    .logo img {
+        width: 100px;
+    }
+
+    .workchain-div .icon img {
+        width: 30px;
+        height: 45px;
+    }
+
+    .workchain p{
+        margin-top: 2rem;
+    }
+
+    .workchain-div h4{
+        font-size: 0.9rem;
+    }
+    
+    .howitwork {
+        padding-bottom: 50px;
+    }
+
+    section p br {
+        display: none;
+    }
+
+    .dwld-phone {
+        bottom: -140px;
+    }
+
+    section.downloadapp p br,section.downloadapp h2 br {
+        display: none;
+    }
+
+    .search-menu {
+        display: none;
+    }
+
+    ul.navbar-nav.header-nav.lang {
+        display: inline-block;
+    }
+
+    .lang li {
+        float: left;
+    }
+
+    img.bottom-img {
+        margin-bottom: -110px;
+        width: 580px;
+    }
+    
+  
+
+    
+}
+
+@media only screen and (max-width: 767px) {
+    .top-nav {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .slider {
+        padding-top: 3rem;
+    }
+
+    .slider-inner{
+        height: auto;
+    }
+
+    .cust-button {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .downloadapp .position-relative{
+        height: 330px;
+    }
+    
+    .dwld-phone {
+        bottom: -160px;
+        right: 25px;
+    }
+
+    section p br {
+        display: none;
+    }
+
+    .workchain{
+        background: none;
+    }
+
+    .workchain-div {
+        width: 100%;
+        margin: 1.2rem 2rem;
+        -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.19), 0 0 10px rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.19), 0 0 10px rgba(0, 0, 0, 0.23);
+        box-shadow: 0 0px 0px rgba(0, 0, 0, 0.19), 0 0p 10px rgba(0, 0, 0, 0.23);
+    }
+
+    .workchain .icon {
+        padding-top: 2rem;
+    }
+
+    .workchain p {
+        margin-top: 1rem;
+    }
+
+    img.bottom-img {
+        margin-bottom: -75px;
+    }
+    .page-heading{
+        margin-top: 60px;
+    }
+
+}
+@media only screen and (max-width: 576px) {
+    .price, .price-active{
+        margin-bottom: 10rem;
+        min-height: 300px;
+        border-radius: 10px;
+    }
+    .price:last-child, .price-active:last-child{
+        margin-bottom: 3rem;
+    }
+
+    .slide {
+        max-height: 400px;
+    }
+}
