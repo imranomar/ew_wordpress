@@ -283,6 +283,12 @@ function twentyfifteen_scripts() {
 		'collapse' => '<span class="screen-reader-text">' . __( 'collapse child menu', 'twentyfifteen' ) . '</span>',
 	) );
 	
+	// Js libraries
+	wp_enqueue_script( 'jquery-slim', get_theme_file_uri( '/js/jquery-3.3.1.slim.min.js' ), array(), '1.0' );
+	wp_enqueue_script( 'popper-js', get_theme_file_uri( '/js/popper.min.js' ), array(), '1.0' );
+	wp_enqueue_script( 'bootstrap-js', get_theme_file_uri( '/js/bootstrap.min.js' ), array(), '1.0' );
+	wp_enqueue_script( 'jquery-validate', get_theme_file_uri( '/js/jquery.validate.js' ), array(), '1.0' );
+	
 	// Main Script
 	wp_enqueue_script( 'custom-script', get_theme_file_uri( '/js/custom/main.js' ), array(), '1.0' );
 	
@@ -293,6 +299,7 @@ function twentyfifteen_scripts() {
 	wp_enqueue_script( 'angular-library', get_theme_file_uri( '/js/libraries/angular.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-routes', get_theme_file_uri( '/js/libraries/angular-route.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-ngstorage', get_theme_file_uri( '/js/libraries/ngStorage.min.js' ), array(), '1.0' );
+	wp_enqueue_script( 'angular-validate', get_theme_file_uri( '/js/libraries/angular-validate.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-wizard', get_theme_file_uri( '/js/libraries/angular-wizard.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-translate', get_theme_file_uri( '/js/libraries/angular-translate/angular-translate.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-translate-handler-log', get_theme_file_uri( '/js/libraries/angular-translate/angular-translate-handler-log.js' ), array(), '1.0' );

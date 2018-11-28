@@ -19,14 +19,21 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="alert alert-danger" ng-show="err">{{errorMessage}}</p>
-                                <p class="alert alert-danger" ng-show="required"> {{field}} !!!</p>
-                                <form ng-submit="!loading && loginsubmit()" autocomplete="off">
+                                <form name="LoginForm" ng-submit="!loading && loginsubmit(LoginForm)" autocomplete="off" ng-validate="loginValidationOptions">
                                     <div class="form-group">
                                         <input type="text" name="email" ng-model="logindata.email" tabindex="1" class="form-control" placeholder="{{'text.user_or_email' | translate}}" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
                                         <input type="password" name="password" ng-model="logindata.password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-disabled="loading" />
                                     </div>
+                                    <div class="form-group">
+                                    <div class="row">
+                                        <a href="javascript:void(0)" onclick="openForgotPasswordModal()" class="btn btn-lg btn-block omb_btn-facebook">
+                                            <span class="hidden-xs">Forgot Password</span>
+                                        </a>
+                                    </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-primary">{{'text.login' | translate}}</button>
                                     </div>
@@ -40,9 +47,9 @@
                                 <p class="alert alert-danger" ng-show="err">{{errorMessage}}</p>
                                 <p class="alert alert-danger" ng-show="required"> {{field}} !!!</p>
 
-                                <form method="post" role="form" autocomplete="off" ng-submit="!loading && signupsubmitform()">
+                                <form name="RegisterForm" autocomplete="off" ng-submit="!loading && signupsubmitform(RegisterForm)" ng-validate="basicDetailsValidationOptions">
                                     <div class="form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="signupdata.name" ng-disabled="loading" />
+                                        <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="signupdata.name" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
                                         <input type="email" name="email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-model="signupdata.email" ng-disabled="loading" />
@@ -125,15 +132,13 @@
                 <div class="myorder Deliverydate finaldate" ng-if="!showLoading && !orderCreationDone">
                     <wizard on-finish="finished()" indicators-position="top" name="requestPickupWizard" edit-mode="true" ng-init="initializeWizard()">
                         <wz-step wz-title="1" wz-heading-title="{{Steps.pickup_date}}" canenter="validateStep">
-                            <div class="row">
+                            <div class="row my-3">
                                 <div class="col-sm-8">
-                                    <h2>{{'request_pickup_date' | translate}}</h2>
+                                    <h4>{{'request_pickup_date' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class='text-right'>
-                                        <div class="div_close_icon" wz-cancel="onCancelOrder()">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </div>
+                                    <div class="div_close_icon" wz-cancel="onCancelOrder()">
+                                        <span class="fa fa-times"></span>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +148,7 @@
                                             'tomorrow-div': value.name == 'Tomorrow',
                                         }">
                                 <div class="col-sm-12">
-                                    <div class="mybutton">
+                                    <div class="mybutton p-3">
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="row">
@@ -170,7 +175,7 @@
 
                             <div class="row" ng-if="!showAllpickupDateList">
                                 <div ng-click="loadMorePickupDates()" class="col-sm-12">
-                                    <div class="mybutton">
+                                    <div class="mybutton p-3">
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="row">
@@ -197,22 +202,20 @@
                         </wz-step>
 
                         <wz-step wz-title="2" wz-heading-title="{{Steps.pickup_time}}" canenter="validateStep">
-                            <div class="row">
+                            <div class="row my-3">
                                 <div class="col-sm-8">
-                                    <h2>{{'request_pickup_time' | translate}}</h2>
+                                    <h4>{{'request_pickup_time' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class='text-right'>
-                                        <div class="div_close_icon" wz-cancel="onCancelOrder()">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </div>
+                                    <div class="div_close_icon" wz-cancel="onCancelOrder()">
+                                        <span class="fa fa-times"></span>
                                     </div>
                                 </div>
                             </div>
                             <div id="div_slots">
                                 <div class="row" ng-repeat="value in TimeSlots" ng-class="{'active': localData.pickupTime && localData.pickupTime.id == value.id }">
                                     <div class="col-sm-12">
-                                        <div class="mybutton" ng-click="!localData.pickupTime.leaveAtdoor && performAction('SELECT_PICKUP_TIME', value)" ng-class="{'fade': localData.pickupTime.leaveAtdoor}">
+                                        <div class="mybutton p-3" wz-next="performAction('SELECT_PICKUP_TIME', value)" ng-class="{'fade': localData.pickupTime.leaveAtdoor}">
                                             <div class="row">
                                                 <div class="col-sm-3">
                                                     <div class="row">
@@ -239,45 +242,45 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                
 
-                            <div class="row">
-                                <div class="col-sm-12 text-center text-upper">{{'text.or' | translate}}</div>
-                            </div>
-
-                            <div class='mybutton'>
                                 <div class="row">
-                                    <div class="col-sm-9">
-                                        <div class="item ">
-                                            <label class="container" for="pickAtDoor"> {{'request_leave_at_door' | translate}}
-                                                <input type="checkbox" id='pickAtDoor' class="checky" name="pickAtDoor" ng-model="pickAtDoor" ng-checked="localData.pickupTime && localData.pickupTime.leaveAtdoor" ng-change="performAction('SELECT_PICKUP_AT_DOOR', pickAtDoor)">
-                                                <span class="checkmark"></span>
-                                            </label>
+                                    <div class="col-sm-12 text-center text-upper">{{'text.or' | translate}}</div>
+                                </div>
+
+                                <div class="row" ng-class="{'active': localData.pickupTime && localData.pickupTime.leaveAtdoor == 'y' }">
+                                    <div class="col-sm-12">
+                                        <div class='mybutton p-3' wz-next="performAction('SELECT_PICKUP_AT_DOOR', '')">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <div class="item ">
+                                                        <label class="container" for="pickAtDoor"> {{'request_leave_at_door' | translate}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span> {{'text.free' | translate}}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <span> {{'text.free' | translate}}</span>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <button class=" wizard-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="wizard-btn pull-right" wz-next="performAction('SAVE_PICKUP_TIME')">{{'text.next' | translate}}</button>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button class=" wizard-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    </div>
                                 </div>
                             </div>
                         </wz-step>
 
                         <wz-step wz-title="3" wz-heading-title="{{Steps.drop_date}}" canenter="validateStep">
-                            <div class="row">
+                            <div class="row my-3">
                                 <div class="col-sm-8">
-                                    <h2> {{'request_drop_date' | translate}}</h2>
+                                    <h4> {{'request_drop_date' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class='text-right'>
-                                        <div class="div_close_icon" wz-cancel="onCancelOrder()">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </div>
+                                    <div class="div_close_icon" wz-cancel="onCancelOrder()">
+                                        <span class="fa fa-times"></span>
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +291,7 @@
                                                     'day-after-div': value.name == 'day after',
                                                 }">
                                 <div class="col-sm-12">
-                                    <div class="mybutton">
+                                    <div class="mybutton p-3">
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="row">
@@ -315,7 +318,7 @@
 
                             <div class="row" ng-if="!showAlldeliveryDateList">
                                 <div class="col-sm-12" ng-click="loadMoreDeliveryDates()">
-                                    <div class="mybutton">
+                                    <div class="mybutton p-3">
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="row">
@@ -347,24 +350,22 @@
                         </wz-step>
 
                         <wz-step wz-title="4" wz-heading-title="{{Steps.drop_time}}" canenter="validateStep">
-                            <div class="row">
-                                <div class="col-sm-8-col">
+                            <div class="row my-3">
+                                <div class="col-sm-8">
                                     <div class='left-align'>
                                         <h4>{{'request_drop_time' | translate}}</h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-4-col">
-                                    <div class='text-right'>
-                                        <div class="div_close_icon text-right" wz-cancel="onCancelOrder()">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </div>
+                                <div class="col-sm-4">
+                                    <div class="div_close_icon" wz-cancel="onCancelOrder()">
+                                        <span class="fa fa-times"></span>
                                     </div>
                                 </div>
                             </div>
                             <div id="div_slots">
                                 <div class="row" ng-repeat="value in TimeSlots" ng-class="{'active': localData.deliveryTime && localData.deliveryTime.id == value.id }">
                                     <div class="col-sm-12">
-                                        <div class="mybutton" ng-click="!localData.deliveryTime.leaveAtdoor && performAction('SELECT_DELIVERY_TIME', value)" ng-class="{'fade': localData.deliveryTime.leaveAtdoor}">
+                                        <div class="mybutton p-3" wz-next="performAction('SELECT_DELIVERY_TIME', value)">
                                             <div class="row">
                                                 <div class="col-sm-3">
                                                     <div class="row">
@@ -388,49 +389,49 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                
 
-                            <div class="row">
-                                <div class="col-sm-12 text-cente text-upper">{{'text.or' | translate}}</div>
-                            </div>
-
-                            <div class="mybutton">
                                 <div class="row">
-                                    <div class="col-sm-9">
-                                        <div class="item ">
-                                            <label class="container" for="deliveryDropAtDoor">{{'request_leave_at_door' | translate}}
-                                                <input type="checkbox" id="deliveryDropAtDoor" class="checky" name="deliveryAtDoor" ng-model="deliveryDropAtDoor"  ng-checked="localData.deliveryTime && localData.deliveryTime.leaveAtdoor" ng-change="performAction('SELECT_DELIVERY_AT_DOOR', deliveryDropAtDoor)" />
-                                                <span class="checkmark"></span>
-                                            </label>
+                                    <div class="col-sm-12 text-center text-upper">{{'text.or' | translate}}</div>
+                                </div>
+
+                                <div class="row" ng-class="{'active': localData.deliveryTime && localData.deliveryTime.leaveAtdoor == 'y' }">
+                                    <div class="col-sm-12">
+                                        <div class="mybutton p-3" wz-next="performAction('SELECT_DELIVERY_AT_DOOR', '')">
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <div class="item ">
+                                                        <label class="container" for="deliveryDropAtDoor">{{'request_leave_at_door' | translate}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span class="iconsstyle">
+                                                        <span class="">{{'text.free' | translate}}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <span class="iconsstyle">
-                                            <span class="">{{'text.free' | translate}}</span>
-                                        </span>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <button class="wizard-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="wizard-btn pull-right" wz-next="performAction('SAVE_DELIVERY_TIME')">{{'text.next' | translate}}</button>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button class="wizard-btn pull-right" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    </div>
                                 </div>
                             </div>
                         </wz-step>
 
                         <wz-step wz-title="5" wz-heading-title="{{Steps.user_detail}}" wz-disabled="{{isUserLoggedIn}}" canenter="validateStep">
-                            <div class="row">
-                                <div class="col-sm-8-col">
+                            <div class="row my-3">
+                                <div class="col-sm-8">
                                     <div class='left-align'>
                                         <h4>{{'request_pickup_enter_basic_details' | translate}}</h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-4-col">
-                                    <div class='text-right'>
-                                        <div class="div_close_icon text-right" wz-cancel="onCancelOrder()">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </div>
+                                <div class="col-sm-4">
+                                    <div class="div_close_icon" wz-cancel="onCancelOrder()">
+                                        <span class="fa fa-times"></span>
                                     </div>
                                 </div>
                             </div>
@@ -438,21 +439,22 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}</p>
+                                    <form name="{{Steps.user_detail}}" id="{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
+                                        <div class="form-group">
+                                            <input type="text" name="name" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="localData.userDetails.full_name" ng-disabled="loading" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" name="email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-model="localData.userDetails.email" ng-disabled="loading" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="localData.userDetails.phone" ng-disabled="loading" />
+                                        </div>
 
-                                    <div class="form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="localData.userDetails.full_name" ng-disabled="loading" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" name="email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-model="localData.userDetails.email" ng-disabled="loading" />
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="localData.userDetails.phone" ng-disabled="loading" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="localData.userDetails.password" ng-disabled="loading" />
-                                    </div>
+                                        <div class="form-group">
+                                            <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="localData.userDetails.password" ng-disabled="loading" />
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             
@@ -465,17 +467,15 @@
                         </wz-step>
 
                         <wz-step wz-title="{{isUserLoggedIn && showAddressDetailStep?'5':'6'}}" wz-heading-title="{{Steps.address_detail}}" wz-disabled="{{isUserLoggedIn && showAddressDetailStep == false}}" canenter="validateStep">
-                            <div class="row">
-                                <div class="col-sm-8-col">
+                            <div class="row my-3">
+                                <div class="col-sm-8">
                                     <div class='left-align'>
                                         <h4>{{'request_pickup_enter_address_details' | translate}}</h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-4-col">
-                                    <div class='text-right'>
-                                        <div class="div_close_icon text-right" wz-cancel="onCancelOrder()">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </div>
+                                <div class="col-sm-4">
+                                    <div class="div_close_icon" wz-cancel="onCancelOrder()">
+                                        <span class="fa fa-times"></span>
                                     </div>
                                 </div>
                             </div>
@@ -483,31 +483,32 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
-                                            
-                                    <div class="form-group">
-                                        <input type="text" name="street_name" class="form-control" placeholder="{{'address_details.street_name' | translate}}" ng-model="localData.addressDetails.street_name" />
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <input type="text" name="floor" class="form-control" placeholder="{{'address_details.floor' | translate}}" ng-model="localData.addressDetails.floor" />
-                                    </div>
+                                    <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
+                                        <div class="form-group">
+                                            <input type="text" name="street_name" class="form-control" placeholder="{{'address_details.street_name' | translate}}" ng-model="localData.addressDetails.street_name" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input type="text" name="floor" class="form-control" placeholder="{{'address_details.floor' | translate}}" ng-model="localData.addressDetails.floor" />
+                                        </div>
 
-                                    <div class="form-group">
-                                        <input type="text" name="pobox" class="form-control" placeholder="{{'address_details.po_box' | translate}}"" ng-model="localData.addressDetails.pobox" />
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <input type="text" name="unit_number" class="form-control" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="localData.addressDetails.unit_number" />
-                                    </div>
+                                        <div class="form-group">
+                                            <input type="text" name="pobox" class="form-control" placeholder="{{'address_details.po_box' | translate}}"" ng-model="localData.addressDetails.pobox" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input type="text" name="unit_number" class="form-control" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="localData.addressDetails.unit_number" />
+                                        </div>
 
-                                    <div class="form-group">
-                                        <select ng-model="localData.addressDetails.city_id" name="city" class="form-control">
-                                            <option>{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
-                                            <option ng-repeat="value in cityData" value="{{value.id}}">
-                                                {{value.title}}
-                                            </option>                                 
-                                        </select>
-                                    </div>
+                                        <div class="form-group">
+                                            <select ng-model="localData.addressDetails.city_id" name="city" class="form-control">
+                                                <option>{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
+                                                <option ng-repeat="value in cityData" value="{{value.id}}">
+                                                    {{value.title}}
+                                                </option>                                 
+                                            </select>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             
@@ -520,26 +521,20 @@
                         </wz-step>
 
                         <wz-step wz-title="{{isUserLoggedIn && showPaymentDetailStep?(showAddressDetailStep?'6':'5'):'7'}}" wz-heading-title="{{Steps.payment_detail}}" wz-disabled="{{isUserLoggedIn && showPaymentDetailStep == false}}" canenter="validateStep">
-                            <div class="row">
-                                <div class="col-sm-8-col">
+                            <div class="row my-3">
+                                <div class="col-sm-8">
                                     <div class='left-align'>
                                         <h4>{{'request_pickup_enter_payemnt_details' | translate}}</h4>
                                     </div>
                                 </div>
-                                <div class="col-sm-4-col">
-                                    <div class='text-right'>
-                                        <div class="div_close_icon text-right" wz-cancel="onCancelOrder()">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </div>
+                                <div class="col-sm-4">
+                                    <div class="div_close_icon" wz-cancel="onCancelOrder()">
+                                        <span class="fa fa-times"></span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-sm-8-col">
-                                    <iframe id="paymentIframe" width="100%" height="350px"></iframe>
-                                </div>
-                            </div>
+                           <iframe id="paymentIframe" width="100%" height="350px"></iframe>
                             
                             <div class="row">
                                 <div class="col-sm-12">
@@ -550,17 +545,15 @@
                         </wz-step>
                                                     
                         <wz-step wz-title="{{lastStepNumber}}" wz-heading-title="{{Steps.order_summary}}" canenter="validateStep">
-                            <div class="row">
+                            <div class="row my-3">
                                 <div class="col-sm-8">
                                     <div class='left-align'>
                                         <h4>{{'request_pickup_order_summary' | translate}}</h4>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class='text-right'>
-                                        <div class="div_close_icon text-right" wz-cancel="onCancelOrder()">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </div>
+                                    <div class="div_close_icon" wz-cancel="onCancelOrder()">
+                                        <span class="fa fa-times"></span>
                                     </div>
                                 </div>
                             </div>
@@ -602,7 +595,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mybutton">
+                            <div class="mybutton p-3">
                                 <div class="row">
                                     <div class="col-sm-4"><img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="100%"></div>
                                     <div class="col-sm-8">
@@ -634,7 +627,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mybutton">
+                            <div class="mybutton p-3">
                                 <div class="row">
                                     <div class="col-sm-4"><img src="<?php echo get_template_directory_uri(); ?>/images/mastercard.png" width="100%"></div>
                                     <div class="col-sm-6">
@@ -654,7 +647,7 @@
                                 </div>
                             </div>
 
-                            <div class="mybutton">
+                            <div class="mybutton p-3">
                                 <div class="row">
                                     <div class="col-sm-4"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="100%"></div>
                                     <div class="col-sm-6">
@@ -699,3 +692,32 @@
     </div>
 </div>
 <!-- End Pickup -->
+
+<!-- Forgot passowrd Modal -->
+<div class="modal fade" id="forgotPassword" role="dialog" ng-controller="ForgetCtrl">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <form name="ForgotPasswordForm" ng-submit="!loading && forgotpassowrd(ForgotPasswordForm)" autocomplete="off" ng-validate="forgotPasswordValidationOptions">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Forgot Password</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div ng-if="messageObj" ng-class="messageObj.class">{{messageObj.message}}</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" name="email" ng-model="form.email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-disabled="loading" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ng-disabled="loading">{{'text.submit' | translate}}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="loading">{{'text.cancel' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

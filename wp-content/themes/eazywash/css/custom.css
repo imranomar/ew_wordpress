@@ -8,6 +8,13 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   color: #20b9e5;
 }
 
+.pull-left{float:left !important;}
+.pull-right{float:right !important;}
+
+span.required {
+  color: #ff0000;
+}
+
 .my_button_column
 {
   height: 100%
@@ -42,7 +49,7 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
   width: 30px;
   height: 30px;
   color: #1fbae6;;
-  display: inline-block;
+  float: right;
 }
 
 .mybutton
@@ -223,6 +230,17 @@ tr {
 
 #requestPickupModal .myorder h2 {
   display: none;
+}
+
+.error {
+  color: #F44336;
+  display: block;
+  text-align: left;
+}
+
+#paymentIframe {
+  width: 100%;
+  border:none;
 }
 
 

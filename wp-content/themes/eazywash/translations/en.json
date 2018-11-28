@@ -18,7 +18,8 @@
     "user_or_email": "Username or Email",
     "register_now": "Register Now",
     "free": "Free",
-    "submit": "Submit"
+    "submit": "Submit",
+    "cancel" :"Cancel"
   },
   "basic_details": {
     "name": "Name",

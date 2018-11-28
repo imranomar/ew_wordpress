@@ -1,5 +1,4 @@
-var baseUrl = 'http://thisisbig.ae/advanced/backend/web/';
-
+var baseUrl = "http://localhost/advanced/backend/web/";
 var ajaxUrl = my_ajax_object.ajax_url;
 
 window.addEventListener("beforeunload", function (e) {
@@ -137,3 +136,17 @@ jQuery(document).ready(function(){
       jQuery("#logoutForm").modal("show");
   });
 });
+
+function openForgotPasswordModal()
+{
+  jQuery("#loginForm").modal("hide");
+  jQuery("#forgotPassword").modal("show");
+}
+
+window.loadVaults = function() {
+  var vaultModal = jQuery('#vaultModal');
+  if(vaultModal.is(":visible")) {
+    vaultModal.modal('hide');
+    jQuery("#loadVaults").trigger("click");
+  }
+};

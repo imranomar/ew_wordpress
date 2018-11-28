@@ -1,6 +1,6 @@
-var app = angular.module("laundryApp", ["ngStorage", "ngRoute", "mgo-angular-wizard", "pascalprecht.translate"]);
+var app = angular.module("laundryApp", ["ngStorage", "ngRoute", "ngValidate", "mgo-angular-wizard", "pascalprecht.translate"]);
 
-app.config(function($translateProvider) {
+app.config(function($translateProvider, $validatorProvider) {
   $translateProvider.preferredLanguage('en');
   $translateProvider.registerAvailableLanguageKeys(['en', 'dm'], {
       'en': 'en',
@@ -13,9 +13,13 @@ app.config(function($translateProvider) {
   });
 
   $translateProvider.useSanitizeValueStrategy(null);
+
+  $validatorProvider.addMethod("lettersonly", function (value, element) {
+      return this.optional(element) || /^[a-z. ]+$/i.test(value);
+  }, "Letters only please");
 });
 
-app.run(function($rootScope, $translate, updateFCMToken, CommonService) {
+app.run(function($rootScope, $translate, CommonService) {
 
   $rootScope.Languages = {
     'en': 'English',
@@ -31,19 +35,17 @@ app.run(function($rootScope, $translate, updateFCMToken, CommonService) {
       $translate.use(langauage);
   }
 
-  if(localStorage.getItem('laundryUser')){
-    updateFCMToken.test();
-  }
+  $rootScope.CardTypes = {
+    "MC": "Master Card",
+    "VISA": "VISA Card",
+    "DK": "Dankort Card",
+    "V-DK": "VISA/Dankort Card",
+    "ELEC": "VISA Electron Card"
+  };
 });
 
-// http://thisisbig.ae/advanced/backend/web/
-app.factory('appInfo', function () {
-  return {
-      url: 'http://localhost/advanced/backend/web/'
-  }
-});
 
-app.factory("CommonService", function ($localStorage) {
+app.factory("CommonService", function ($http, $q, $httpParamSerializer, $localStorage) {
     var LOCALSTORAGE_LANGUAGE = "locale";
 
     return {
@@ -57,36 +59,80 @@ app.factory("CommonService", function ($localStorage) {
               return false;
           }
           return language;
+      },
+      CallAjaxUsingPostRequest: function (url, dataObject) {
+          var defer = $q.defer();
+          $http({
+              method: 'POST',
+              url: url,
+              data: $httpParamSerializer(dataObject),
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+          }).success(function (data, status, header, config) {
+              defer.resolve(data);
+          }).error(function (data, status, header, config) {
+              defer.reject(status);
+          });
+          return defer.promise;
+      },
+      CallAjaxUsingGetRequest: function (url) {
+          var defer = $q.defer();
+          $http({
+              method: 'GET',
+              url: url
+          }).success(function (data, status, header, config) {
+              defer.resolve(data);
+          }).error(function (data, status, header, config) {
+              defer.reject(status);
+          });
+          return defer.promise;
+      },
+      GenerateAddPaymentForm: function(userId) {
+        return '<FORM ACTION="https://payment.architrade.com/paymentweb/start.action" METHOD="POST" CHARSET="UTF -8"> \
+                    <INPUT TYPE="hidden" NAME="accepturl" VALUE="'+ baseUrl +'vault/createvaultweb"> \
+                    <INPUT TYPE="hidden" NAME="callbackurl" VALUE=""> \
+                    <INPUT TYPE="hidden" NAME="amount" VALUE="1"> \
+                    <INPUT TYPE="hidden" NAME="currency" VALUE="578"> \
+                    <INPUT TYPE="hidden" NAME="merchant" VALUE="90246240"> \
+                    <INPUT TYPE="hidden" NAME="orderid" id="orderid" VALUE="' + userId +'"> \
+                    <INPUT TYPE="hidden" NAME="lang" VALUE="EN"> \
+                    <INPUT TYPE="hidden" NAME="preauth" VALUE="1"> \
+                    <INPUT TYPE="hidden" NAME="test" VALUE="1"> \
+                    <INPUT TYPE="hidden" NAME="decorator" VALUE="responsive" /> \
+                    <INPUT type="Submit" id="submit" name="submit" style="visibility:hidden"> \
+                </FORM> \
+                <script src="js/jquery-3.3.1.slim.min.js"></script> \
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> \
+                <script>$("#submit").click();</script>';
       }
     };
 });
 
-app.factory('updateFCMToken', function (appInfo, $httpParamSerializer,$http) {
+app.factory('updateFCMToken', function ($httpParamSerializer,$http) {
   return {
     test: function(){
       if(!window.cordova){
          return;
       }
-      FCMPlugin.getToken(function(token){
-        let x = localStorage.getItem('laundryUser');
-        let data = {
-          token: token,     
-        };
-        let req = {
-            method: 'PUT',
-            url: appInfo.url+'customersapi/update/?id='+x,
-            data: $httpParamSerializer(data),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }
-        $http(req)
-          .then(function(res){
-            console.log(res);
-          }).catch(function(error){
-              console.log(error);      
-        })
-      });
+      // FCMPlugin.getToken(function(token){
+      //   let x = localStorage.getItem('laundryUser');
+      //   let data = {
+      //     token: token,     
+      //   };
+      //   let req = {
+      //       method: 'PUT',
+      //       url: appInfo.url+'customersapi/update/?id='+x,
+      //       data: $httpParamSerializer(data),
+      //       headers: {
+      //           'Content-Type': 'application/x-www-form-urlencoded'
+      //       }
+      //   }
+      //   $http(req)
+      //     .then(function(res){
+      //       console.log(res);
+      //     }).catch(function(error){
+      //         console.log(error);      
+      //   })
+      // });
     }
   }
   

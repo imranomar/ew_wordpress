@@ -96,6 +96,41 @@ function authenticate_ajax_call() {
 				$data['customer_id'] = $user['id'];
 				$url = 'ordersapi/create';
 			break;
+
+			case 'update_user_details':
+				$method = 'PUT';
+				$url = 'customersapi/update/?id='.$user['id'];
+			break;
+
+			case "change_password":
+				$method = 'POST';
+				$data['customer_id'] = $user['id'];
+				$url = 'customersapi/changepassword?customer_id='.$user['id'];
+			break;
+
+			case "set_default_address":
+				$method = 'POST';
+				$data['customer_id'] = $user['id'];				
+				$url = 'addressesapi/setdefault?id='.$data['id'];
+			break;
+
+			case "delete_address":
+				$method = 'DELETE';
+				$url = 'addressesapi/delete?id='.$data['id'];
+				$data = array();
+			break;
+
+			case "set_default_vault":
+				$method = 'POST';
+				$data['customer_id'] = $user['id'];				
+				$url = 'vaultapi/setdefault?id='.$data['id'];
+			break;
+
+			case "delete_vault":
+				$method = 'DELETE';
+				$url = 'vaultapi/delete?id='.$data['id'];
+				$data = array();
+			break;
 		}
 		
 		if(!empty($url)) {
@@ -119,6 +154,7 @@ function ajax_call() {
 		$result["Message"] = "User already logged in";
 		echo json_encode($result); die; 
 	}
+	
 
    	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$url = null;
@@ -173,10 +209,14 @@ function ajax_call() {
 			case 'create_order':
 				$url = 'ordersapi/create';
 			break;
+
+			case "forgot_password":
+				$method = 'POST';
+				$url = 'customersapi/forgotpassword';
+			break;
 	   }
 	   
 	   if(!empty($url)) {
-		   	
 		   	$result = callAPI($method, $url, $data);
 
 		   	if($result['Success'] == true) {
@@ -249,7 +289,7 @@ function order_creation_data() {
 			$user = get_user_session();
 
 			/* Calling customer api for getting addresses api */
-			$url = 'customersapi/view/?id='. $user['id'] .'&expand=addresses';
+			$url = 'customersapi/view/?id='. $user['id'] .'&expand=addresses,vault';
 			$method = 'GET';
 			$api_result = callAPI($method, $url, $data);
 
@@ -257,14 +297,69 @@ function order_creation_data() {
 				$result['addresses'] = $api_result['data']['addresses'];
 			}
 
-			/* Calling customer api for getting vaults api */
-			$url = 'customersapi/view/?id='.$user['id'].'&expand=vault';
-			$method = 'GET';
-			$api_result = callAPI($method, $url, $data);
-
 			if($api_result["Success"] == true && isset($api_result['data']['vault'])) {
 				$result['vaults'] = $api_result['data']['vault'];
 			}
+		}
+
+		$result["Success"] = true;
+		$result["Message"] = null;
+	} 
+	echo json_encode($result); die;
+}
+
+/* Dashboard Creation Data */
+add_action( 'wp_ajax_nopriv_dashboard_data', 'dashboard_data' );
+add_action( 'wp_ajax_dashboard_data', 'dashboard_data' );
+
+function dashboard_data() {
+	$result = array();
+	$result["Success"] = false;
+	$result["Message"] = NULL;
+	$result["Message"] = "Invalid request method";
+
+
+	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+		if(!is_user_login()) {
+			$result["Message"] = "User is logged out";
+			echo json_encode($result); die; 
+		}
+
+		$user = get_user_session();
+
+		$url = null;
+		$data = array();
+		$api_result = array();
+
+		/* Calling Cities api */
+		$url = 'citiesapi';
+		$method = 'GET';
+		$api_result = callAPI($method, $url, $data);
+
+		if($api_result["Success"] == true && isset($api_result['data'])) {
+			$result['cities'] = $api_result['data'];
+		}
+
+
+		/* Calling customer api for getting addresses and vaults api */
+		$url = 'customersapi/view/?id='. $user['id'] .'&expand=addresses,vault';
+		$method = 'GET';
+		$api_result = callAPI($method, $url, $data);
+
+		if($api_result["Success"] == true && isset($api_result['data'])) {
+			$result['user_details'] = $api_result['data'];
+			unset($result['user_details']['password']);
+			unset($result['user_details']['addresses']);
+			unset($result['user_details']['vault']);
+		}
+
+		if($api_result["Success"] == true && isset($api_result['data']['addresses'])) {
+			$result['addresses'] = $api_result['data']['addresses'];
+		}
+
+
+		if($api_result["Success"] == true && isset($api_result['data']['vault'])) {
+			$result['vaults'] = $api_result['data']['vault'];
 		}
 
 		$result["Success"] = true;
@@ -322,7 +417,12 @@ function callAPI($method, $parital_url, $data) {
 	   case "PUT":
 		  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
 		  if ($data)
-			 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);			 					
+			 curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));			 					
+		  break;
+		case "DELETE":
+		  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+		  if ($data)
+			 curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));			 					
 		  break;
 	   default:
 		  if ($data)
@@ -344,18 +444,25 @@ function callAPI($method, $parital_url, $data) {
 	curl_close($curl);
 
 	$isValidJson = isJson($result);
-	
+	//echo 'ok'.$isValidJson;die;
 	if($isValidJson) {
 		$final_result = json_decode($result, true);
 		
 		if (in_array($httpcode, $valid_status_codes)) {
-			$response["data"] = $final_result;
-			$response["Message"] = null;
-			$response["Success"] = true;
+			if(isset($final_result['Success']) && $final_result['Success'] == false) {
+				$response["data"] = $final_result;
+				$response["Message"] = $final_result["Message"];
+				$response["Success"] = false;
+			} else {
+				$response["data"] = $final_result;
+				$response["Message"] = null;
+				$response["Success"] = true;
+			}
 		} else {
 			$response["data"] = $final_result;
+			$response["Message"] = !empty($final_result[0]['message'])?$final_result[0]['message']: $response["Message"];
 		}
-	} else if($result == 1) {
+	} else if($result === 1 || $method == "DELETE") {
 		$response["Success"] = true;
 		$response["data"] = $result;
 		$response["Message"] = null;
