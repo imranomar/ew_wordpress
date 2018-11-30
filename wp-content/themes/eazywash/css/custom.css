@@ -30,37 +30,50 @@ span.required {
   margin:0rem  0px  0.75rem  0px; color: #b1b1b1 
 }
 
-.my_close_button
+.round_button
 {
-  background-color:#e1f5fe; border-radius: 16vw;padding: 10px 16px;
+  background-color: #20b9e5;
+  border-radius: 16vw;
+  padding: 10px 16px;
+  color: #fff;
+  width: 120px;
+  text-align:center;
+  font-weight:500;
 }
 
-.my_close_button_icon
+.round_button_icon
 {
   font-size: 1rem; position: relative;top: -2px;left:7px
 }
 
-.div_close_icon
-{
-  background-color: #E1F5FE;
-  border-radius: 50%;
-  text-align: center;
-  padding: 3px;
-  width: 30px;
-  height: 30px;
-  color: #1fbae6;;
-  float: right;
+.round_button:hover {
+  text-decoration: none;
 }
 
-.mybutton
+.div_close_icon
+{
+  border-radius: 50%;
+  text-align: center;
+  padding: 1px;
+  width: 30px;
+  height: 30px;
+  color: #1fbae6;
+  float: right;
+  font-size: 16px;
+  border: 2px solid;
+  margin-top: 3px;
+}
+
+.card-box
 {
   background-color: white;
   border-radius: 3px;
-  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
   min-height: 80px;
   margin-bottom: 20px;
   display: inline-block;
   width: 100%;
+  padding: 1rem!important;
 }
 
 .tab1{
@@ -90,7 +103,6 @@ span.required {
     float: right;
     color: #fff;
     padding: 6px 12px;
-    margin: 4px 10px;
     border: none;
 }
 .wizard-btn.prev{
@@ -136,7 +148,7 @@ tr {
 	border-color: #444 !important;
 }
 
-#div_slots>.row.active .mybutton {
+#div_slots>.row.active .card-box {
   background: #E1F5FE;
   /* color: #fff; */
 }
@@ -189,8 +201,9 @@ tr {
   background: #20b9e5;
 }
 
-#requestPickupModal {
-  background: #fff;
+#requestPickupModal .alert {
+  font-size: 15px;
+  padding: 10px 15px;
 }
 
 .other-content 
@@ -228,14 +241,67 @@ tr {
   text-transform: uppercase;
 }
 
-#requestPickupModal .myorder h2 {
-  display: none;
+.modal {
+  background: rgba(255, 255, 255, 0.9);
 }
+
+.modal .modal-header {
+  background: #0c3f5a;
+  color: #fff;
+}
+.modal .modal-header .close {
+  outline: none;
+  border-radius: 50%;
+  text-align: center;
+  padding: 1px;
+  width: 30px;
+  height: 30px;
+  color: #1fbae6;
+  float: right;
+  font-size: 22px;
+  border: 2px solid;
+  margin-top: 3px;
+  text-shadow: none;
+  opacity: 1;
+  margin-right: 5px;
+}
+
+.modal .modal-content {
+  border: none;
+}
+.modal .modal-body {
+  border: 1px solid rgba(0,0,0,.2);
+  border-top:none;
+}
+
+.modal.vertical {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal.vertical:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal.vertical .modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
 
 .error {
   color: #F44336;
   display: block;
   text-align: left;
+}
+
+#requestPickupModal .myorder h2 {
+  display: none;
 }
 
 #paymentIframe {

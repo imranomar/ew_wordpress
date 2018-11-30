@@ -1,5 +1,6 @@
-var baseUrl = "http://localhost/advanced/backend/web/";
-var ajaxUrl = my_ajax_object.ajax_url;
+const baseUrl = "http://localhost/advanced/backend/web/";
+const ajaxUrl = my_ajax_object.ajax_url;
+const translationFolderPath  = 'http://localhost/eazywash/wp-content/themes/eazywash/translations/';
 
 window.addEventListener("beforeunload", function (e) {
   if(!localStorage.getItem('rememberMe')){
@@ -148,5 +149,7 @@ window.loadVaults = function() {
   if(vaultModal.is(":visible")) {
     vaultModal.modal('hide');
     jQuery("#loadVaults").trigger("click");
+  } else {
+    jQuery("#orderLoadVaults").trigger("click");
   }
 };

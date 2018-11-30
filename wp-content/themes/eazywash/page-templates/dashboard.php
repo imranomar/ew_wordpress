@@ -284,7 +284,7 @@ while(have_posts()) : the_post(); ?>
                     <div class="modal-body p-0">
                         <div ng-if="popupMessageObj" ng-class="popupMessageObj.class">{{popupMessageObj.message}}</div>
                         
-                        <iframe id="paymentIframe" width="100%" height="350px"></iframe>
+                        <div class="paymentIframeContainer"></div>
                         <button type="button" id="loadVaults" ng-click="loadVaults()" style="width:0;height:0;visibility:hidden;"></button>
                     </div>
                 </div>
