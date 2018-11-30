@@ -133,6 +133,10 @@
         margin-bottom: -110px;
         width: 580px;
     }
+
+    li.dupserchbtn{
+        display: inline-block;
+    }
     
   
 
@@ -210,5 +214,13 @@
 
     .slide {
         max-height: 400px;
+    }
+    #search .btn{
+        width: 220px;
+    }
+
+    .ft-wpbs .page-link {
+        font-size: .7rem;
+        padding: .3rem .45rem;
     }
 }

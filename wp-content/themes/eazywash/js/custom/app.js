@@ -8,7 +8,7 @@ app.config(function($translateProvider, $validatorProvider) {
   });
 
   $translateProvider.useStaticFilesLoader({
-      prefix: 'http://localhost/eazywash/wp-content/themes/eazywash/translations/',
+      prefix: translationFolderPath,
       suffix: '.json'
   });
 
@@ -100,42 +100,10 @@ app.factory("CommonService", function ($http, $q, $httpParamSerializer, $localSt
                     <INPUT TYPE="hidden" NAME="decorator" VALUE="responsive" /> \
                     <INPUT type="Submit" id="submit" name="submit" style="visibility:hidden"> \
                 </FORM> \
-                <script src="js/jquery-3.3.1.slim.min.js"></script> \
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> \
                 <script>$("#submit").click();</script>';
       }
     };
-});
-
-app.factory('updateFCMToken', function ($httpParamSerializer,$http) {
-  return {
-    test: function(){
-      if(!window.cordova){
-         return;
-      }
-      // FCMPlugin.getToken(function(token){
-      //   let x = localStorage.getItem('laundryUser');
-      //   let data = {
-      //     token: token,     
-      //   };
-      //   let req = {
-      //       method: 'PUT',
-      //       url: appInfo.url+'customersapi/update/?id='+x,
-      //       data: $httpParamSerializer(data),
-      //       headers: {
-      //           'Content-Type': 'application/x-www-form-urlencoded'
-      //       }
-      //   }
-      //   $http(req)
-      //     .then(function(res){
-      //       console.log(res);
-      //     }).catch(function(error){
-      //         console.log(error);      
-      //   })
-      // });
-    }
-  }
-  
 });
 
 app.directive('itemFloatingLabel', function() {

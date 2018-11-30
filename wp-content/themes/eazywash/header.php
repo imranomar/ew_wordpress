@@ -14,6 +14,7 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="shortcut icon test" href="<?php echo $favicon; ?>" >
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100i,300,400,700,900" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
@@ -44,8 +45,9 @@
 	</button>
 	
 	<ul class="navbar-nav header-nav lang">
-        <li><a class="uk" href="javascript:void(0)" ng-click="changeLanguage('en')">uk</a></li>
-		<li><a class="dm" href="javascript:void(0)" ng-click="changeLanguage('dm')">dm</a></li>
+        <li><a class="uk" href="javascript:void(0)" <?php if($theme_options['first-lang-icon']['url']) { echo "style='background-image: url(".$theme_options['first-lang-icon']['url'].");'"; }?> ng-click="changeLanguage('en')">uk</a></li>
+		<li><a class="dm" href="javascript:void(0)" <?php if($theme_options['second-lang-icon']['url']) { echo "style='background-image: url(".$theme_options['second-lang-icon']['url'].");'"; }?> ng-click="changeLanguage('dm')">dm</a></li>
+		<li class="dupserchbtn"><a class="search" href="#search">search</a></li>
 	</ul>
 
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -57,13 +59,27 @@
     </div>
 
     <ul class="navbar-nav float-right search-menu">
+	
 	<?php if($is_login == true): ?>
       <li>
 	  	<a href="javascipt:void(0)"><?php echo $user['full_name']; ?></a>
 		</li>
 	<?php endif; ?>
-      <li><a class="search" href="javascript:void(0);">search</a></li>
+      <li><a class="search" href="#search">search</a></li>
   	 </ul>
+	 
+	 <div id="search">
+		<button type="button" class="close">×</button>
+		<form method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+			<input type="search" class="search-field"
+					placeholder="<?php echo esc_attr_x( 'Search …', 'placeholder' ) ?>"
+					value="<?php echo get_search_query() ?>" name="s"
+					title="<?php echo esc_attr_x( 'Search for:', 'label' ) ?>" autocomplete="off" required />
+			<input type="submit" class="cust-button search-submit btn btn-primary"
+				value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" />
+		</form>
+	</div>
+	 
       
   </div>
   
@@ -71,7 +87,9 @@
 </nav>
 
 <?php if(!is_front_page()) { ?>
-	<div class="page-heading text-center">
-		<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/logo.png" class="img-fluid mt-5" alt="<?php echo get_bloginfo('name'); ?>">
+	<div class="page-heading text-center" <?php if($theme_options['page-header-bg-img']['url']) { echo "style='background-image: url(".$theme_options['page-header-bg-img']['url'].");'"; }?>>
+	<?php if($theme_options['header-logo']['url']) { ?>
+		<img class="img-fluid main-logo" src="<?php echo esc_url( $theme_options['header-logo']['url'] ); ?>" alt="<?php echo get_bloginfo('name'); ?>">
+	<?php } ?>
 	</div>
 <?php } ?>

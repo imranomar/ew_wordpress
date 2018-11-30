@@ -9,14 +9,16 @@
 
 get_header(); ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 mt-5 mx-auto">
 
-		<?php if ( have_posts() ) : ?>
+		<?php if ( have_posts() ) { ?>
 
-			<header class="page-header">
-				<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'twentyfifteen' ), get_search_query() ); ?></h1>
-			</header><!-- .page-header -->
+			
+				<h2 class="page-title searchpage-title"><?php printf( __( 'Search Results for: <strong>%s</strong>', 'twentyfifteen' ), get_search_query() ); ?></h2>
+			
 
 			<?php
 			// Start the loop.
@@ -34,20 +36,31 @@ get_header(); ?>
 			endwhile;
 
 			// Previous/next page navigation.
-			the_posts_pagination( array(
+
+			
+			if (function_exists("dm_pagination"))
+			{
+				dm_pagination();
+				
+			}
+
+			/*the_posts_pagination( array(
 				'prev_text'          => __( 'Previous page', 'twentyfifteen' ),
 				'next_text'          => __( 'Next page', 'twentyfifteen' ),
 				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>',
-			) );
+			) );*/
+
+
 
 		// If no content, include the "No posts found" template.
-		else :
+			}else {
 			get_template_part( 'content', 'none' );
 
-		endif;
+			}
 		?>
-
-		</main><!-- .site-main -->
-	</section><!-- .content-area -->
+			</div>
+		</div>
+	</div>
+</section>
 
 <?php get_footer(); ?>
