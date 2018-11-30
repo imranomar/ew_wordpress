@@ -151,6 +151,7 @@ tr {
 
 
 .myorder .steps-indicator {
+  display:none;
   height: auto;
   list-style: none;
   display: inline-block;
