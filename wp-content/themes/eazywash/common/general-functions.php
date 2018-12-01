@@ -2,7 +2,7 @@
 
 add_filter( 'wp_setup_nav_menu_item','add_translate_attribute' );
 function add_translate_attribute($item) {
-	if (strpos($_SERVER[REQUEST_URI], 'wp-admin') === false)
+	if (strpos($_SERVER['REQUEST_URI'], 'wp-admin') === false)
     	$item->title = "{{&apos;" . $item->title . "&apos; | translate}}"; 
 
     return $item;
