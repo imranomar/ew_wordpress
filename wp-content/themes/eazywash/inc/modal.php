@@ -268,7 +268,7 @@
                                             <div class="col-sm-8">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <h5>{{value.name}}</h5>
+                                                        <h5 class='text-capitalize'>{{value.name}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -306,7 +306,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="wizard-btn" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -369,7 +369,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <button class="wizard-btn pull-right" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                        <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
                                     </div>
                                 </div>
                             </div>

@@ -701,7 +701,6 @@ app.controller("DashboardCtrl", function(
   };
 
   $scope.loadVaults = function(){
-    debugger;
     var data = {};
     data.action = "authenticate_ajax_call";
     data.sub_action = "vaults";
@@ -835,7 +834,6 @@ app.controller("DashboardCtrl", function(
 
   
   $scope.displayCityName = function(cityId) {
-    debugger;
     var cityText = "N/A";
     if (cityId > 0) {
       var cityObj = $scope.cityData.find(function(city) {
@@ -1630,7 +1628,6 @@ app.controller("OrdersummaryCtrl", function(
         break;
 
       case "SAVE_USER_DETAILS":
-        debugger;
         saveUserDetails();
         return false;
         break;

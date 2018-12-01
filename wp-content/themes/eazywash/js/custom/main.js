@@ -58,7 +58,6 @@ window.addEventListener("beforeunload", function (e) {
                         "action": 'customer_create'
                       },
                       success: function (ress) {
-                        debugger;
                         console.log(ress.id);
                         let check = document.getElementsByClassName('rememberMeCheck')[0];
                         localStorage.setItem('laundryUser', ress.id);
