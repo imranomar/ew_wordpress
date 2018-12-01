@@ -1,4 +1,14 @@
 
+h6
+{
+  margin-bottom: 0px;
+}
+
+h5
+{
+  font-size:1.30rem
+}
+
 a:not([href]):not([tabindex]) {
   color: #fff;
   cursor: pointer;
@@ -39,6 +49,7 @@ span.required {
   width: 120px;
   text-align:center;
   font-weight:500;
+  border: 0px;
 }
 
 .round_button_icon
@@ -69,11 +80,17 @@ span.required {
   background-color: white;
   border-radius: 3px;
   border: 1px solid #ccc;
-  min-height: 80px;
-  margin-bottom: 20px;
+  min-height: 66px;
+  margin-bottom: 10px;
   display: inline-block;
   width: 100%;
-  padding: 1rem!important;
+  padding: 0.5rem!important;
+  font-size: 15px;
+}
+
+.card-box h5
+{
+  margin-bottom: .1rem;
 }
 
 .tab1{
@@ -166,7 +183,6 @@ tr {
   display:none;
   height: auto;
   list-style: none;
-  display: inline-block;
   width: 100%;
   padding: 0;
 }
@@ -243,7 +259,7 @@ tr {
 }
 
 .modal {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(68, 100, 117, 1);
 }
 
 .modal .modal-header {
@@ -294,6 +310,10 @@ tr {
   vertical-align: middle;
 }
 
+.modal-header
+{
+  display:none
+}
 
 .error {
   color: #F44336;
@@ -310,5 +330,10 @@ tr {
   border:none;
 }
 
+.lighter-text
+{
+  color: #797979;
+}
 
 /* CREATE ORDER ENDS HERE */
+

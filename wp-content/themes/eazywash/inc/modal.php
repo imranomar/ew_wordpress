@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{'login_form_title' | translate}}</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</buttwz-stepon>
             </div>
             <div class="modal-body">
                 <!-- Centered Tabs -->
@@ -122,7 +122,7 @@
         <div class="modal-content" ng-controller="OrdersummaryCtrl">
             <div class="modal-header">
                 <h4 class="modal-title">{{'request_pickup' | translate}}</h4>
-                <div class="div_close_icon" ng-click="onCancelOrder()">
+                <div class="div_close_icon" ng-click=`"onCancelOrder()">
                     <span class="fa fa-times"></span>
                 </div>
             </div>
@@ -132,10 +132,10 @@
                         <wz-step wz-title="1" wz-heading-title="{{Steps.pickup_date}}" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-12">
-                                    <h4>{{'request_pickup_date' | translate}}</h4>
+                                    <h4>{{'request_pickup_date' | translate}} :-)</h4>
                                 </div>
                             </div>
-                            <div class="row" ng-repeat="value in pickupDateList" ng-hide="!showAllpickupDateList && $index > 4" wz-next="performAction('SAVE_PICKUP_DATE', value)"
+                            <div class="row" ng-repeat="value in pickupDateList" ng-hide="!showAllpickupDateList && $index > 3" wz-next="performAction('SAVE_PICKUP_DATE', value)"
                                 ng-class="{
                                             'today-div': value.name == 'Today',
                                             'tomorrow-div': value.name == 'Tomorrow',
@@ -146,15 +146,16 @@
                                             <div class="col-sm-8">
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <h5>{{value.name}}</h5>
+                                                        <h5 class="text-capitalize">{{value.name}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12">{{value.shortDate}} </div>
+                                                    <div class="col-sm-12 lighter-text">{{value.shortDate}} </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <span class="round_button pull-right" ng-if="value.price"> $ {{value.price}}</span>
+                                                <span class="round_button pull-right" ng-if="!value.price">{{'Free' | translate}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +201,7 @@
                                                         <div class="col-sm-12"><img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png"></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <!-- we do not have one hour slot option now -->
@@ -211,7 +212,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <span class="round_button pull-right">{{value.price > 0 ? '$ '+ value.price : 'Free'}}</span>
                                                 </div>
                                             </div>
@@ -230,7 +231,7 @@
                                             <div class="row">
                                                 <div class="col-sm-9">
                                                     <div class="item ">
-                                                        <label class="container" for="pickAtDoor"> {{'request_leave_at_door' | translate}}
+                                                        <label class="container" for="pickAtDoor"><h5> {{'request_leave_at_door' | translate}} </h5>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -243,7 +244,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <button class=" wizard-btn pull-right" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                        <button class=" round_button  pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
