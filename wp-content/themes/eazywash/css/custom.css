@@ -36,14 +36,19 @@ span.required {
   border-radius: 16vw;
   padding: 10px 16px;
   color: #fff;
-  width: 120px;
   text-align:center;
   font-weight:500;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .round_button_icon
 {
   font-size: 1rem; position: relative;top: -2px;left:7px
+}
+
+.fixed-width-btn {
+  width: 120px;
 }
 
 .round_button:hover {
@@ -269,7 +274,12 @@ tr {
 .modal .modal-content {
   border: none;
 }
-.modal .modal-body {
+
+.modal.vertical .modal-dialog {
+  width: 400px;
+}
+
+.modal .modal-body, .modal .modal-footer  {
   border: 1px solid rgba(0,0,0,.2);
   border-top:none;
 }
@@ -293,6 +303,11 @@ tr {
   vertical-align: middle;
 }
 
+.modal.vertical .modal-body .cards-container {
+  max-height: 400px;
+  overflow:hidden;
+  overflow-y:auto;
+}
 
 .error {
   color: #F44336;

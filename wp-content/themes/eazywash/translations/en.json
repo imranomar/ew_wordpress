@@ -19,7 +19,10 @@
     "register_now": "Register Now",
     "free": "Free",
     "submit": "Submit",
-    "cancel" :"Cancel"
+    "cancel" :"Cancel",
+    "save": "Save",
+    "add": "Add",
+    "remove": "Remove"
   },
   "basic_details": {
     "name": "Name",

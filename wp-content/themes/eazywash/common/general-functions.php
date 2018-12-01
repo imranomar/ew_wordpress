@@ -214,6 +214,16 @@ function ajax_call() {
 				$method = 'POST';
 				$url = 'customersapi/forgotpassword';
 			break;
+
+			case "set_default_address":
+				$method = 'POST';			
+				$url = 'addressesapi/setdefault?id='.$data['id'];
+			break;
+
+			case "set_default_vault":
+				$method = 'POST';			
+				$url = 'vaultapi/setdefault?id='.$data['id'];
+			break;
 	   }
 	   
 	   if(!empty($url)) {
@@ -255,6 +265,8 @@ function order_creation_data() {
 		$data = array();
 		$api_result = array();
 
+		$customer_id = $_POST['customer_id'];
+
 		$isUserLoggedIn = is_user_login();
 
 		/* Calling Cities api */
@@ -285,11 +297,14 @@ function order_creation_data() {
 			$result['timeslots'] = $api_result['data'];
 		}
 
-		if($isUserLoggedIn == true) {
+		if($isUserLoggedIn == true || $customer_id > 0) {
 			$user = get_user_session();
 
+			if($customer_id <= 0)
+				$customer_id = $user['id'];
+
 			/* Calling customer api for getting addresses api */
-			$url = 'customersapi/view/?id='. $user['id'] .'&expand=addresses,vault';
+			$url = 'customersapi/view/?id='. $customer_id .'&expand=addresses,vault';
 			$method = 'GET';
 			$api_result = callAPI($method, $url, $data);
 

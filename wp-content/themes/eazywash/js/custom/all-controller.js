@@ -3,7 +3,8 @@ app.controller("AppController", function(
   $scope,
   $rootScope,
   $translate,
-  CommonService
+  CommonService,
+  $timeout
 ) {
   $scope.changeLanguage = function(lang) {
     $rootScope.SelectedLang = lang;
@@ -15,13 +16,27 @@ app.controller("AppController", function(
   $rootScope.loadAddPaymentMethodForm = function(userId) {
     var formHtml = CommonService.GenerateAddPaymentForm(userId);
   
-    jQuery('.paymentIframeContainer').html('<iframe id="paymentIframe" width="100%" height="450px"></iframe>');
+    jQuery('.paymentIframeContainer:visible').html('<iframe id="paymentIframe" width="100%" height="450px"></iframe>');
     var doc = document.getElementById("paymentIframe").contentWindow.document;
     doc.open();
     doc.write('<h3 class="text-center">Loading...</h3>' + formHtml);
     doc.close();
   }
   
+  
+  $rootScope.showModal = function(modalId) {
+    jQuery(modalId).modal('show');
+  }
+
+  $rootScope.closeModal = function(modalId) {
+    jQuery(modalId).modal('hide');
+    
+    $timeout(function() {
+      if(jQuery('.modal:visible').length > 0) {
+        jQuery('body').addClass('modal-open');
+      }
+    }, 500);
+  }
 
   /** Validation **/
   $rootScope.loginValidationOptions = {
@@ -552,7 +567,7 @@ app.controller("DashboardCtrl", function(
                 message = "Address added successfully";
 
                 $timeout(function() {
-                  jQuery("#addressModal").modal("hide");
+                  $rootScope.closeModal("#addressModal");
                 }, 2000);
               }
 
@@ -817,9 +832,10 @@ app.controller("DashboardCtrl", function(
   };
 
   $scope.openVaultModal = function() {
-    $rootScope.loadAddPaymentMethodForm(logged_in_user_id);
-
-    jQuery("#vaultModal").modal("show");
+    $rootScope.showModal("#vaultModal");
+    $timeout(function(){
+      $rootScope.loadAddPaymentMethodForm(logged_in_user_id);
+    }, 1000)
   };
 
   $scope.openAddressModal = function(addressDetail, index) {
@@ -829,8 +845,7 @@ app.controller("DashboardCtrl", function(
     } else {
       defaultAddressFields();
     }
-
-    jQuery("#addressModal").modal("show");
+    $rootScope.showModal("#addressModal");
   };
 
   
@@ -1031,10 +1046,15 @@ app.controller("OrdersummaryCtrl", function(
   initializeOrderCreation();
 
   function initializeOrderCreation() {
+
+    if (getLocalStorageData()) {
+      $scope.localData = getLocalStorageData();
+    }
+
     let req = {
       method: "POST",
       url: ajaxUrl,
-      data: $httpParamSerializer({ action: "order_creation_data" }),
+      data: $httpParamSerializer({ action: "order_creation_data", customer_id: $scope.localData.userDetails.id}),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       }
@@ -1054,7 +1074,7 @@ app.controller("OrdersummaryCtrl", function(
           if (res.timeslots && res.timeslots.length > 0)
             $scope.TimeSlots = res.timeslots;
 
-          if ($scope.isUserLoggedIn) {
+          if($scope.isUserLoggedIn == true) {
             if (res.addresses && res.addresses.length > 0) {
               extractDefaultAddress(res.addresses);
             } else {
@@ -1067,6 +1087,14 @@ app.controller("OrdersummaryCtrl", function(
             } else {
               $scope.showPaymentDetailStep = true;
               $scope.lastStepNumber += 1;
+            }
+          } else {
+            if (res.addresses && res.addresses.length > 0) {
+              $scope.AllAddresses = res.addresses;
+            }
+
+            if (res.vaults && res.vaults.length > 0) {
+              $scope.AllPayments = res.vaults;
             }
           }
         }
@@ -1084,9 +1112,7 @@ app.controller("OrdersummaryCtrl", function(
     $scope.Wizard = WizardHandler.wizard("requestPickupWizard");
 
     if (getLocalStorageData()) {
-      jQuery("#requestPickupModal").modal("show");
-
-      $scope.localData = getLocalStorageData();
+      $rootScope.showModal("#requestPickupModal");
 
       if (!$scope.isUserLoggedIn) {
         $scope.getAddress = $scope.localData.addressDetails;
@@ -1129,7 +1155,7 @@ app.controller("OrdersummaryCtrl", function(
       var step = $scope.Wizard.currentStep();
       var stepTitle = step.wzHeadingTitle;
 
-      return validationByStepTitle();
+      return validationByStepTitle(stepTitle);
     }
     return true;
   };
@@ -1160,6 +1186,10 @@ app.controller("OrdersummaryCtrl", function(
         $scope.showAlldeliveryDateList = false;
         functionForDropDate();
         break;
+
+      case $scope.Steps.address_detail:
+        $scope.localData = getLocalStorageData();
+      break;
 
       case $scope.Steps.payment_detail:
         functionForPaymentDetail();
@@ -1396,7 +1426,10 @@ app.controller("OrdersummaryCtrl", function(
               let obj = JSON.stringify($scope.localData);
               saveLocalData(obj);
 
-              $scope.Wizard.next();
+              if(jQuery('#vaultAddModal').is(":visible"))
+              $rootScope.closeModal('#vaultAddModal');
+              else
+                $scope.Wizard.next();
             }
             //getVault($scope.getPayment.vault_id);
           } else {
@@ -1497,13 +1530,14 @@ app.controller("OrdersummaryCtrl", function(
       });
   }
 
-  function saveAddressDetails() {
-    if (!validationByStepTitle($scope.Steps.address_detail)) return;
+  function saveAddressDetails(nextAllowed) {
+    if(nextAllowed && !validationByStepTitle($scope.Steps.address_detail))
+      return;
 
     $scope.loading = true;
 
     let data = {
-      id: $scope.getAddress != null ? $scope.getAddress.id : -1,
+      id: $scope.localData.addressDetails.id,
       customer_id: !$scope.isUserLoggedIn
         ? $scope.localData.userDetails.id
         : -1,
@@ -1512,7 +1546,7 @@ app.controller("OrdersummaryCtrl", function(
       pobox: $scope.localData.addressDetails.pobox,
       city_id: $scope.localData.addressDetails.city_id,
       unit_number: $scope.localData.addressDetails.unit_number,
-      as_default: "0",
+      as_default: "1",
       action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
       sub_action: "create_address"
     };
@@ -1525,12 +1559,11 @@ app.controller("OrdersummaryCtrl", function(
         "Content-Type": "application/x-www-form-urlencoded"
       }
     };
-
+    $scope.loading = true;
     $scope.addressErr = false;
 
     $http(req)
       .then(function(response) {
-        $scope.loading = false;
         var res = response.data;
 
         if (res.Success == true) {
@@ -1543,7 +1576,12 @@ app.controller("OrdersummaryCtrl", function(
             let obj = JSON.stringify($scope.localData);
             saveLocalData(obj);
           }
-          $scope.Wizard.next();
+
+          if(nextAllowed)
+            $scope.Wizard.next();
+          else
+            $scope.changeAddress(res.data);
+
         } else {
           $scope.addressErr = true;
           $scope.addressErrorMessage = res.Message;
@@ -1590,14 +1628,137 @@ app.controller("OrdersummaryCtrl", function(
 
   /* End of Common Functions */
 
-  $scope.changeVault = function(vault) {
-    $scope.getPayment = vault;
-    jQuery("#vaultChangeModal").modal("hide");
+  $scope.changeVault = function(vaultDetail) {
+    if(vaultDetail.as_default == 1) {
+      $scope.getPayment = vaultDetail;
+      
+      if(!$scope.isUserLoggedIn) {
+        $scope.localData.paymentDetails = vaultDetail;
+        let obj = JSON.stringify($scope.localData);
+        saveLocalData(obj);
+      }
+
+      $rootScope.closeModal('#vaultChangeModal');
+    } else {
+      $scope.loading = true;
+
+      var request_data = {};
+      request_data.id = vaultDetail.id;
+      request_data.action = $scope.isUserLoggedIn? "authenticate_ajax_call": "ajax_call";
+      request_data.sub_action = "set_default_vault";
+      if(!$scope.isUserLoggedIn)
+        request_data.customer_id = $scope.localData.userDetails.id;
+
+      CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+        .then(
+          function(data) {
+
+            if (data.Success == true) {
+              $scope.AllPayments.map(function(vault) {
+                if (vault.id == request_data.id) {
+                  return (vault.as_default = 1);
+                } else {
+                  return (vault.as_default = 0);
+                }
+              });
+
+              vaultDetail.as_default = '1';
+              $scope.getPayment = vaultDetail;
+
+              if(!$scope.isUserLoggedIn) {
+                $scope.localData.paymentDetails = vaultDetail;
+                let obj = JSON.stringify($scope.localData);
+                saveLocalData(obj);
+              }
+
+              $rootScope.closeModal('#vaultAddModal');
+              $rootScope.closeModal('#vaultChangeModal');
+            } 
+          },
+          function(error) {}
+        )
+        .finally(function() {
+          $scope.loading = false;
+        });
+      }
   }
 
   $scope.changeAddress = function(address) {
-    $scope.getAddress = address;
-    jQuery("#addressChangeModal").modal("hide");
+    if(address.as_default == 1) {
+      $scope.getAddress = address;
+      
+      if(!$scope.isUserLoggedIn) {
+        $scope.localData.addressDetails = address;
+        let obj = JSON.stringify($scope.localData);
+        saveLocalData(obj);
+      }
+
+      $rootScope.closeModal('#addressChangeModal');
+    } else {
+      $scope.loading = true;
+
+      var request_data = {};
+      request_data.id = address.id;
+      request_data.action = $scope.isUserLoggedIn? "authenticate_ajax_call": "ajax_call";
+      request_data.sub_action = "set_default_address";
+      if(!$scope.isUserLoggedIn)
+        request_data.customer_id = $scope.localData.userDetails.id;
+
+      CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+        .then(
+          function(data) {
+            if (data.Success == true) {
+              $scope.AllAddresses.map(function(address) {
+                if (address.id == request_data.id) {
+                  return (address.as_default = 1);
+                } else {
+                  return (address.as_default = 0);
+                }
+              });
+              
+              address.as_default = '1';
+              $scope.getAddress = address;
+
+              if(!$scope.isUserLoggedIn) {
+                $scope.localData.addressDetails = address;
+                let obj = JSON.stringify($scope.localData);
+                saveLocalData(obj);
+              }
+
+              $rootScope.closeModal("#addressAddModal");
+              $rootScope.closeModal("#addressChangeModal");
+            }
+          },
+          function(error) {}
+        )
+        .finally(function() {
+          $scope.loading = false;
+        });
+      }
+  }
+
+  $scope.openAddAddressModal = function() {
+    $scope.localData.addressDetails = {
+      id: null,
+      street_name: null,
+      floor: null,
+      pobox: null,
+      unit_number: null,
+      city_id: null
+    };
+    $rootScope.closeModal("#addressChangeModal");
+
+    $rootScope.showModal("#addressAddModal");
+  }
+
+  $scope.openAddVaultModal = function() {
+    debugger;
+    $scope.localData.paymentDetails = {};
+    $rootScope.closeModal("#vaultChangeModal");
+    $rootScope.showModal("#vaultAddModal");
+    $timeout(function() {
+      functionForPaymentDetail();
+    }, 1000)
   }
 
   /* Perform Action contains multiple actions */
@@ -1636,7 +1797,7 @@ app.controller("OrdersummaryCtrl", function(
         break;
 
       case "SAVE_ADDRESS_DETAILS":
-        saveAddressDetails();
+        saveAddressDetails(value);
         return false;
         break;
 
@@ -1752,7 +1913,7 @@ app.controller("OrdersummaryCtrl", function(
         removeLoalStorageAndGoToDashboard();
       }
     } else {
-      jQuery('#requestPickupModal').modal('hide');
+      $rootScope.closeModal('#requestPickupModal');
     }
   };
 

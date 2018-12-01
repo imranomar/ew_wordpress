@@ -17,7 +17,10 @@
   "delivery": "Levering", 
   "user_or_email": "Bruger eller E-mail",
   "free": "Ledig",
-  "submit": "Indsend"
+  "submit": "Indsend",
+  "save": "Gemme",
+  "add": "Tilføje",
+  "remove": "Fjerne"
 },
 "basic_details": {
   "name": "Navn",

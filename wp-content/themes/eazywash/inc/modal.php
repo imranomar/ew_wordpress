@@ -14,7 +14,7 @@
                     <li class="nav-item"><a data-toggle="tab" href="javascript:void(0)" class="nav-link" data-target="#register">{{'text.register' | translate}}</a></li>
                 </ul>
                 
-                <div class="tab-content">
+                <div class="tab-content mt-4">
                     <div id="login" class="tab-pane active" ng-controller="LoginCtrl">
                         <div class="row">
                             <div class="col-md-12">
@@ -122,9 +122,7 @@
         <div class="modal-content" ng-controller="OrdersummaryCtrl">
             <div class="modal-header">
                 <h4 class="modal-title">{{'request_pickup' | translate}}</h4>
-                <div class="div_close_icon" ng-click="onCancelOrder()">
-                    <span class="fa fa-times"></span>
-                </div>
+                <button type="button" class="close" ng-click="onCancelOrder()"> &times;</span>
             </div>
             <div class="modal-body">
                 <div class="myorder Deliverydate finaldate" ng-if="!showLoading && !orderCreationDone">
@@ -154,7 +152,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button pull-right" ng-if="value.price"> $ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price"> $ {{value.price}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -176,7 +174,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button pull-right" ng-if="value.price">$ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price">$ {{value.price}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +210,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <span class="round_button pull-right">{{value.price > 0 ? '$ '+ value.price : 'Free'}}</span>
+                                                    <span class="round_button fixed-width-btn pull-right">{{value.price > 0 ? '$ '+ value.price : 'Free'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -235,7 +233,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <span class="round_button pull-right"> {{'text.free' | translate}}</span>
+                                                    <span class="round_button fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -275,7 +273,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button" ng-if="value.price"> $ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn" ng-if="value.price"> $ {{value.price}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -297,7 +295,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button" ng-if="value.price">$ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn" ng-if="value.price">$ {{value.price}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -337,7 +335,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <span class="round_button">{{value.price > 0 ? '$ '+value.price : 'Free'}}</span>
+                                                    <span class="round_button fixed-width-btn">{{value.price > 0 ? '$ '+value.price : 'Free'}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -355,12 +353,12 @@
                                             <div class="row">
                                                 <div class="col-sm-9">
                                                     <div class="item ">
-                                                        <label class="container" for="deliveryDropAtDoor">{{'request_leave_at_door' | translate}}
+                                                        <label>{{'request_leave_at_door' | translate}}
                                                         </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <span class="round_button">{{'text.free' | translate}}</span>
+                                                    <span class="round_button fixed-width-btn pull-right">{{'text.free' | translate}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -421,43 +419,12 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
-                                    <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
-                                        <div class="form-group">
-                                            <input type="text" name="street_name" class="form-control" placeholder="{{'address_details.street_name' | translate}}" ng-model="localData.addressDetails.street_name" />
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <input type="text" name="floor" class="form-control" placeholder="{{'address_details.floor' | translate}}" ng-model="localData.addressDetails.floor" />
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" name="pobox" class="form-control" placeholder="{{'address_details.po_box' | translate}}"" ng-model="localData.addressDetails.pobox" />
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <input type="text" name="unit_number" class="form-control" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="localData.addressDetails.unit_number" />
-                                        </div>
-
-                                        <div class="form-group">
-                                            <select ng-model="localData.addressDetails.city_id" name="city" class="form-control">
-                                                <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
-                                                <option ng-repeat="value in cityData" value="{{value.id}}">
-                                                    {{value.title}}
-                                                </option>                                 
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                            <div ng-include="'address-form.html'"></div>
                             
                             <div class="row">
                                 <div class="col-sm-12">
                                     <button class="wizard-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="wizard-btn pull-right" ng-click="performAction('SAVE_ADDRESS_DETAILS')">{{'text.next' | translate}}</button>
+                                    <button class="wizard-btn pull-right" ng-click="performAction('SAVE_ADDRESS_DETAILS', true)">{{'text.next' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -470,9 +437,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="alert alert-danger" ng-show="paymentErr">{{paymentErrorMessage}}</p>
-                            <div class="paymentIframeContainer"></div>
-                            
+                            <div ng-include="'vault-form.html'"></div>
+                           
                             <div class="row">
                                 <div class="col-sm-12">
                                     <button class="wizard-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
@@ -571,83 +537,90 @@
                                 </div>
                             </div>
 
-                            <!-- Change Address Modal -->
-                            <div class="modal" id="addressChangeModal" role="dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Change Address</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            
+                            <!-- New Address Modal -->
+                            <div class="modal fade vertical" id="addressAddModal" role="dialog"  data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Add Address</h4>
+                                            <button type="button" class="close" ng-click="closeModal('#addressAddModal')">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div ng-include="'address-form.html'"></div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-primary pull-right" ng-disabled="loading" ng-click="!loading && performAction('SAVE_ADDRESS_DETAILS', false)">{{'text.save' | translate}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <div ng-repeat="getAddress in AllAddresses" ng-click="changeAddress(getAddress)">
-                                            <div ng-include="'address-card.html'"></div>
+                                </div>
+                            </div>
+                            <!-- End New Address Modal -->
+
+                            <!-- New Vault Modal -->
+                            <div class="modal fade vertical" id="vaultAddModal" role="dialog"  data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Add Vault</h4>
+                                            <button type="button" class="close" ng-click="closeModal('#vaultAddModal')">&times;</button>
+                                        </div>
+                                        <div class="modal-body p-0">
+                                            <div ng-include="'vault-form.html'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End New Vault Modal -->
+
+                            <!-- Change Address Modal -->
+                            <div class="modal vertical" id="addressChangeModal" role="dialog" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Change Address</h4>
+                                            <button type="button" class="close" ng-click="closeModal('#addressChangeModal')">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="cards-container">
+                                                <div ng-repeat="getAddress in AllAddresses" ng-click="changeAddress(getAddress)">
+                                                    <div ng-include="'address-card.html'"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary pull-right" ng-click="openAddAddressModal()">{{'Add' | translate}}</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- End Change Address Modal -->
 
-                             <!-- Change Vault Modal -->
-                             <div class="modal" id="vaultChangeModal" role="dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Change Vault</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div ng-repeat="getPayment in AllPayments" ng-click="changeVault(getPayment)">
-                                            <div ng-include="'vault-card.html'"></div>
+                            <!-- Change Vault Modal -->
+                            <div class="modal vertical" id="vaultChangeModal" role="dialog" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Change Vault</h4>
+                                            <button type="button" class="close" ng-click="closeModal('#vaultChangeModal')">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="cards-container">
+                                                <div ng-repeat="getPayment in AllPayments" ng-click="changeVault(getPayment)">
+                                                    <div ng-include="'vault-card.html'"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary pull-right" ng-click="openAddVaultModal()">{{'Add' | translate}}</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- End Change Vault Modal -->
-
-                            <!--Vault Card Template-->
-                            <script type="text/ng-template" id="vault-card.html">
-                                <div class="card-box">
-                                    <div class="row">
-                                        <div class="col-sm-3"><img src="<?php echo get_template_directory_uri(); ?>/images/mastercard.png" width="100%"></div>
-                                        <div class="col-sm-6">
-                                            <div ng-if="getPayment.payment_type">
-                                                <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="fa fa-check"></i></span>
-                                            </div>
-                                            <div  ng-if="getPayment.number">
-                                                {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
-                                            </div>
-                                            <div  ng-if="getPayment.expiry_date">
-                                                {{'request_pickup_card_expiry_date' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_date}} </span>
-                                            </div>
-                                            <div  ng-if="getPayment.expiry_month">
-                                                {{'request_pickup_card_expiry_month' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_month}} </span>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-sm-3" ng-hide="$index > -1" ng-if="AllPayments.length > 1">
-                                            <a href="#vaultChangeModal" class="modal-trigger round_button text-upper">Change</a>
-                                        </div>
-                                    </div>
-                                </div>               
-                            </script>
-
-                            <!--Address Card Template-->
-                            <script type="text/ng-template" id="address-card.html">
-                                <div class="card-box">
-                                    <div class="row">
-                                        <div class="col-sm-3"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="100%"></div>
-                                        <div class="col-sm-6">
-                                            <span ng-if="getAddress != null">
-                                                <div class="borderdotdot">{{getAddress.street_name}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="fa fa-check"></i></span></div>
-                                                <div>{{'address_details.floor' | translate}} :{{getAddress.floor}}</div>
-                                                <div>{{'address_details.unit_number' | translate}} : {{getAddress.unit_number}}</div>
-                                            </span>
-                                        </div>
-                                        <div class="col-sm-3" ng-hide="$index > -1" ng-if="AllAddresses.length > 1">
-                                            <a href="#addressChangeModal" data-toggle="modal" class="modal-trigger round_button text-upper">Change</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </script>
                         </wz-step>
                     </wizard>
                 </div>
@@ -668,6 +641,96 @@
             </div>
         </div>
     </div>
+    
+    <!--Vault Card Template-->
+    <script type="text/ng-template" id="vault-card.html">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-3"><img src="<?php echo get_template_directory_uri(); ?>/images/mastercard.png" width="100%"></div>
+                <div class="col-sm-6">
+                    <div ng-if="getPayment.payment_type">
+                        <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="fa fa-check"></i></span>
+                    </div>
+                    <div  ng-if="getPayment.number">
+                        {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
+                    </div>
+                    <div  ng-if="getPayment.expiry_date">
+                        {{'request_pickup_card_expiry_date' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_date}} </span>
+                    </div>
+                    <div  ng-if="getPayment.expiry_month">
+                        {{'request_pickup_card_expiry_month' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_month}} </span>
+                    </div>
+                </div>
+                
+                <div class="col-sm-3" ng-hide="$index > -1">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">Change</a>
+                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length <= 1">Change</a>
+                </div>
+            </div>
+        </div>               
+    </script>
+
+    <!--Address Card Template-->
+    <script type="text/ng-template" id="address-card.html">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-3"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="100%"></div>
+                <div class="col-sm-6">
+                    <span ng-if="getAddress != null">
+                        <div class="borderdotdot">{{getAddress.street_name}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="fa fa-check"></i></span></div>
+                        <div>{{'address_details.floor' | translate}} :{{getAddress.floor}}</div>
+                        <div>{{'address_details.unit_number' | translate}} : {{getAddress.unit_number}}</div>
+                    </span>
+                </div>
+                <div class="col-sm-3" ng-hide="$index > -1">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button  mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">Change</a>
+                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length <= 1">Add</a>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!--Address Form Template-->
+    <script type="text/ng-template" id="address-form.html">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
+                <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
+                    <div class="form-group">
+                        <input type="text" name="street_name" class="form-control" ng-disabled="loading" placeholder="{{'address_details.street_name' | translate}}" ng-model="localData.addressDetails.street_name" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" name="floor" class="form-control" ng-disabled="loading" placeholder="{{'address_details.floor' | translate}}" ng-model="localData.addressDetails.floor" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="pobox" class="form-control" ng-disabled="loading" placeholder="{{'address_details.po_box' | translate}}"" ng-model="localData.addressDetails.pobox" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" name="unit_number" class="form-control" ng-disabled="loading" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="localData.addressDetails.unit_number" />
+                    </div>
+
+                    <div class="form-group">
+                        <select ng-model="localData.addressDetails.city_id" ng-disabled="loading" name="city" class="form-control">
+                            <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
+                            <option ng-repeat="value in cityData" value="{{value.id}}">
+                                {{value.title}}
+                            </option>                                 
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+
+    <!--Vault Form Template-->
+    <script type="text/ng-template" id="vault-form.html">
+        <p class="alert alert-danger" ng-show="paymentErr">{{paymentErrorMessage}}</p>
+        <div class="paymentIframeContainer"></div>
+    </script>
 </div>
 <!-- End Pickup -->
 
