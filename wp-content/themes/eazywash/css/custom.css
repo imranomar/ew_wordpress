@@ -42,15 +42,23 @@ span.required {
 
 .round_button
 {
-  background-color: #20b9e5;
   border-radius: 16vw;
-  padding: 10px 16px;
-  color: #fff;
+  padding: 9px 16px;
+  color: #20b9e5;
   text-align:center;
   font-weight:500;
   display: inline-block;
   vertical-align: middle;
   border: 0px;
+  border: 2px solid #20b9e5;
+  font-weight: bold;
+}
+
+.round_button.action-btn {
+  background-color: #20b9e5;
+  color: #fff;
+  font-weight: 500;
+
 }
 
 .round_button_icon
@@ -59,7 +67,7 @@ span.required {
 }
 
 .fixed-width-btn {
-  width: 120px;
+  width: 100px;
 }
 
 .small-fixed-width-btn {

@@ -23,7 +23,7 @@ global $theme_options;
 ?>
 
 	
-<section class="footer py-5" <?php if($theme_options['footer-bg-img']['url']) { echo "style='background-image: url(".$theme_options['footer-bg-img']['url'].");'"; }?>>
+<section class="footer py-5" id="footer" <?php if($theme_options['footer-bg-img']['url']) { echo "style='background-image: url(".$theme_options['footer-bg-img']['url'].");'"; }?>>
   <div class="container">
       <div class="row">
           <div class="col-sm-12 text-center mb-5">

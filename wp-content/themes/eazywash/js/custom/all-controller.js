@@ -441,6 +441,7 @@ app.controller("DashboardCtrl", function(
   $scope,
   $rootScope,
   CommonService,
+  $filter,
   $location,
   $timeout
 ) {
@@ -746,7 +747,7 @@ app.controller("DashboardCtrl", function(
   }
   $scope.deleteAddress = function(addressDetail, index) {
     if (addressDetail && addressDetail !== null) {
-      var confirmation = confirm("Do you want to delete address details?");
+      var confirmation = confirm($filter('translate')('address_deletion_confirmation'));
       if (confirmation) {
         var data = {};
         data.id = addressDetail.id;
@@ -789,9 +790,9 @@ app.controller("DashboardCtrl", function(
         ? $rootScope.CardTypes[vaultDetail.payment_type]
         : vaultDetail.payment_type;
       var confirmation = confirm(
-        "Do you want to delete " +
+        $filter('translate')('deletion_confirmation') +
           cardName +
-          " end with " +
+          " "+ $filter('translate')('vault_details.ends_with') + " " +
           vaultDetail.number +
           "?"
       );
@@ -939,7 +940,8 @@ app.controller("OrdersummaryCtrl", function(
   $httpParamSerializer,
   $location,
   CommonService,
-  WizardHandler
+  WizardHandler,
+  $filter
 ) {
   $scope.showLoading = true;
   $scope.loading = false;
@@ -1211,9 +1213,16 @@ app.controller("OrdersummaryCtrl", function(
     if ($scope.optionsData.weekend) {
       length += 1;
     }
+
+    let name = "";
+    let price = "";
+    let label = "";
+
     for (var i = 0; i < 16 + length; i++) {
-      let name = "";
-      let price = "";
+      name = "";
+      price = "";
+      label = "";
+
       date = new Date();
       let d = new Date(date.setDate(date.getDate() + i));
       if (d.getDate() == new Date().getDate()) {
@@ -1223,15 +1232,20 @@ app.controller("OrdersummaryCtrl", function(
       } else if (d.getDate() == new Date().getDate() + 1) {
         // if day is day after
         name = "Tomorrow";
+      } else if (d.getDate() == new Date().getDate() + 2) {
+        // if day is day after
+        name = "Day After Tomorrow";
       } else {
         name = days[d.getDay()];
       }
+
+      label = ordinal_suffix_of(d.getDate()) + " " + months[d.getMonth()];
 
       array.push({
         date: d,
         name: name,
         price: price,
-        shortDate: d.getDate() + "th " + months[d.getMonth()]
+        shortDate: label
       });
     }
 
@@ -1282,9 +1296,16 @@ app.controller("OrdersummaryCtrl", function(
     if ($scope.optionsData.weekend) {
       length += 1;
     }
+
+    let name = "";
+    let price = "";
+    let label = "";
+    
     for (var i = 0; i < 16 + length; i++) {
-      let name = "";
-      let price = "";
+      name = "";
+      price = "";
+      label = "";
+
       let d = new Date(date.setDate(date.getDate() + 1));
       if (d.getDate() == new Date().getDate() + 1) {
         // if day is day after
@@ -1293,15 +1314,19 @@ app.controller("OrdersummaryCtrl", function(
       } else if (d.getDate() == pickupD.getDate() + 1) {
         // if  day is tomorrow
         // name = 'day after';
-        name = "next day deliever";
+        name = "Next day delievery";
         price = $scope.optionsData.next_day_delivery_price;
+      }  else {
+        name = days[d.getDay()];
       }
+
+      label = ordinal_suffix_of(d.getDate()) + " " + months[d.getMonth()];
 
       array.push({
         date: d,
         name: name,
         price: price,
-        shortDate: d.getDate() + "th " + days[d.getDay()]
+        shortDate: label
       });
     }
     for (var i = 0; i < array.length; i++) {
@@ -1352,6 +1377,21 @@ app.controller("OrdersummaryCtrl", function(
   // End Wizard last step
 
   /* Common Functions */
+
+  function ordinal_suffix_of(i) {
+      var j = i % 10,
+          k = i % 100;
+      if (j == 1 && k != 11) {
+          return i + "st";
+      }
+      if (j == 2 && k != 12) {
+          return i + "nd";
+      }
+      if (j == 3 && k != 13) {
+          return i + "rd";
+      }
+      return i + "th";
+  }
 
   function validationByStepTitle(stepTitle) {
     if (
@@ -1924,7 +1964,7 @@ app.controller("OrdersummaryCtrl", function(
   $scope.onCancelOrder = function() {
 
     if(getObjectLength($scope.localData.pickupDate) > 0) {
-      var confirmation = confirm("Do you want to cancel order ?");
+      var confirmation = confirm($filter('translate')('request_pickup_order_cancel_confirmation'));
 
       if (confirmation) {
         removeLoalStorageAndGoToDashboard();

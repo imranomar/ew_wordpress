@@ -38,6 +38,9 @@
       "city": "City",
       "unit_number": "Unit Number"
   },
+  "vault_details": {
+    "ends_with": "ends with"
+  },
 
   "menu_link_home": "Home",
   "menu_link_about": "About",
@@ -53,6 +56,7 @@
   "menu_link_our_story": "Our Story",
   "menu_link_terms": "Terms",
   "menu_link_professional_team": "Professional Team",
+  "menu_link_dashboard": "Dashboard",
 
   "footer_user_links": "USERFUL LINKS",
   "footer_copyright": "All Rights Reserved",
@@ -63,9 +67,10 @@
   "request_pickup": "Laundry Pickup Request",
   "request_pickup_date": "Please select the date you want us to come and pickup your laundry",
   "request_pickup_time": "Please select the time slot you want us to come and pickup your laundry",
-  "request_leave_at_door": "I'll leave my laundry outside the door",
+  "request_pikcup_leave_at_door": "I'll leave my laundry outside the door at my responsibility.",
   "request_drop_date": "Tell us what date do want us to deliever the laundry to you:",
   "request_drop_time": "And what time do you want us to deliever the laundry to you?",
+  "request_drop_leave_at_door": "Leave my laundry outside the door at my responsibility",
   "request_pickup_enter_basic_details": "Tell us about yourself!",
   "request_pickup_enter_address_details": "Where should we pick-up your laundry from?",
   "request_pickup_enter_payemnt_details": "Kindly tell us how you are going to pay",
@@ -80,5 +85,8 @@
   "request_pickup_card_expiry_month": "Expiry Month",
   "request_pickup_order_success": "Order Success",
   "request_pickup_order_success_message": "Thank you. Your order is created successfully.",
-  "request_pickup_order_success_information": "Your account is also created. Please login to skip extra steps to place order."
+  "request_pickup_order_success_information": "Your account is also created. Please login to skip extra steps to place order.",
+  "request_pickup_order_cancel_confirmation": "Do you want to delete address details?",
+  "address_deletion_confirmation": "Do you want to delete address details?",
+  "deletion_confirmation": "Do you want to delete"
 }

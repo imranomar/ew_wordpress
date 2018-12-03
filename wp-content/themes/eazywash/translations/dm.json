@@ -37,6 +37,10 @@
   "unit_number": "Enhedsnummer"
 },
 
+"vault_details": {
+  "ends_with": "slutter med"
+},
+
 "menu_link_home": " Hjem",
 "menu_link_about": "Om",
 "menu_link_download": "Hent",
@@ -51,6 +55,7 @@
 "menu_link_services": "Services",
 "menu_link_our_story": "Vores historie",
 "menu_link_terms": "Betingelser",
+"menu_link_dashboard": "instrumentbræt",
 
 "footer_user_links": "BRUGERVEJLEDNINGER",
 "footer_contact_us": "KONTAKT OS",
@@ -62,9 +67,10 @@
 "request_pickup": "Anmodning afhentning",
 "request_pickup_date": "Vælg Pickup Date",
 "request_pickup_time": "Vælg Pickup Time",
-"request_leave_at_door": "Jeg forlader ved døren",
+"request_pikcup_leave_at_door": "Jeg laver mit vasketøj uden for døren på mit ansvar",
 "request_drop_date": "Vælg Drop Date",
 "request_drop_time": "Vælg Drop Time",
+"request_drop_leave_at_door": "Lad mit tøj stå uden for døren på mit ansvar",
 "request_pickup_enter_basic_details": "Indtast grundlæggende detaljer",
 "request_pickup_enter_address_details": "Indtast adresseoplysninger",
 "request_pickup_enter_payemnt_details": "Indtast betalingsoplysninger",
@@ -79,5 +85,8 @@
 "request_pickup_card_expiry_month": "Udløbs måned",
 "request_pickup_order_success": "Ordreudvikling",
 "request_pickup_order_success_message": "Tak skal du have. Din ordre er oprettet med succes.",
-"request_pickup_order_success_information": "Din konto er også oprettet. Log venligst ind for at springe ekstra trin for at placere ordre."
+"request_pickup_order_success_information": "Din konto er også oprettet. Log venligst ind for at springe ekstra trin for at placere ordre.",
+"request_pickup_order_cancel_confirmation": "Vil du slette adresseoplysninger?",
+"address_deletion_confirmation": "Vil du slette adresseoplysninger?",
+"deletion_confirmation": "Vil du slette"
 }

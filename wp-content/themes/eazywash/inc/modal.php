@@ -54,15 +54,12 @@
                                     <div class="form-group">
                                         <input type="email" name="email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-model="signupdata.email" ng-disabled="loading" />
                                     </div>
-
-                                    <div class="form-group">
-                                        <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="signupdata.phone" ng-disabled="loading" />
-                                    </div>
-
                                     <div class="form-group">
                                         <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="signupdata.password" ng-disabled="loading" />
                                     </div>
-
+                                    <div class="form-group">
+                                        <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="signupdata.phone" ng-disabled="loading" />
+                                    </div>
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-primary" ng-disabled="loading">{{'text.register_now' | translate}}</button>
                                     </div>
@@ -141,10 +138,12 @@
                                     <form name="partial_{{Steps.user_detail}}" id="partial_{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
                                         <div class="row">
                                             <div class="form-group col-sm-6">
+                                                <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
                                                 <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="localData.userDetails.full_name" ng-disabled="loading" />
                                             </div>
                                             
                                             <div class="form-group col-sm-6">
+                                                <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
                                                 <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="localData.userDetails.phone" ng-disabled="loading" />
                                             </div>
                                         </div>
@@ -171,9 +170,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price"> $ {{value.price}}</span>
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'Free' | translate}}</span>
-
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price"> + {{value.price | currency}}</span>
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -195,7 +193,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price">$ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price">{{value.price | currency}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -214,47 +212,39 @@
                                     <div class="col-sm-12">
                                         <div class="card-box" wz-next="performAction('SELECT_PICKUP_TIME', value)" ng-class="{'fade': localData.pickupTime.leaveAtdoor}">
                                             <div class="row">
-                                                <div class="col-sm-3">
-                                                    <div class="row">
-                                                        <div class="col-sm-12"><img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png"></div>
-                                                    </div>
+                                                <div class="col-sm-3 text-center">
+                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png" />
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <!-- we do not have one hour slot option now -->
-                                                            <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
-                                                            <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
-                                                            <h6 class="text-upper"> {{'text.between' | translate}} </h6>
-                                                            <h5> {{value.time_from}}:00 to {{value.time_to}}:00 </h5>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-sm-6 mt-3">
+                                                    <!-- we do not have one hour slot option now -->
+                                                    <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
+                                                    <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
+                                                    <h6 class="text-upper"> {{'text.between' | translate}} </h6>
+                                                    <h5> {{value.time_from}}:00 to {{value.time_to}}:00 </h5>
                                                 </div>
 
-                                                <div class="col-sm-3">
-                                                    <span class="round_button fixed-width-btn pull-right">{{value.price > 0 ? '$ '+ value.price : 'Free'}}</span>
+                                                <div class="col-sm-3 mt-3">
+                                                    <span class="round_button fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                                    <span class="round_button fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
-
-                                <div class="row">
-                                    <div class="col-sm-12 text-center text-upper mb-3">{{'text.or' | translate}}</div>
                                 </div>
 
                                 <div class="row" ng-class="{'active': localData.pickupTime && localData.pickupTime.leaveAtdoor == 'y' }">
                                     <div class="col-sm-12">
                                         <div class='card-box' wz-next="performAction('SELECT_PICKUP_AT_DOOR', '')">
                                             <div class="row">
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-3 text-center">
+                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.jpg" />
+                                                </div>
+                                                <div class="col-sm-6 mt-3">
                                                     <div class="item ">
-                                                        <label class="container" for="pickAtDoor"><h5> {{'request_leave_at_door' | translate}} </h5>
-                                                        </label>
+                                                        <h6> {{'request_pikcup_leave_at_door' | translate}} </h6>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-3 mt-3">
                                                     <span class="round_button fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
                                                 </div>
                                             </div>
@@ -263,7 +253,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                        <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -295,7 +285,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price"> $ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price">+ {{value.price | currency}}</span>
                                                 <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'Free' | translate}}</span>
                                             </div>
                                         </div>
@@ -318,7 +308,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button fixed-width-btn" ng-if="value.price">$ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn" ng-if="value.price">+ {{value.price | currency}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +316,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -344,44 +334,36 @@
                                     <div class="col-sm-12">
                                         <div class="card-box" wz-next="performAction('SELECT_DELIVERY_TIME', value)">
                                             <div class="row">
-                                                <div class="col-sm-3">
-                                                    <div class="row">
-                                                        <div class="col-sm-12"><img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png"></div>
-                                                    </div>
+                                                <div class="col-sm-3 text-center">
+                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png" />
                                                 </div>
-                                                <div class="col-sm-5">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <h6 class="text-upper"> {{'text.between' | translate}} </h6>
-                                                            <h5 class="text-upper"> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-sm-5 mt-3">
+                                                    <h6 class="text-upper"> {{'text.between' | translate}} </h6>
+                                                    <h5 class="text-upper"> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <span class="round_button fixed-width-btn">{{value.price > 0 ? '$ '+value.price : 'Free'}}</span>
+                                                <div class="col-sm-4 mt-3">
+                                                    <span class="round_button fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                                    <span class="round_button fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
-
-                                <div class="row">
-                                    <div class="col-sm-12 text-center text-upper mb-3">{{'text.or' | translate}}</div>
                                 </div>
 
                                 <div class="row" ng-class="{'active': localData.deliveryTime && localData.deliveryTime.leaveAtdoor == 'y' }">
                                     <div class="col-sm-12">
                                         <div class="card-box" wz-next="performAction('SELECT_DELIVERY_AT_DOOR', '')">
                                             <div class="row">
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-3 text-center">
+                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.jpg" />
+                                                </div>
+                                                <div class="col-sm-6 mt-3">
                                                     <div class="item ">
-                                                        <label>{{'request_leave_at_door' | translate}}
-                                                        </label>
+                                                        <h6> {{'request_drop_leave_at_door' | translate}} </h6>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3">
-                                                    <span class="round_button fixed-width-btn pull-right">{{'text.free' | translate}}</span>
+                                                <div class="col-sm-3 mt-3">
+                                                    <span class="round_button fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -389,7 +371,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                        <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -409,18 +391,21 @@
                                     <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}</p>
                                     <form name="{{Steps.user_detail}}" id="{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
                                         <div class="form-group">
+                                            <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
                                             <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="localData.userDetails.full_name" ng-disabled="loading" />
                                         </div>
                                         <div class="form-group">
+                                            <label class="font-weight-bold">{{'basic_details.email' | translate}}</label>
+
                                             <input type="email" name="email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-model="localData.userDetails.email" ng-disabled="loading" />
                                         </div>
-                                        
                                         <div class="form-group">
-                                            <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="localData.userDetails.phone" ng-disabled="loading" />
-                                        </div>
-
-                                        <div class="form-group">
+                                            <label class="font-weight-bold">{{'basic_details.password' | translate}}</label>
                                             <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="localData.userDetails.password" ng-disabled="loading" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
+                                            <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="localData.userDetails.phone" ng-disabled="loading" />
                                         </div>
                                     </form>
                                 </div>
@@ -428,8 +413,8 @@
                             
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="round_button pull-right" ng-click="performAction('SAVE_USER_DETAILS')">{{'text.next' | translate}}</button>
+                                    <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    <button class="round_button action-btn pull-right" ng-click="performAction('SAVE_USER_DETAILS')">{{'text.next' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -449,8 +434,8 @@
                             
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="round_button pull-right" ng-click="performAction('SAVE_ADDRESS_DETAILS', true)">{{'text.next' | translate}}</button>
+                                    <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    <button class="round_button action-btn pull-right" ng-click="performAction('SAVE_ADDRESS_DETAILS', true)">{{'text.next' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -467,8 +452,8 @@
                            
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="round_button pull-right" id="orderLoadVaults" ng-click="performAction('GET_PAYMENT_DETAILS')">{{'text.next' | translate}}</button>
+                                    <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    <button class="round_button action-btn pull-right" id="orderLoadVaults" ng-click="performAction('GET_PAYMENT_DETAILS')">{{'text.next' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -495,7 +480,7 @@
                                                     {{localData.pickupTime.time_to}}:00 </span>
                                                 <span ng-if="localData.pickupTime.leaveAtdoor == 'y'"> {{'request_leave_at_door_short' | translate}} </span>
 
-                                                <div class="mt-3"><a href="javascript:void(0)" class="round_button text-upper" ng-click="goToStep(0)">Change</a></div>
+                                                <div class="mt-3"><a href="javascript:void(0)" class="round_button action-btn text-upper" ng-click="goToStep(0)">Change</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -508,7 +493,7 @@
                                                     {{localData.pickupTime.time_from}}:00 {{'text.to' | translate}}
                                                     {{localData.pickupTime.time_to}}:00 </span>
                                                 <span ng-if="localData.pickupTime.leaveAtdoor == 'y'"> {{'request_leave_at_door_short' | translate}} </span>
-                                                <div class="mt-3"><a href="javascript:void(0)" class="round_button text-upper" ng-click="goToStep(2)">Change</a></div>
+                                                <div class="mt-3"><a href="javascript:void(0)" class="round_button action-btn text-upper" ng-click="goToStep(2)">Change</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -521,13 +506,13 @@
                                             <div class="item item-body orderlistbody">
                                                 <strong>{{'request_pickup_extra_charges' | translate}}</strong><br>
                                                 <div ng-show="localData.pickupDate.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> ${{localData.pickupDate.price}} -
+                                                    <i class="glyphicon glyphicon-plus"> </i> + {{localData.pickupDate.price | currency}} -
                                                     {{localData.pickupDate.name}} Pickup
                                                 </div>
 
 
                                                 <div ng-show="localData.pickupTime.price && localData.pickupTime.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> ${{localData.pickupTime.price}} - {{'request_pickup_fixed_time_pickup' | translate}}
+                                                    <i class="glyphicon glyphicon-plus"> </i> + {{localData.pickupTime.price  | currency}} - {{'request_pickup_fixed_time_pickup' | translate}}
                                                 </div>
 
                                             </div>
@@ -535,12 +520,12 @@
                                             <div class="item item-body orderlistbody">
 
                                                 <div ng-show="localData.deliveryDate.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> ${{localData.deliveryDate.price}} - {{'request_pickup_next_day_delivery' | translate}}
+                                                    <i class="glyphicon glyphicon-plus"> </i> + {{localData.deliveryDate.price | currency}} - {{'request_pickup_next_day_delivery' | translate}}
                                                 </div>
 
 
                                                 <div ng-show="localData.deliveryTime.price && localData.deliveryTime.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> ${{localData.deliveryTime.price}} - {{'request_pickup_fixed_time_drop' | translate}}
+                                                    <i class="glyphicon glyphicon-plus"> </i> + {{localData.deliveryTime.price | currency}} - {{'request_pickup_fixed_time_drop' | translate}}
                                                 </div>
                                             </div>
                                         </div>
@@ -554,10 +539,10 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="round_button pull-left" wz-previous="!showLoading && noValidation()">
+                                    <button class="round_button action-btn pull-left" wz-previous="!showLoading && noValidation()">
                                         {{'text.previous' | translate}}
                                     </button>
-                                    <button type="submit" class="round_button pull-right" wz-next="!showLoading && createOrder()" >
+                                    <button type="submit" class="round_button action-btn pull-right" wz-next="!showLoading && createOrder()" >
                                         {{'text.submit' | translate}}
                                     </button>
                                 </div>
@@ -578,7 +563,7 @@
                                             </form>
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <button class="btn btn-primary pull-right" ng-disabled="loading" ng-click="!loading && performAction('SAVE_ADDRESS_DETAILS', false)">{{'text.save' | translate}}</button>
+                                                    <button class="round_button action-btn pull-right" ng-disabled="loading" ng-click="!loading && performAction('SAVE_ADDRESS_DETAILS', false)">{{'text.save' | translate}}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -619,7 +604,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary pull-right" ng-click="openAddAddressModal()">{{'Add' | translate}}</button>
+                                            <button type="button" class="round_button action-btn pull-right" ng-click="openAddAddressModal()">{{'Add' | translate}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -643,7 +628,7 @@
                                         </div>
                                         
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary pull-right" ng-click="openAddVaultModal()">{{'Add' | translate}}</button>
+                                            <button type="button" class="round_button action-btn pull-right" ng-click="openAddVaultModal()">{{'Add' | translate}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -691,8 +676,8 @@
                 </div>
                 
                 <div class="col-sm-3 p-0" ng-hide="$index > -1">
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">Change</a>
-                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length <= 1">Change</a>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">Change</a>
+                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length <= 1">Change</a>
                 </div>
             </div>
         </div>               
@@ -711,8 +696,8 @@
                     </span>
                 </div>
                 <div class="col-sm-3 p-0" ng-hide="$index > -1">
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button  mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">Change</a>
-                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length <= 1">Add</a>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button action-btn mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">Change</a>
+                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length <= 1">Add</a>
                 </div>
             </div>
         </div>

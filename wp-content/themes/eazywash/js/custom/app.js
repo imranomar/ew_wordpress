@@ -32,9 +32,11 @@ app.run(function($rootScope, $translate, CommonService) {
 
   if (langauage) {
       $rootScope.SelectedLang = langauage;
-      $translate.use(langauage);
   }
 
+  $translate.use($rootScope.SelectedLang);
+  
+ 
   $rootScope.CardTypes = {
     "MC": "Master Card",
     "VISA": "VISA Card",
