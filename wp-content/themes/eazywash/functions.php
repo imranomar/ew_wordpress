@@ -289,11 +289,14 @@ function twentyfifteen_scripts() {
 	wp_enqueue_script( 'bootstrap-js', get_theme_file_uri( '/js/bootstrap.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'jquery-validate', get_theme_file_uri( '/js/jquery.validate.js' ), array(), '1.0' );
 	
+	// Custom script
+	wp_enqueue_script( 'custom-script', get_theme_file_uri( '/js/custom.js' ), array(), '1.0' );
+
 	// Main Script
-	wp_enqueue_script( 'custom-script', get_theme_file_uri( '/js/custom/main.js' ), array(), '1.0' );
+	wp_enqueue_script( 'main-script', get_theme_file_uri( '/js/custom/main.js' ), array(), '1.0' );
 	
 	// Localize Script
-	wp_localize_script( 'custom-script', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+	wp_localize_script( 'main-script', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
 	//Angular Scripts
 	wp_enqueue_script( 'angular-library', get_theme_file_uri( '/js/libraries/angular.min.js' ), array(), '1.0' );

@@ -8,6 +8,8 @@
  * @subpackage Twenty_Fifteen
  * @since Twenty Fifteen 1.0
  */
+global $theme_options;
+$favicon = $theme_options['site-favicon']['url'];
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js" ng-app="laundryApp" ng-cloak>
 <head>
