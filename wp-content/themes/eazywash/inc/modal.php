@@ -138,7 +138,7 @@
                                 <div class="col-sm-12">
                                     <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}</p>
 
-                                    <form name="{{Steps.user_detail}}" id="{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
+                                    <form name="partial_{{Steps.user_detail}}" id="partial_{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
                                         <div class="row">
                                             <div class="form-group col-sm-6">
                                                 <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="localData.userDetails.full_name" ng-disabled="loading" />

@@ -1376,12 +1376,12 @@ app.controller("OrdersummaryCtrl", function(
       return false;
     } else if (
       stepTitle == $scope.Steps.user_detail &&
-      jQuery("#" + stepTitle +":visible").valid() == false
+      jQuery("#" + stepTitle).valid() == false
     ) {
       return false;
     } else if (
       stepTitle == $scope.Steps.address_detail &&
-      jQuery("#" + stepTitle +":visible").valid() == false
+      jQuery("#" + stepTitle).valid() == false
     ) {
       return false;
     } else if (
@@ -1477,7 +1477,9 @@ app.controller("OrdersummaryCtrl", function(
   }
 
   function saveUserDetails(partialInfo, pickupDate) {
-    if (!validationByStepTitle($scope.Steps.user_detail)) return;
+    if(partialInfo && !jQuery('#partial_' + $scope.Steps.user_detail)) return;
+    else  if (!validationByStepTitle($scope.Steps.user_detail)) return;
+
 
     $scope.loading = true;
 
