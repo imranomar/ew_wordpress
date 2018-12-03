@@ -442,7 +442,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div ng-include="'address-form.html'"></div>
+
+                            <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
+                                <div ng-include="'address-form.html'"></div>
+                            </form>
                             
                             <div class="row">
                                 <div class="col-sm-12">
@@ -570,7 +573,9 @@
                                             <button type="button" class="close" ng-click="closeModal('#addressAddModal')">&times;</button>
                                         </div>
                                         <div class="modal-body">
-                                            <div ng-include="'address-form.html'"></div>
+                                            <form name="partial_{{Steps.address_detail}}" id="partial_{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
+                                                <div ng-include="'address-form.html'" ></div>
+                                            </form>
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <button class="btn btn-primary pull-right" ng-disabled="loading" ng-click="!loading && performAction('SAVE_ADDRESS_DETAILS', false)">{{'text.save' | translate}}</button>
@@ -719,32 +724,30 @@
         <div class="row">
             <div class="col-sm-12">
                 <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
-                <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
-                    <div class="form-group">
-                        <input type="text" name="street_name" class="form-control" ng-disabled="loading" placeholder="{{'address_details.street_name' | translate}}" ng-model="localData.addressDetails.street_name" />
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="text" name="floor" class="form-control" ng-disabled="loading" placeholder="{{'address_details.floor' | translate}}" ng-model="localData.addressDetails.floor" />
-                    </div>
+                <div class="form-group">
+                    <input type="text" name="street_name" class="form-control" ng-disabled="loading" placeholder="{{'address_details.street_name' | translate}}" ng-model="localData.addressDetails.street_name" />
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" name="floor" class="form-control" ng-disabled="loading" placeholder="{{'address_details.floor' | translate}}" ng-model="localData.addressDetails.floor" />
+                </div>
 
-                    <div class="form-group">
-                        <input type="text" name="pobox" class="form-control" ng-disabled="loading" placeholder="{{'address_details.po_box' | translate}}"" ng-model="localData.addressDetails.pobox" />
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="text" name="unit_number" class="form-control" ng-disabled="loading" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="localData.addressDetails.unit_number" />
-                    </div>
+                <div class="form-group">
+                    <input type="text" name="pobox" class="form-control" ng-disabled="loading" placeholder="{{'address_details.po_box' | translate}}"" ng-model="localData.addressDetails.pobox" />
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" name="unit_number" class="form-control" ng-disabled="loading" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="localData.addressDetails.unit_number" />
+                </div>
 
-                    <div class="form-group">
-                        <select ng-model="localData.addressDetails.city_id" ng-disabled="loading" name="city" class="form-control">
-                            <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
-                            <option ng-repeat="value in cityData" value="{{value.id}}">
-                                {{value.title}}
-                            </option>                                 
-                        </select>
-                    </div>
-                </form>
+                <div class="form-group">
+                    <select ng-model="localData.addressDetails.city_id" ng-disabled="loading" name="city" class="form-control">
+                        <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
+                        <option ng-repeat="value in cityData" value="{{value.id}}">
+                            {{value.title}}
+                        </option>                                 
+                    </select>
+                </div>
             </div>
         </div>
     </script>

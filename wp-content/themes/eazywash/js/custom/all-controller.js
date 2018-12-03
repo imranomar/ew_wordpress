@@ -1477,8 +1477,8 @@ app.controller("OrdersummaryCtrl", function(
   }
 
   function saveUserDetails(partialInfo, pickupDate) {
-    if(partialInfo && !jQuery('#partial_' + $scope.Steps.user_detail)) return;
-    else  if (!validationByStepTitle($scope.Steps.user_detail)) return;
+    if(partialInfo && !jQuery('#partial_' + $scope.Steps.user_detail).valid()) return;
+    else if (!validationByStepTitle($scope.Steps.user_detail)) return;
 
 
     $scope.loading = true;
@@ -1541,6 +1541,8 @@ app.controller("OrdersummaryCtrl", function(
 
   function saveAddressDetails(nextAllowed) {
     if(nextAllowed && !validationByStepTitle($scope.Steps.address_detail))
+      return;
+    else if(!nextAllowed && jQuery('#partial_' + $scope.Steps.address_detail).valid())
       return;
 
     $scope.loading = true;
