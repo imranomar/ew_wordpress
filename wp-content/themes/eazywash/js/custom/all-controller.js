@@ -1542,7 +1542,7 @@ app.controller("OrdersummaryCtrl", function(
   function saveAddressDetails(nextAllowed) {
     if(nextAllowed && !validationByStepTitle($scope.Steps.address_detail))
       return;
-    else if(!nextAllowed && jQuery('#partial_' + $scope.Steps.address_detail).valid())
+    else if(!nextAllowed && !jQuery('#partial_' + $scope.Steps.address_detail).valid())
       return;
 
     $scope.loading = true;
@@ -1575,6 +1575,7 @@ app.controller("OrdersummaryCtrl", function(
 
     $http(req)
       .then(function(response) {
+        $scope.loading = false;
         var res = response.data;
 
         if (res.Success == true) {
