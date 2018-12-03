@@ -133,7 +133,26 @@
                                     <h4>{{'request_pickup_date' | translate}} :-)</h4>
                                 </div>
                             </div>
-                            <div class="row" ng-repeat="value in pickupDateList" ng-hide="!showAllpickupDateList && $index > 3" wz-next="performAction('SAVE_PICKUP_DATE', value)"
+
+                            <div class="row" ng-hide="isUserLoggedIn">
+                                <div class="col-sm-12">
+                                    <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}</p>
+
+                                    <form name="{{Steps.user_detail}}" id="{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
+                                        <div class="row">
+                                            <div class="form-group col-sm-6">
+                                                <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="localData.userDetails.full_name" ng-disabled="loading" />
+                                            </div>
+                                            
+                                            <div class="form-group col-sm-6">
+                                                <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="localData.userDetails.phone" ng-disabled="loading" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-repeat="value in pickupDateList" ng-hide="!showAllpickupDateList && $index > 3" ng-click="performAction('SAVE_PICKUP_DATE', value)"
                                 ng-class="{
                                             'today-div': value.name == 'Today',
                                             'tomorrow-div': value.name == 'Tomorrow',
@@ -244,7 +263,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <button class=" round_button  pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                        <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +295,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <span class="round_button fixed-width-btn" ng-if="value.price"> $ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price"> $ {{value.price}}</span>
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'Free' | translate}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -408,8 +428,8 @@
                             
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="wizard-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="wizard-btn pull-right" ng-click="performAction('SAVE_USER_DETAILS')">{{'text.next' | translate}}</button>
+                                    <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    <button class="round_button pull-right" ng-click="performAction('SAVE_USER_DETAILS')">{{'text.next' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -426,8 +446,8 @@
                             
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="wizard-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="wizard-btn pull-right" ng-click="performAction('SAVE_ADDRESS_DETAILS', true)">{{'text.next' | translate}}</button>
+                                    <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    <button class="round_button pull-right" ng-click="performAction('SAVE_ADDRESS_DETAILS', true)">{{'text.next' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -444,8 +464,8 @@
                            
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="wizard-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="wizard-btn pull-right" id="orderLoadVaults" ng-click="performAction('GET_PAYMENT_DETAILS')">{{'text.next' | translate}}</button>
+                                    <button class="round_button pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    <button class="round_button pull-right" id="orderLoadVaults" ng-click="performAction('GET_PAYMENT_DETAILS')">{{'text.next' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -531,10 +551,10 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="wizard-btn pull-left" wz-previous="!showLoading && noValidation()">
+                                    <button class="round_button pull-left" wz-previous="!showLoading && noValidation()">
                                         {{'text.previous' | translate}}
                                     </button>
-                                    <button type="submit" class="wizard-btn pull-right" wz-next="!showLoading && createOrder()" >
+                                    <button type="submit" class="round_button pull-right" wz-next="!showLoading && createOrder()" >
                                         {{'text.submit' | translate}}
                                     </button>
                                 </div>
@@ -650,7 +670,7 @@
         <div class="card-box">
             <div class="row">
                 <div class="col-sm-3"><img src="<?php echo get_template_directory_uri(); ?>/images/mastercard.png" width="100%"></div>
-                <div class="col-sm-6">
+                <div ng-class="$index > -1?'col-sm-9':'col-sm-6'">
                     <div ng-if="getPayment.payment_type">
                         <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="fa fa-check"></i></span>
                     </div>
@@ -665,7 +685,7 @@
                     </div>
                 </div>
                 
-                <div class="col-sm-3" ng-hide="$index > -1">
+                <div class="col-sm-3 p-0" ng-hide="$index > -1">
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">Change</a>
                     <a href="javascript:void(0)" class="round_button small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length <= 1">Change</a>
                 </div>
@@ -678,14 +698,14 @@
         <div class="card-box">
             <div class="row">
                 <div class="col-sm-3"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="100%"></div>
-                <div class="col-sm-6">
+                <div ng-class="$index > -1?'col-sm-9':'col-sm-6'">
                     <span ng-if="getAddress != null">
                         <div class="borderdotdot">{{getAddress.street_name}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="fa fa-check"></i></span></div>
                         <div>{{'address_details.floor' | translate}} :{{getAddress.floor}}</div>
                         <div>{{'address_details.unit_number' | translate}} : {{getAddress.unit_number}}</div>
                     </span>
                 </div>
-                <div class="col-sm-3" ng-hide="$index > -1">
+                <div class="col-sm-3 p-0" ng-hide="$index > -1">
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button  mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">Change</a>
                     <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length <= 1">Add</a>
                 </div>

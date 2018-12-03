@@ -16,6 +16,7 @@ app.controller("AppController", function(
   $rootScope.loadAddPaymentMethodForm = function(userId) {
     var formHtml = CommonService.GenerateAddPaymentForm(userId);
   
+    jQuery('.paymentIframeContainer').html('');
     jQuery('.paymentIframeContainer:visible').html('<iframe id="paymentIframe" width="100%" height="450px"></iframe>');
     var doc = document.getElementById("paymentIframe").contentWindow.document;
     doc.open();
@@ -1013,7 +1014,8 @@ app.controller("OrdersummaryCtrl", function(
       floor: null,
       pobox: null,
       unit_number: null,
-      city_id: null
+      city_id: null,
+      as_default: null
     },
     paymentDetails: {}
   };
@@ -1190,8 +1192,10 @@ app.controller("OrdersummaryCtrl", function(
       break;
 
       case $scope.Steps.payment_detail:
-        functionForPaymentDetail();
-        break;
+        $timeout(function() {
+            functionForPaymentDetail();
+        }, 1000);
+      break;
     }
   });
 
@@ -1372,12 +1376,12 @@ app.controller("OrdersummaryCtrl", function(
       return false;
     } else if (
       stepTitle == $scope.Steps.user_detail &&
-      jQuery("#" + stepTitle).valid() == false
+      jQuery("#" + stepTitle +":visible").valid() == false
     ) {
       return false;
     } else if (
       stepTitle == $scope.Steps.address_detail &&
-      jQuery("#" + stepTitle).valid() == false
+      jQuery("#" + stepTitle +":visible").valid() == false
     ) {
       return false;
     } else if (
@@ -1472,60 +1476,65 @@ app.controller("OrdersummaryCtrl", function(
       });
   }
 
-  function saveUserDetails() {
+  function saveUserDetails(partialInfo, pickupDate) {
     if (!validationByStepTitle($scope.Steps.user_detail)) return;
 
     $scope.loading = true;
 
     var userData = $scope.localData.userDetails;
-    let data = {
-      id: userData.id,
-      full_name: userData.full_name,
-      email: userData.email,
-      password: userData.password,
-      phone: userData.phone,
-      sex: userData.sex,
-      action: "ajax_call",
-      sub_action: "register"
-    };
 
-    let req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer(data),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
+    var request_data = {};
+    if(partialInfo) {
+      request_data = {
+        id: userData.id,
+        full_name: userData.full_name,
+        phone: userData.phone,
+        sex: '1',
+        action: "ajax_call",
+        sub_action: "register"
+      };
+    } else {
+      request_data = {
+        id: userData.id,
+        full_name: userData.full_name,
+        email: userData.email,
+        password: userData.password,
+        phone: userData.phone,
+        sex: '1',
+        action: "ajax_call",
+        sub_action: "register"
+      };
+    }
 
     $scope.userErr = false;
     $scope.loading = true;
-    $http(req)
-      .then(function(response) {
-        $scope.loading = false;
 
-        var res = response.data;
-        console.log(res.data);
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+        .then(
+          function(data) {
+            if (data.Success == true) {
+              if (!$scope.isUserLoggedIn) {
+                if(partialInfo) {
+                  $scope.localData.pickupDate = pickupDate;
+                }
 
-        if (res.Success == true) {
-          if (!$scope.isUserLoggedIn) {
-            $scope.localData.userDetails.id = res.data.id;
-            // Save local storage
-            let obj = JSON.stringify($scope.localData);
-            saveLocalData(obj);
-          }
-          $scope.Wizard.next();
-        } else {
-          $scope.userErr = true;
-          $scope.userErrorMessage = res.Message;
-        }
-      })
-      .catch(function(error) {
-        $scope.loading = false;
-        let err = error.data;
-        $scope.userErr = false;
-        $scope.userErrorMessage = err[0].message;
-      });
+                $scope.localData.userDetails.id = data.data.id;
+
+                // Save local storage
+                let obj = JSON.stringify($scope.localData);
+                saveLocalData(obj);
+              }
+              $scope.Wizard.next();
+            } else {
+              $scope.userErr = true;
+              $scope.userErrorMessage = data.Message;
+            } 
+          },
+          function(error) {}
+        )
+        .finally(function() {
+          $scope.loading = false;
+        });
   }
 
   function saveAddressDetails(nextAllowed) {
@@ -1763,7 +1772,13 @@ app.controller("OrdersummaryCtrl", function(
   $scope.performAction = function(action, value) {
     switch (action) {
       case "SAVE_PICKUP_DATE":
-        $scope.localData.pickupDate = value;
+      if($scope.isUserLoggedIn == true) {
+          $scope.localData.pickupDate = value;
+          $scope.Wizard.next();
+        } else {
+          saveUserDetails(true, value);
+          return false;
+        }
         break;
 
       case "SELECT_PICKUP_TIME":
@@ -1789,7 +1804,7 @@ app.controller("OrdersummaryCtrl", function(
         break;
 
       case "SAVE_USER_DETAILS":
-        saveUserDetails();
+        saveUserDetails(false);
         return false;
         break;
 

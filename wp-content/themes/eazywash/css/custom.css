@@ -62,6 +62,10 @@ span.required {
   width: 120px;
 }
 
+.small-fixed-width-btn {
+  width: 95px;
+} 
+
 .round_button:hover {
   text-decoration: none;
 }
