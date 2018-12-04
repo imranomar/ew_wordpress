@@ -131,6 +131,11 @@ function authenticate_ajax_call() {
 				$url = 'vaultapi/delete?id='.$data['id'];
 				$data = array();
 			break;
+
+			case 'create_tasks':
+				$method = 'POST';
+				$url = 'tasksapi/createtasks';
+			break;
 		}
 		
 		if(!empty($url)) {
@@ -208,6 +213,11 @@ function ajax_call() {
 
 			case 'create_order':
 				$url = 'ordersapi/create';
+			break;
+			
+			case 'create_tasks':
+				$method = 'POST';
+				$url = 'tasksapi/createtasks';
 			break;
 
 			case "forgot_password":
@@ -410,6 +420,7 @@ function logout_method() {
 
 /* Common Method for Calling API's */
 function callAPI($method, $parital_url, $data) {
+	
 	$valid_status_codes = [200, 201];
 
 	$response = array();
@@ -457,6 +468,11 @@ function callAPI($method, $parital_url, $data) {
 	$result = curl_exec($curl);
 	$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	curl_close($curl);
+
+	if($parital_url == 'tasksapi/createtasks') {
+		
+		print_r($result);die;
+	}
 
 	$isValidJson = isJson($result);
 	//echo 'ok'.$isValidJson;die;

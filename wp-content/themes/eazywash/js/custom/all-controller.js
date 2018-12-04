@@ -1927,37 +1927,53 @@ app.controller("OrdersummaryCtrl", function(
       }
     }
 
-    let req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer(data),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
-
     $scope.showLoading = true;
-    $http(req)
-      .then(function(response) {
-        $scope.showLoading = false;
-        var res = response.data;
-        if (res.Success == true) {
-          $scope.orderCreationDone = true;
-          $timeout(function() {
-            removeLoalStorageAndGoToDashboard();
-          }, 3000);
+
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, data).then(
+      function(data) {
+        if(data.Success == true) {
+
+          var orderDetail = data.data;
+
+          var request_data = {
+            action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
+            sub_action: "create_tasks",
+            order_id: orderDetail.id
+          };
+
+          CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+            .then(
+              function(data) {
+                if(data.Success == true) {
+                  $scope.orderCreationDone = true;
+                  $timeout(function() {
+                    removeLoalStorageAndGoToDashboard();
+                  }, 3000);
+                }
+              },
+              function(error) {
+                console.log("error");
+                console.log(err);
+              }
+            )
+            .finally(function() {
+              $scope.showLoading = false;
+            });
         } else {
+          $scope.showLoading = false;
+
           $scope.err = true;
-          $scope.errorMessage = res.Message;
+          $scope.errorMessage = data.Message;
         }
-      })
-      .catch(function(error) {
-        $scope.showLoading = false;
-        let err = error.data;
-        console.log(error);
-        $scope.err = true;
-        $scope.errorMessage = err[0].message;
-      });
+      },
+      function(error) {
+        console.log("error");
+        console.log(err);
+      }
+    )
+    .finally(function() {
+      
+    });
   };
 
   /* Cancel Order */
