@@ -19,7 +19,7 @@ app.config(function($translateProvider, $validatorProvider) {
   }, "Letters only please");
 });
 
-app.run(function($rootScope, $translate, CommonService) {
+app.run(function($rootScope, $translate, $filter, CommonService) {
 
   $rootScope.Languages = {
     'en': 'English',
@@ -31,10 +31,11 @@ app.run(function($rootScope, $translate, CommonService) {
   var langauage = CommonService.getLanguageFromLocal();
 
   if (langauage) {
-      $rootScope.SelectedLang = langauage;
+    $rootScope.SelectedLang = langauage;
   }
-
+  
   $translate.use($rootScope.SelectedLang);
+
   
  
   $rootScope.CardTypes = {
@@ -43,6 +44,138 @@ app.run(function($rootScope, $translate, CommonService) {
     "DK": "Dankort Card",
     "V-DK": "VISA/Dankort Card",
     "ELEC": "VISA Electron Card"
+  };
+
+  /** Validation **/
+  $rootScope.loginValidationOptions = {
+    rules: {
+      email: {
+        required: true,
+        email: true
+      },
+      password: {
+        required: true
+      }
+    },
+    messages: {
+      email: {
+        required: $filter('translate')('validation_message_email_required'),
+        email: $filter('translate')('validation_message_email_invalid')
+      },
+      password: {
+        required: $filter('translate')('validation_message_password_required')
+      }
+    }
+  };
+
+  $rootScope.basicDetailsValidationOptions = {
+    rules: {
+      fullname: {
+        required: true,
+        lettersonly: true
+      },
+      email: {
+        required: true,
+        email: true
+      },
+      phone: {
+        required: true,
+        number: true,
+        minlength: 7
+      },
+      password: {
+        required: true,
+        minlength: 6
+      }
+    },
+    messages: {
+      fullname: {
+        required: $filter('translate')('validation_message_fullname_required'),
+        lettersonly: $filter('translate')('validation_message_lettersonly')
+      },
+      email: {
+        required: $filter('translate')('validation_message_email_required')
+      },
+      phone: {
+        required: $filter('translate')('validation_message_phone_required')
+      },
+      password: {
+        required: $filter('translate')('validation_message_password_required')
+      }
+    }
+  };
+
+  $rootScope.addressDetailsValidationOptions = {
+    rules: {
+      street_name: {
+        required: true
+      },
+      floor: {
+        required: true
+      },
+      pobox: {
+        required: true,
+        number: true
+      },
+      unit_number: {
+        required: true,
+        number: true
+      },
+      city: {
+        required: true
+      }
+    },
+    messages: {
+      street_name: {
+        required: $filter('translate')('validation_message_street_required')
+      },
+      floor: {
+        required: $filter('translate')('validation_message_floor_required')
+      },
+      pobox: {
+        required: $filter('translate')('validation_message_pobox_required')
+      },
+      city: {
+        required: $filter('translate')('validation_message_city_required')
+      }
+    }
+  };
+
+  $rootScope.resetPasswordValidationOptions = {
+    rules: {
+      oldpassword: {
+        required: true
+      },
+      newpassword: {
+        required: true,
+        minlength: 6
+      },
+      confirmpassword: {
+        equalTo: "#newpassword"
+      }
+    },
+    messages: {
+      oldpassword: {
+        required: $filter('translate')('validation_message_old_password_required')
+      },
+      newpassword: {
+        required: $filter('translate')('validation_message_new_password_required'),
+        minimum: $filter('translate')('validation_message_minimum_six')
+      },
+      confirmpassword: {
+        required: $filter('translate')('validation_message_password_mismatch'),
+        equalTo: $filter('translate')('validation_message_equalTo')
+      }
+    }
+  };
+
+  $rootScope.forgotPasswordValidationOptions = {
+    rules: {
+      email: {
+        required: true,
+        email: true
+      }
+    }
   };
 });
 

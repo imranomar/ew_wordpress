@@ -22,7 +22,8 @@
     "cancel" :"Cancel",
     "save": "Save",
     "add": "Add",
-    "remove": "Remove"
+    "remove": "Remove",
+    "change": "Change"
   },
   "basic_details": {
     "name": "Name",
@@ -88,5 +89,29 @@
   "request_pickup_order_success_information": "Your account is also created. Please login to skip extra steps to place order.",
   "request_pickup_order_cancel_confirmation": "Do you want to delete address details?",
   "address_deletion_confirmation": "Do you want to delete address details?",
-  "deletion_confirmation": "Do you want to delete"
+  "deletion_confirmation": "Do you want to delete",
+  "change_address": "Change Address",
+  "change_vault": "Change Vault",
+  "add_address": "Add Address",
+  "add_vault": "Add Vault",
+
+  "validation_message_login_failed": "Invalid login credentials",
+  "validation_message_email_required": "Please enter email address",
+  "validation_message_password_required": "Please enter password",
+  "validation_message_fullname_required": "Please enter your full name",
+  "validation_message_phone_required": "Please enter phone number",
+  "validation_message_street_required": "Please enter street name",
+  "validation_message_floor_required": "Please enter floor",
+  "validation_message_pobox_required": "Please enter PO box number",
+  "validation_message_city_required": "Please enter city",
+  "validation_message_old_password_required": "Please enter old password",
+  "validation_message_new_password_required": "Please enter new password",
+  "validation_message_email_invalid": "Email address is invalid",
+  "validation_message_lettersonly": "Only alphabets, dot and space is allowed",
+  "validation_message_minimum_six": "Minimum length should be 6 characters",
+  "validation_message_password_mismatch": "Password do not match",
+  "validation_message_equalTo": "Enter password again",
+
+  "forgot_password": "Forgot Password"
+
 }

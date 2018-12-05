@@ -26,12 +26,10 @@
                                     <div class="form-group">
                                         <input type="password" name="password" ng-model="logindata.password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-disabled="loading" />
                                     </div>
-                                    <div class="form-group">
-                                    <div class="row">
-                                        <a class="col-sm-12 text-center" href="javascript:void(0)" onclick="openForgotPasswordModal()">
+                                    <div class="form-group text-center">
+                                        <a href="javascript:void(0)" onclick="openForgotPasswordModal()">
                                             <span class="hidden-xs">Forgot Password</span>
                                         </a>
-                                    </div>
                                     </div>
 
                                     <div class="form-group">
@@ -77,12 +75,10 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="row">
-                        <a href="javascript:void(0)" onclick="loginWithFacebook()" class="col-sm-12 text-center">
-                            <span class="hidden-xs">Facebook</span>
-                        </a>
-                    </div>
+                <div class="form-group text-center">
+                    <a href="javascript:void(0)" onclick="loginWithFacebook()" class="col-sm-12 ">
+                        <span class="hidden-xs">Facebook</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -286,7 +282,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <span class="round_button fixed-width-btn pull-right" ng-if="value.price">+ {{value.price | currency}}</span>
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'Free' | translate}}</span>
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -480,7 +476,7 @@
                                                     {{localData.pickupTime.time_to}}:00 </span>
                                                 <span ng-if="localData.pickupTime.leaveAtdoor == 'y'"> {{'request_leave_at_door_short' | translate}} </span>
 
-                                                <div class="mt-3"><a href="javascript:void(0)" class="round_button action-btn text-upper" ng-click="goToStep(0)">Change</a></div>
+                                                <div class="mt-3"><a href="javascript:void(0)" class="round_button action-btn text-upper" ng-click="goToStep(0)">{{'text.change' | translate}}</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -493,7 +489,7 @@
                                                     {{localData.pickupTime.time_from}}:00 {{'text.to' | translate}}
                                                     {{localData.pickupTime.time_to}}:00 </span>
                                                 <span ng-if="localData.pickupTime.leaveAtdoor == 'y'"> {{'request_leave_at_door_short' | translate}} </span>
-                                                <div class="mt-3"><a href="javascript:void(0)" class="round_button action-btn text-upper" ng-click="goToStep(2)">Change</a></div>
+                                                <div class="mt-3"><a href="javascript:void(0)" class="round_button action-btn text-upper" ng-click="goToStep(2)">{{'text.change' | translate}}</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -507,7 +503,7 @@
                                                 <strong>{{'request_pickup_extra_charges' | translate}}</strong><br>
                                                 <div ng-show="localData.pickupDate.price > 0">
                                                     <i class="glyphicon glyphicon-plus"> </i> + {{localData.pickupDate.price | currency}} -
-                                                    {{localData.pickupDate.name}} Pickup
+                                                    {{localData.pickupDate.name}} {{'text.pickup' | translate}}
                                                 </div>
 
 
@@ -554,7 +550,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Add Address</h4>
+                                            <h4 class="modal-title">{{'add_address' | translate}}</h4>
                                             <button type="button" class="close" ng-click="closeModal('#addressAddModal')">&times;</button>
                                         </div>
                                         <div class="modal-body">
@@ -577,7 +573,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Add Vault</h4>
+                                            <h4 class="modal-title">{{'add_vault' | translate}}</h4>
                                             <button type="button" class="close" ng-click="closeModal('#vaultAddModal')">&times;</button>
                                         </div>
                                         <div class="modal-body p-0">
@@ -593,7 +589,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Change Address</h4>
+                                            <h4 class="modal-title">{{'change_address' | translate}}</h4>
                                             <button type="button" class="close" ng-click="closeModal('#addressChangeModal')">&times;</button>
                                         </div>
                                         <div class="modal-body">
@@ -604,7 +600,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="round_button action-btn pull-right" ng-click="openAddAddressModal()">{{'Add' | translate}}</button>
+                                            <button type="button" class="round_button action-btn pull-right" ng-click="openAddAddressModal()">{{'text.add' | translate}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -616,7 +612,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Change Vault</h4>
+                                            <h4 class="modal-title">{{'change_vault' | translate}}</h4>
                                             <button type="button" class="close" ng-click="closeModal('#vaultChangeModal')">&times;</button>
                                         </div>
                                         <div class="modal-body">
@@ -628,7 +624,7 @@
                                         </div>
                                         
                                         <div class="modal-footer">
-                                            <button type="button" class="round_button action-btn pull-right" ng-click="openAddVaultModal()">{{'Add' | translate}}</button>
+                                            <button type="button" class="round_button action-btn pull-right" ng-click="openAddVaultModal()">{{'text.add' | translate}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -659,7 +655,7 @@
     <script type="text/ng-template" id="vault-card.html">
         <div class="card-box">
             <div class="row">
-                <div class="col-sm-3"><img src="<?php echo get_template_directory_uri(); ?>/images/mastercard.png" width="100%"></div>
+                <div class="col-sm-3" ng-class="$index > -1?'mt-4':'mt-3'"><img src="<?php echo get_template_directory_uri(); ?>/images/mastercard.png" width="100%"></div>
                 <div ng-class="$index > -1?'col-sm-9':'col-sm-6'">
                     <div ng-if="getPayment.payment_type">
                         <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="fa fa-check"></i></span>
@@ -676,8 +672,8 @@
                 </div>
                 
                 <div class="col-sm-3 p-0" ng-hide="$index > -1">
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">Change</a>
-                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length <= 1">Change</a>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
+                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length <= 1">{{'text.change' | translate}}</a>
                 </div>
             </div>
         </div>               
@@ -687,7 +683,7 @@
     <script type="text/ng-template" id="address-card.html">
         <div class="card-box">
             <div class="row">
-                <div class="col-sm-3"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="100%"></div>
+                <div class="col-sm-3 mt-1"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="100%"></div>
                 <div ng-class="$index > -1?'col-sm-9':'col-sm-6'">
                     <span ng-if="getAddress != null">
                         <div class="borderdotdot">{{getAddress.street_name}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="fa fa-check"></i></span></div>
@@ -696,8 +692,8 @@
                     </span>
                 </div>
                 <div class="col-sm-3 p-0" ng-hide="$index > -1">
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button action-btn mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">Change</a>
-                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length <= 1">Add</a>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button action-btn mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">{{'text.change' | translate}}</a>
+                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length <= 1">{{'text.add' | translate}}</a>
                 </div>
             </div>
         </div>
@@ -752,7 +748,7 @@
         <form name="ForgotPasswordForm" ng-submit="!loading && forgotpassowrd(ForgotPasswordForm)" autocomplete="off" ng-validate="forgotPasswordValidationOptions">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Forgot Password</h4>
+                    <h4 class="modal-title">{{'forgot_password' | translate}}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">

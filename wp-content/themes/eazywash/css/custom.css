@@ -67,11 +67,11 @@ span.required {
 }
 
 .fixed-width-btn {
-  width: 100px;
+  min-width: 100px;
 }
 
 .small-fixed-width-btn {
-  width: 95px;
+  min-width: 95px;
 } 
 
 .round_button:hover {
@@ -329,9 +329,8 @@ tr {
 .modal.vertical .modal-dialog {
   display: inline-block;
   text-align: left;
-  vertical-align: middle;
+  vertical-align: top;
 }
-
 
 .modal.vertical .modal-body .cards-container {
   max-height: 400px;
@@ -360,4 +359,9 @@ tr {
 }
 
 /* CREATE ORDER ENDS HERE */
+
+
+@media only screen and (max-width: 768px) {
+  
+}
 

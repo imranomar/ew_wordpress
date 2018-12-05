@@ -9,18 +9,21 @@
   "logout": "Log ud",
   "register": "Tilmeld",
   "select": "Vælg",
-  "previous": "Tidligere",
+  "previous": "<<",
   "next": "Næste",
   "yes": "Ja",
   "no": "ingen",
   "pickup": "Saml op",
   "delivery": "Levering", 
   "user_or_email": "Bruger eller E-mail",
+  "register_now": "Registrer nu",
   "free": "Ledig",
   "submit": "Indsend",
+  "cancel" :"Afbestille",
   "save": "Gemme",
   "add": "Tilføje",
-  "remove": "Fjerne"
+  "remove": "Fjerne",
+  "change": "Lave om"
 },
 "basic_details": {
   "name": "Navn",
@@ -88,5 +91,28 @@
 "request_pickup_order_success_information": "Din konto er også oprettet. Log venligst ind for at springe ekstra trin for at placere ordre.",
 "request_pickup_order_cancel_confirmation": "Vil du slette adresseoplysninger?",
 "address_deletion_confirmation": "Vil du slette adresseoplysninger?",
-"deletion_confirmation": "Vil du slette"
+"deletion_confirmation": "Vil du slette",
+"change_address": "Skift adresse",
+"change_vault": "Skift Vault",
+"add_address": "Tilføj adresse",
+"add_vault": "Tilføj Vault",
+
+"validation_message_login_failed": "Ugyldige loginoplysninger",
+"validation_message_email_required": "Indtast venligst e-mail-adresse",
+"validation_message_password_required": "Indtast venligst adgangskode",
+"validation_message_fullname_required": "Vær sød at skrive dit fulde navn",
+"validation_message_phone_required": "Indtast venligst telefonnummer",
+"validation_message_street_required": "Indtast venligst gadenavn",
+"validation_message_floor_required": "Indtast venligst gulv",
+"validation_message_pobox_required": "Indtast venligst PO box nummer",
+"validation_message_city_required": "Indtast venligst by",
+"validation_message_old_password_required": "Indtast venligst den gamle adgangskode",
+"validation_message_new_password_required": "Indtast venligst ny adgangskode",
+"validation_message_email_invalid": "Email adressen er ugyldig",
+"validation_message_lettersonly": "Kun alfabeter, prik og plads er tilladt",
+"validation_message_minimum_six": "Minimum længde skal være 6 tegn",
+"validation_message_password_mismatch": "Kodeordet passer ikke",
+"validation_message_equalTo": "Indtast adgangskode igen",
+
+"forgot_password": "Glemt kodeord"
 }

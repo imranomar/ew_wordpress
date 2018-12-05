@@ -94,7 +94,7 @@ function authenticate_ajax_call() {
 			case 'create_order':
 				$method = 'POST';
 				$data['customer_id'] = $user['id'];
-				$url = 'ordersapi/create';
+				$url = 'ordersapi/createorder';
 			break;
 
 			case 'update_user_details':
@@ -212,7 +212,7 @@ function ajax_call() {
 			break;
 
 			case 'create_order':
-				$url = 'ordersapi/create';
+				$url = 'ordersapi/createorder';
 			break;
 			
 			case 'create_tasks':
@@ -468,12 +468,6 @@ function callAPI($method, $parital_url, $data) {
 	$result = curl_exec($curl);
 	$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	curl_close($curl);
-
-	if($parital_url == 'tasksapi/createtasks') {
-		
-		print_r($result);die;
-	}
-
 	$isValidJson = isJson($result);
 	//echo 'ok'.$isValidJson;die;
 	if($isValidJson) {
