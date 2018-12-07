@@ -64,7 +64,7 @@
   "request_drop_date": "Tell us what date do want us to deliever the laundry to you:",
   "request_drop_time": "And what time do you want us to deliever the laundry to you?",
   "request_pickup_enter_basic_details": "Tell us about yourself!",
-  "request_pickup_enter_address_details": "Where should we pick-up your laundry from?",
+  "request_pickup_enter_address_details": "Where can we pick-up your laundry from?",
   "request_pickup_enter_payemnt_details": "Kindly tell us how you are going to pay",
   "request_pickup_order_summary": "Order Summary",
   "request_leave_at_door_short": "leave at the door",
