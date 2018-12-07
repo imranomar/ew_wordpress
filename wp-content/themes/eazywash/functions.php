@@ -302,6 +302,7 @@ function twentyfifteen_scripts() {
 	wp_enqueue_script( 'angular-library', get_theme_file_uri( '/js/libraries/angular.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-routes', get_theme_file_uri( '/js/libraries/angular-route.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-ngstorage', get_theme_file_uri( '/js/libraries/ngStorage.min.js' ), array(), '1.0' );
+	wp_enqueue_script( 'angular-cookies', get_theme_file_uri( '/js/libraries/angular-cookies.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-validate', get_theme_file_uri( '/js/libraries/angular-validate.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-wizard', get_theme_file_uri( '/js/libraries/angular-wizard.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-translate', get_theme_file_uri( '/js/libraries/angular-translate/angular-translate.js' ), array(), '1.0' );

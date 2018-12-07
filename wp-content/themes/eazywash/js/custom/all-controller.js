@@ -5,42 +5,42 @@ app.controller("AppController", function(
   $translate,
   $filter,
   CommonService,
+  LocalDataService,
   $timeout
 ) {
-
   $scope.changeLanguage = function(lang) {
     $rootScope.SelectedLang = lang;
-    CommonService.storeLanguageLocal(lang);
+    LocalDataService.storeLanguageLocal(lang);
     $translate.use(lang);
   };
 
-
   $rootScope.loadAddPaymentMethodForm = function(userId) {
     var formHtml = CommonService.GenerateAddPaymentForm(userId);
-  
-    jQuery('.paymentIframeContainer').html('');
-    jQuery('.paymentIframeContainer:visible').html('<iframe id="paymentIframe" width="100%" height="450px"></iframe>');
+
+    jQuery(".paymentIframeContainer").html("");
+    jQuery(".paymentIframeContainer:visible").html(
+      '<iframe id="paymentIframe" width="100%" height="450px"></iframe>'
+    );
     var doc = document.getElementById("paymentIframe").contentWindow.document;
     doc.open();
     doc.write('<h3 class="text-center">Loading...</h3>' + formHtml);
     doc.close();
-  }
-  
-  
+  };
+
   $rootScope.showModal = function(modalId) {
-    jQuery(modalId).modal('show');
-  }
+    jQuery(modalId).modal("show");
+  };
 
   $rootScope.closeModal = function(modalId) {
-    jQuery(modalId).modal('hide');
-    
+    jQuery(modalId).modal("hide");
+
     $timeout(function() {
-      if(jQuery('.modal:visible').length > 0) {
-        jQuery('body').addClass('modal-open');
+      if (jQuery(".modal:visible").length > 0) {
+        jQuery("body").addClass("modal-open");
       }
     }, 500);
-  }
-  
+  };
+
   /** Validation **/
   $rootScope.loginValidationOptions = {
     rules: {
@@ -54,16 +54,53 @@ app.controller("AppController", function(
     },
     messages: {
       email: {
-        required: function(){
-          return $filter('translate')('validation_message_email_required');
+        required: function() {
+          return $filter("translate")("validation_message_email_required");
         },
-        email: function(){
-          return $filter('translate')('validation_message_email_invalid');
+        email: function() {
+          return $filter("translate")("validation_message_email_invalid");
         }
       },
       password: {
-        required:  function(){
-          return $filter('translate')('validation_message_password_required');
+        required: function() {
+          return $filter("translate")("validation_message_password_required");
+        }
+      }
+    }
+  };
+
+  $rootScope.userDetailsValidationOptions = {
+    rules: {
+      fullname: {
+        required: true,
+        lettersonly: true
+      },
+      phone: {
+        required: true,
+        number: true,
+        minlength: 7
+      },
+      city: {
+        required: true
+      }
+    },
+    messages: {
+      fullname: {
+        required: function() {
+          return $filter("translate")("validation_message_fullname_required");
+        },
+        lettersonly: function() {
+          return $filter("translate")("validation_message_lettersonly");
+        }
+      },
+      phone: {
+        required: function() {
+          return $filter("translate")("validation_message_phone_required");
+        }
+      },
+      city: {
+        required: function() {
+          return $filter("translate")("validation_message_city_required");
         }
       }
     }
@@ -91,26 +128,26 @@ app.controller("AppController", function(
     },
     messages: {
       fullname: {
-        required: function(){
-          return $filter('translate')('validation_message_fullname_required');
+        required: function() {
+          return $filter("translate")("validation_message_fullname_required");
         },
-        lettersonly: function(){
-          return $filter('translate')('validation_message_lettersonly');
+        lettersonly: function() {
+          return $filter("translate")("validation_message_lettersonly");
         }
       },
       email: {
-        required: function(){
-          return $filter('translate')('validation_message_email_required');
+        required: function() {
+          return $filter("translate")("validation_message_email_required");
         }
       },
       phone: {
-        required: function(){
-          return $filter('translate')('validation_message_phone_required');
+        required: function() {
+          return $filter("translate")("validation_message_phone_required");
         }
       },
       password: {
-        required: function(){
-          return $filter('translate')('validation_message_password_required');
+        required: function() {
+          return $filter("translate")("validation_message_password_required");
         }
       }
     }
@@ -139,22 +176,22 @@ app.controller("AppController", function(
     messages: {
       street_name: {
         required: function() {
-          return $filter('translate')('validation_message_street_required');
+          return $filter("translate")("validation_message_street_required");
         }
       },
       floor: {
         required: function() {
-          return $filter('translate')('validation_message_floor_required');
+          return $filter("translate")("validation_message_floor_required");
         }
       },
       pobox: {
         required: function() {
-          return $filter('translate')('validation_message_pobox_required');
+          return $filter("translate")("validation_message_pobox_required");
         }
       },
       city: {
         required: function() {
-          return $filter('translate')('validation_message_city_required');
+          return $filter("translate")("validation_message_city_required");
         }
       }
     }
@@ -175,24 +212,28 @@ app.controller("AppController", function(
     },
     messages: {
       oldpassword: {
-        required: function(){
-          return $filter('translate')('validation_message_old_password_required');
+        required: function() {
+          return $filter("translate")(
+            "validation_message_old_password_required"
+          );
         }
       },
       newpassword: {
-        required: function(){
-          return $filter('translate')('validation_message_new_password_required');
+        required: function() {
+          return $filter("translate")(
+            "validation_message_new_password_required"
+          );
         },
-        minimum: function(){
-          return $filter('translate')('validation_message_minimum_six');
+        minimum: function() {
+          return $filter("translate")("validation_message_minimum_six");
         }
       },
       confirmpassword: {
-        required: function(){
-          return $filter('translate')('validation_message_password_mismatch');
+        required: function() {
+          return $filter("translate")("validation_message_password_mismatch");
         },
-        equalTo: function(){
-          return $filter('translate')('validation_message_equalTo');
+        equalTo: function() {
+          return $filter("translate")("validation_message_equalTo");
         }
       }
     }
@@ -222,7 +263,8 @@ app.controller("LoginCtrl", function(
   $location,
   $filter,
   $translate,
-  CommonService
+  CommonService,
+  LocalDataService
 ) {
   $scope.loading = false;
   $scope.field = "email";
@@ -235,41 +277,27 @@ app.controller("LoginCtrl", function(
   $scope.checkbox = true;
 
   $scope.loginsubmit = function(form) {
-    if(form.validate()){
+    if (form.validate()) {
       $scope.err = false;
       $scope.loading = true;
 
       var request_data = {
-          email: $scope.logindata.email,
-          password: $scope.logindata.password,
-          action: "ajax_call",
-          sub_action: "login"
+        email: $scope.logindata.email,
+        password: $scope.logindata.password,
+        action: "ajax_call",
+        sub_action: "login"
       };
 
       CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
         .then(
           function(data) {
             if (data.Success == true && data.data != 0) {
-              localStorage.setItem("laundryUser", data.data);
-              let date = new Date();
-              if ($scope.checkbox == true) {
-                localStorage.setItem("rememberMe", "y");
-                let date1 = new Date(
-                  date.setDate(date.getDate() + 10)
-                ).toUTCString();
-                document.cookie = "laundryCookie=y; expires=" + date1;
-              } else {
-                localStorage.removeItem("rememberMe");
-                let date1 = new Date(
-                  date.setHours(date.getHours() + 1)
-                ).toUTCString();
-                document.cookie = "laundryCookie=y; expires=" + date1;
-              }
               window.location.reload();
-
             } else {
               $scope.err = true;
-              $scope.errorMessage = $filter('translate')('validation_message_login_failed');
+              $scope.errorMessage = $filter("translate")(
+                "validation_message_login_failed"
+              );
             }
           },
           function(error) {}
@@ -282,7 +310,7 @@ app.controller("LoginCtrl", function(
 });
 
 //Logout of Controller
-app.controller("LogoutCtrl", function($scope, CommonService) {
+app.controller("LogoutCtrl", function($scope, CommonService, LocalDataService) {
   $scope.loading = false;
 
   $scope.err = false;
@@ -292,37 +320,27 @@ app.controller("LogoutCtrl", function($scope, CommonService) {
     $scope.err = false;
     $scope.loading = true;
 
-    CommonService.CallAjaxUsingPostRequest(ajaxUrl, { action: "logout_method"})
-        .then(
-          function(data) {
-            if (data.Success == true) {
-              let date = new Date().toUTCString();
-              document.cookie = "laundryCookie=y; expires=" + date;
-
-              localStorage.removeItem("Myorder_" + localStorage.getItem("laundryUser"));
-              localStorage.removeItem("laundryUser");
-              localStorage.removeItem("rememberMe");
-
-              window.location.reload();
-            } else {
-              $scope.err = true;
-              $scope.errorMessage = data.Message;
-            }
-          },
-          function(error) {}
-        )
-        .finally(function() {
-          $scope.loading = false;
-        });
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, { action: "logout_method" })
+      .then(
+        function(data) {
+          if (data.Success == true) {
+            LocalDataService.removeUserData();
+            window.location.reload();
+          } else {
+            $scope.err = true;
+            $scope.errorMessage = data.Message;
+          }
+        },
+        function(error) {}
+      )
+      .finally(function() {
+        $scope.loading = false;
+      });
   };
 });
 
 // Signup of Controller
-app.controller("SignupCtrl", function(
-  $scope,
-  $httpParamSerializer,
-  $http
-) {
+app.controller("SignupCtrl", function($scope, $httpParamSerializer, $http) {
   $scope.loading = false;
 
   $scope.err = false;
@@ -369,13 +387,13 @@ app.controller("SignupCtrl", function(
           console.log(res.data);
 
           if (res.Success == true) {
-            let date = new Date();
-            localStorage.setItem("laundryUser", res.data.id);
+            // let date = new Date();
+            // localStorage.setItem("laundryUser", res.data.id);
 
-            let date1 = new Date(
-              date.setHours(date.getHours() + 1)
-            ).toUTCString();
-            document.cookie = "laundryCookie=y; expires=" + date1;
+            // let date1 = new Date(
+            //   date.setHours(date.getHours() + 1)
+            // ).toUTCString();
+            // document.cookie = "laundryCookie=y; expires=" + date1;
 
             window.location.reload();
           } else {
@@ -727,7 +745,7 @@ app.controller("DashboardCtrl", function(
       });
   };
 
-  $scope.loadVaults = function(){
+  $scope.loadVaults = function() {
     var data = {};
     data.action = "authenticate_ajax_call";
     data.sub_action = "vaults";
@@ -754,10 +772,12 @@ app.controller("DashboardCtrl", function(
         }, 2000);
         $scope.loading = false;
       });
-  }
+  };
   $scope.deleteAddress = function(addressDetail, index) {
     if (addressDetail && addressDetail !== null) {
-      var confirmation = confirm($filter('translate')('address_deletion_confirmation'));
+      var confirmation = confirm(
+        $filter("translate")("address_deletion_confirmation")
+      );
       if (confirmation) {
         var data = {};
         data.id = addressDetail.id;
@@ -800,9 +820,11 @@ app.controller("DashboardCtrl", function(
         ? $rootScope.CardTypes[vaultDetail.payment_type]
         : vaultDetail.payment_type;
       var confirmation = confirm(
-        $filter('translate')('deletion_confirmation') +
+        $filter("translate")("deletion_confirmation") +
           cardName +
-          " "+ $filter('translate')('vault_details.ends_with') + " " +
+          " " +
+          $filter("translate")("vault_details.ends_with") +
+          " " +
           vaultDetail.number +
           "?"
       );
@@ -844,9 +866,9 @@ app.controller("DashboardCtrl", function(
 
   $scope.openVaultModal = function() {
     $rootScope.showModal("#vaultModal");
-    $timeout(function(){
+    $timeout(function() {
       $rootScope.loadAddPaymentMethodForm(logged_in_user_id);
-    }, 1000)
+    }, 1000);
   };
 
   $scope.openAddressModal = function(addressDetail, index) {
@@ -859,7 +881,6 @@ app.controller("DashboardCtrl", function(
     $rootScope.showModal("#addressModal");
   };
 
-  
   $scope.displayCityName = function(cityId) {
     var cityText = "N/A";
     if (cityId > 0) {
@@ -871,7 +892,6 @@ app.controller("DashboardCtrl", function(
     }
     return cityText;
   };
-
 });
 
 // pricing of Controller
@@ -945,20 +965,20 @@ app.controller("FaqsCtrl", function($scope) {
 app.controller("OrdersummaryCtrl", function(
   $scope,
   $rootScope,
-  $http,
   $timeout,
-  $httpParamSerializer,
-  $location,
   CommonService,
+  LocalDataService,
   WizardHandler,
   $filter
 ) {
   $scope.showLoading = true;
   $scope.loading = false;
 
-  let userId = localStorage.getItem("laundryUser");
-
+  let userId = logged_in_user_id;
   $scope.isUserLoggedIn = is_user_logged_in;
+
+  $scope.set_order_system = "FULL"; // 'full' or 'quick'
+
   $scope.orderCreationDone = false;
 
   $scope.lastStepNumber = $scope.isUserLoggedIn ? 5 : 8;
@@ -1013,23 +1033,27 @@ app.controller("OrdersummaryCtrl", function(
     pickupTime: {},
     deliveryDate: {},
     deliveryTime: {},
-    userDetails: {
-      id: null,
-      full_name: null,
-      email: null,
-      password: null,
-      phone: null
-    },
-    addressDetails: {
-      id: null,
-      street_name: null,
-      floor: null,
-      pobox: null,
-      unit_number: null,
-      city_id: null,
-      as_default: null
-    },
+    userDetails: {},
+    addressDetails: {},
     paymentDetails: {}
+  };
+
+  $scope.userDetails =  {
+    id: null,
+    full_name: null,
+    email: null,
+    password: null,
+    phone: null
+  };
+
+  $scope.addressDetails = {
+    id: null,
+    street_name: null,
+    floor: null,
+    pobox: null,
+    unit_number: null,
+    city_id: null,
+    as_default: null
   };
 
   var days = [
@@ -1041,6 +1065,7 @@ app.controller("OrdersummaryCtrl", function(
     "friday",
     "saturday"
   ];
+
   var months = new Array();
   months[0] = "January";
   months[1] = "February";
@@ -1058,63 +1083,57 @@ app.controller("OrdersummaryCtrl", function(
   initializeOrderCreation();
 
   function initializeOrderCreation() {
-
     if (getLocalStorageData()) {
       $scope.localData = getLocalStorageData();
     }
 
-    let req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer({ action: "order_creation_data", customer_id: $scope.localData.userDetails.id}),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
+    var request_data = {
+      action: "order_creation_data",
+      customer_id: getObjectLength($scope.localData) > 0 ? $scope.localData.userDetails.id : -1
     };
 
-    $http(req)
-      .then(function(response) {
-        var res = response.data;
-        console.log(res);
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+      .then(
+        function(response) {
+          if (response.Success == true) {
+            if (response.cities && response.cities.length > 0)
+              $scope.cityData = response.cities;
 
-        if (res.Success == true) {
-          if (res.cities && res.cities.length > 0) $scope.cityData = res.cities;
+            if (response.options && response.options.length > 0)
+              $scope.optionsData = response.options[0];
 
-          if (res.options && res.options.length > 0)
-            $scope.optionsData = res.options[0];
+            if (response.timeslots && response.timeslots.length > 0)
+              $scope.TimeSlots = response.timeslots;
 
-          if (res.timeslots && res.timeslots.length > 0)
-            $scope.TimeSlots = res.timeslots;
+            if ($scope.isUserLoggedIn == true) {
+              if (response.addresses && response.addresses.length > 0) {
+                extractDefaultAddress(response.addresses);
+              } else {
+                $scope.showAddressDetailStep = true;
+                $scope.lastStepNumber += 1;
+              }
 
-          if($scope.isUserLoggedIn == true) {
-            if (res.addresses && res.addresses.length > 0) {
-              extractDefaultAddress(res.addresses);
+              if (response.vaults && response.vaults.length > 0) {
+                extractDefaultVault(response.vaults);
+              } else {
+                $scope.showPaymentDetailStep = true;
+                $scope.lastStepNumber += 1;
+              }
             } else {
-              $scope.showAddressDetailStep = true;
-              $scope.lastStepNumber += 1;
-            }
+              if (response.addresses && response.addresses.length > 0) {
+                $scope.AllAddresses = response.addresses;
+              }
 
-            if (res.vaults && res.vaults.length > 0) {
-              extractDefaultVault(res.vaults);
-            } else {
-              $scope.showPaymentDetailStep = true;
-              $scope.lastStepNumber += 1;
-            }
-          } else {
-            if (res.addresses && res.addresses.length > 0) {
-              $scope.AllAddresses = res.addresses;
-            }
-
-            if (res.vaults && res.vaults.length > 0) {
-              $scope.AllPayments = res.vaults;
+              if (response.vaults && response.vaults.length > 0) {
+                $scope.AllPayments = response.vaults;
+              }
             }
           }
-        }
+        },
+        function(error) {}
+      )
+      .finally(function() {
         $scope.showLoading = false;
-      })
-      .catch(function(err) {
-        $scope.showLoading = false;
-        console.log(err);
       });
   }
 
@@ -1140,12 +1159,12 @@ app.controller("OrdersummaryCtrl", function(
         goToStep = 7;
       } else if (
         !$scope.isUserLoggedIn &&
-        $scope.localData.addressDetails.id > 0
+        $scope.localData.addressDetails.street_name != null
       ) {
         goToStep = 6;
       } else if (
         !$scope.isUserLoggedIn &&
-        $scope.localData.userDetails.id > 0
+        $scope.localData.userDetails.email != null
       ) {
         goToStep = 5;
       } else if (getObjectLength($scope.localData.deliveryTime) != 0) {
@@ -1188,6 +1207,8 @@ app.controller("OrdersummaryCtrl", function(
     switch (stepTitle) {
       case $scope.Steps.pickup_date:
         $scope.showAllpickupDateList = false;
+        $scope.userDetails = angular.copy($scope.localData.userDetails);
+        $scope.addressDetails = angular.copy($scope.localData.addressDetails);
         break;
 
       case $scope.Steps.pickup_time:
@@ -1199,15 +1220,19 @@ app.controller("OrdersummaryCtrl", function(
         functionForDropDate();
         break;
 
-      case $scope.Steps.address_detail:
-        $scope.localData = getLocalStorageData();
+      case $scope.Steps.user_detail:
+        $scope.userDetails = angular.copy($scope.localData.userDetails);
       break;
+
+      case $scope.Steps.address_detail:
+        $scope.addressDetails = angular.copy($scope.localData.addressDetails);
+        break;
 
       case $scope.Steps.payment_detail:
         $timeout(function() {
-            functionForPaymentDetail();
+          functionForPaymentDetail();
         }, 1000);
-      break;
+        break;
     }
   });
 
@@ -1310,7 +1335,7 @@ app.controller("OrdersummaryCtrl", function(
     let name = "";
     let price = "";
     let label = "";
-    
+
     for (var i = 0; i < 16 + length; i++) {
       name = "";
       price = "";
@@ -1326,7 +1351,7 @@ app.controller("OrdersummaryCtrl", function(
         // name = 'day after';
         name = "Next day delievery";
         price = $scope.optionsData.next_day_delivery_price;
-      }  else {
+      } else {
         name = days[d.getDay()];
       }
 
@@ -1373,12 +1398,14 @@ app.controller("OrdersummaryCtrl", function(
 
   // wizard sixth start
   function functionForPaymentDetail() {
-    $rootScope.loadAddPaymentMethodForm(!$scope.isUserLoggedIn ? $scope.localData.userDetails.id : userId);
+    $rootScope.loadAddPaymentMethodForm(
+      !$scope.isUserLoggedIn ? $scope.localData.userDetails.id : userId
+    );
   }
   // wizard sixth closed
 
   // Wizard last step
-  $scope.goToStep = function(stepNumber){
+  $scope.goToStep = function(stepNumber) {
     if ($scope.Wizard) {
       $scope.Wizard.goTo(stepNumber);
     }
@@ -1389,18 +1416,27 @@ app.controller("OrdersummaryCtrl", function(
   /* Common Functions */
 
   function ordinal_suffix_of(i) {
-      var j = i % 10,
-          k = i % 100;
-      if (j == 1 && k != 11) {
-          return i + "st";
-      }
-      if (j == 2 && k != 12) {
-          return i + "nd";
-      }
-      if (j == 3 && k != 13) {
-          return i + "rd";
-      }
-      return i + "th";
+    var j = i % 10,
+      k = i % 100;
+    if (j == 1 && k != 11) {
+      return i + "st";
+    }
+    if (j == 2 && k != 12) {
+      return i + "nd";
+    }
+    if (j == 3 && k != 13) {
+      return i + "rd";
+    }
+    return i + "th";
+  }
+
+  function checkNoServiceCity(city_id) {
+    var city = $scope.cityData.find(x => x.id == city_id);
+    if(city && $filter('lowercase')(city.title) != 'copenhagen') {
+      $rootScope.showModal("#noServiceModal");
+      return true;
+    }
+    return false;
   }
 
   function validationByStepTitle(stepTitle) {
@@ -1445,105 +1481,69 @@ app.controller("OrdersummaryCtrl", function(
   }
 
   function getUserPaymentDetails() {
-    let req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer({
-        action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
-        sub_action: "vaults",
-        user_id: !$scope.isUserLoggedIn ? $scope.localData.userDetails.id : -1
-      }),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
+    var request_data = {
+      action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
+      sub_action: "vaults",
+      user_id: !$scope.isUserLoggedIn ? $scope.userDetails.id : -1
     };
 
     $scope.paymentErr = false;
 
-    $http(req)
-      .then(function(response) {
-        var res = response.data;
-        console.log(res);
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+      .then(
+        function(response) {
+          if (response.Success == true) {
+            var data = response.data;
 
-        if (res.Success == true) {
-          var data = res.data;
-          if (data && data.vault && data.vault.length > 0) {
+            if (data && data.vault && data.vault.length > 0) {
+              extractDefaultVault(data.vault);
 
-            extractDefaultVault(data.vault);
+              if (!$scope.isUserLoggedIn) {
+                $scope.localData.paymentDetails = $scope.getPayment;
 
-            if (!$scope.isUserLoggedIn) {
-              $scope.localData.paymentDetails = $scope.getPayment;
+                // Save local storage
+                saveLocalData($scope.localData);
 
-              // Save local storage
-              let obj = JSON.stringify($scope.localData);
-              saveLocalData(obj);
-
-              if(jQuery('#vaultAddModal').is(":visible"))
-              $rootScope.closeModal('#vaultAddModal');
-              else
-                $scope.Wizard.next();
+                if (jQuery("#vaultAddModal").is(":visible"))
+                  $rootScope.closeModal("#vaultAddModal");
+                else $scope.Wizard.next();
+              }
+            } else {
+              $scope.paymentErr = true;
+              $scope.paymentErrorMessage =
+                "Please add payment before proceeding";
             }
-            //getVault($scope.getPayment.vault_id);
-          } else {
-            $scope.paymentErr = true;
-            $scope.paymentErrorMessage = "Please add payment before proceeding";
           }
-        }
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  }
-
-  function getVault(id) {
-    $scope.loading = true;
-
-    let req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer({
-        action: "authenticate_ajax_call",
-        sub_action: "vaultById",
-        vault_id: id
-      }),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
-
-    $http(req)
-      .then(function(response) {
+        },
+        function(error) {}
+      )
+      .finally(function() {
         $scope.loading = false;
-        var res = response.data;
-        console.log(res.data);
-        if (res.Success == true) {
-          $scope.getPayment = res.data;
-        }
-      })
-      .catch(function(err) {
-        $scope.loading = false;
-        console.log(err);
       });
   }
 
   function saveUserDetails(partialInfo, pickupDate) {
-    if(partialInfo && !jQuery('#partial_' + $scope.Steps.user_detail).valid()) return;
+    debugger;
+    if (partialInfo && !jQuery("#partial_" + $scope.Steps.user_detail).valid())
+      return;
     else if (!validationByStepTitle($scope.Steps.user_detail)) return;
-
 
     $scope.loading = true;
 
-    var userData = $scope.localData.userDetails;
+    var userData = $scope.userDetails;
+    var addressData = $scope.addressDetails;
 
     var request_data = {};
-    if(partialInfo) {
+    if (partialInfo) {
       request_data = {
         id: userData.id,
         full_name: userData.full_name,
         phone: userData.phone,
-        sex: '1',
+        sex: "1",
+        address_id: addressData.id,
+        city_id: addressData.city_id,
         action: "ajax_call",
-        sub_action: "register"
+        sub_action: "save_user_info"
       };
     } else {
       request_data = {
@@ -1552,7 +1552,7 @@ app.controller("OrdersummaryCtrl", function(
         email: userData.email,
         password: userData.password,
         phone: userData.phone,
-        sex: '1',
+        sex: "1",
         action: "ajax_call",
         sub_action: "register"
       };
@@ -1562,110 +1562,133 @@ app.controller("OrdersummaryCtrl", function(
     $scope.loading = true;
 
     CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
-        .then(
-          function(data) {
-            if (data.Success == true) {
-              if (!$scope.isUserLoggedIn) {
-                if(partialInfo) {
-                  $scope.localData.pickupDate = pickupDate;
+      .then(
+        function(data) {
+          if (data.Success == true) {
+            var result = data.data;
+
+            if (!$scope.isUserLoggedIn) {
+              if (partialInfo) {
+                $scope.userDetails.id = result.id;
+                $scope.addressDetails.id = result.address_id;
+
+                var check = checkNoServiceCity(request_data.city_id);
+                if(check == true) {
+                  return false;
+                }
+                $scope.localData.pickupDate = pickupDate;
+
+                if($scope.set_order_system == "QUICK") {
+                  $scope.localData.userDetails.id = angular.copy($scope.userDetails.id);
+                } else {
+                  $scope.localData.userDetails = angular.copy($scope.userDetails);
                 }
 
-                $scope.localData.userDetails.id = data.data.id;
-
-                // Save local storage
-                let obj = JSON.stringify($scope.localData);
-                saveLocalData(obj);
+                $scope.localData.addressDetails = angular.copy($scope.addressDetails);
+                $scope.getAddress = angular.copy($scope.localData.addressDetails);
+              } else {
+                $scope.localData.userDetails = angular.copy($scope.userDetails);
               }
-              $scope.Wizard.next();
-            } else {
-              $scope.userErr = true;
-              $scope.userErrorMessage = data.Message;
-            } 
-          },
-          function(error) {}
-        )
-        .finally(function() {
-          $scope.loading = false;
-        });
+
+              // Save local storage
+              saveLocalData($scope.localData);
+            }
+            $scope.Wizard.next();
+          } else {
+            $scope.userErr = true;
+            $scope.userErrorMessage = data.Message;
+          }
+        },
+        function(error) {}
+      )
+      .finally(function() {
+        $scope.loading = false;
+      });
   }
 
   function saveAddressDetails(nextAllowed) {
-    if(nextAllowed && !validationByStepTitle($scope.Steps.address_detail))
+    if (nextAllowed && !validationByStepTitle($scope.Steps.address_detail))
       return;
-    else if(!nextAllowed && !jQuery('#partial_' + $scope.Steps.address_detail).valid())
+    else if (
+      !nextAllowed &&
+      !jQuery("#partial_" + $scope.Steps.address_detail).valid()
+    )
       return;
 
-    $scope.loading = true;
+    var addressData = $scope.addressDetails;
 
-    let data = {
-      id: $scope.localData.addressDetails.id,
+    var check = checkNoServiceCity(addressData.city_id);
+    if(check == true) {
+      return false;
+    }
+
+    var request_data = {
+      id: addressData.id,
       customer_id: !$scope.isUserLoggedIn
         ? $scope.localData.userDetails.id
         : -1,
-      street_name: $scope.localData.addressDetails.street_name,
-      floor: $scope.localData.addressDetails.floor,
-      pobox: $scope.localData.addressDetails.pobox,
-      city_id: $scope.localData.addressDetails.city_id,
-      unit_number: $scope.localData.addressDetails.unit_number,
+      street_name: addressData.street_name,
+      floor: addressData.floor,
+      pobox: addressData.pobox,
+      city_id: addressData.city_id,
+      unit_number: addressData.unit_number,
       as_default: "1",
       action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
       sub_action: "create_address"
     };
 
-    let req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer(data),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
     $scope.loading = true;
     $scope.addressErr = false;
 
-    $http(req)
-      .then(function(response) {
-        $scope.loading = false;
-        var res = response.data;
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+      .then(
+        function(data) {
+          if (data.Success == true) {
+            var result = data.data;
 
-        if (res.Success == true) {
-          $scope.AllAddresses.push(res.data);
-          $scope.getAddress = res.data;
+            $scope.addressDetails = result;
 
-          if (!$scope.isUserLoggedIn) {
-            // Save local storage
-            $scope.localData.addressDetails = res.data;
-            let obj = JSON.stringify($scope.localData);
-            saveLocalData(obj);
+            if(addressData.id > 0) {
+              var addressIndex = $scope.AllAddresses.findIndex(x=>x.id == addressData.id);
+              if(addressIndex > -1) {
+                $scope.AllAddresses[addressIndex] = result;
+              } else {
+                $scope.AllAddresses.push(result);
+              }
+            } else {
+              $scope.AllAddresses.push(result);
+            }
+
+            $scope.getAddress = result;
+
+            if (!$scope.isUserLoggedIn) {
+              // Save local storage
+              $scope.localData.addressDetails = result;
+              saveLocalData($scope.localData);
+            }
+
+            if (nextAllowed) $scope.Wizard.next();
+            else $scope.changeAddress(result);
+          } else {
+            $scope.addressErr = true;
+            $scope.addressErrorMessage = res.Message;
           }
-
-          if(nextAllowed)
-            $scope.Wizard.next();
-          else
-            $scope.changeAddress(res.data);
-
-        } else {
-          $scope.addressErr = true;
-          $scope.addressErrorMessage = res.Message;
-        }
-      })
-      .catch(function(error) {
+        },
+        function(error) {}
+      )
+      .finally(function() {
         $scope.loading = false;
-        let err = error.data;
-        $scope.addressErr = true;
-        $scope.addressErrorMessage = err[0].message;
-        // console.log(error);
       });
   }
 
   function extractDefaultAddress(addresses) {
     $scope.AllAddresses = addresses;
 
-    var address = addresses.find(function(adr){
+    var address = addresses.find(function(adr) {
       return adr.as_default == 1;
     });
 
-    if(address && address !== null) {
+    if (address && address !== null) {
       $scope.getAddress = address;
     } else {
       $scope.getAddress = addresses[0];
@@ -1675,46 +1698,45 @@ app.controller("OrdersummaryCtrl", function(
   function extractDefaultVault(vaults) {
     $scope.AllPayments = vaults;
 
-    var vault = vaults.find(function(vlt){
+    var vault = vaults.find(function(vlt) {
       return vlt.as_default == 1;
     });
 
-    if(vault && vault !== null) {
+    if (vault && vault !== null) {
       $scope.getPayment = vault;
     } else {
       $scope.getPayment = vaults[0];
     }
   }
 
-
-
   /* End of Common Functions */
 
   $scope.changeVault = function(vaultDetail) {
-    if(vaultDetail.as_default == 1) {
+    if (vaultDetail.as_default == 1) {
       $scope.getPayment = vaultDetail;
-      
-      if(!$scope.isUserLoggedIn) {
+
+      if (!$scope.isUserLoggedIn) {
         $scope.localData.paymentDetails = vaultDetail;
-        let obj = JSON.stringify($scope.localData);
-        saveLocalData(obj);
+
+        saveLocalData($scope.localData);
       }
 
-      $rootScope.closeModal('#vaultChangeModal');
+      $rootScope.closeModal("#vaultChangeModal");
     } else {
       $scope.loading = true;
 
       var request_data = {};
       request_data.id = vaultDetail.id;
-      request_data.action = $scope.isUserLoggedIn? "authenticate_ajax_call": "ajax_call";
+      request_data.action = $scope.isUserLoggedIn
+        ? "authenticate_ajax_call"
+        : "ajax_call";
       request_data.sub_action = "set_default_vault";
-      if(!$scope.isUserLoggedIn)
+      if (!$scope.isUserLoggedIn)
         request_data.customer_id = $scope.localData.userDetails.id;
 
       CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
         .then(
           function(data) {
-
             if (data.Success == true) {
               $scope.AllPayments.map(function(vault) {
                 if (vault.id == request_data.id) {
@@ -1724,46 +1746,47 @@ app.controller("OrdersummaryCtrl", function(
                 }
               });
 
-              vaultDetail.as_default = '1';
+              vaultDetail.as_default = "1";
               $scope.getPayment = vaultDetail;
 
-              if(!$scope.isUserLoggedIn) {
+              if (!$scope.isUserLoggedIn) {
                 $scope.localData.paymentDetails = vaultDetail;
-                let obj = JSON.stringify($scope.localData);
-                saveLocalData(obj);
+                saveLocalData($scope.localData);
               }
 
-              $rootScope.closeModal('#vaultAddModal');
-              $rootScope.closeModal('#vaultChangeModal');
-            } 
+              $rootScope.closeModal("#vaultAddModal");
+              $rootScope.closeModal("#vaultChangeModal");
+            }
           },
           function(error) {}
         )
         .finally(function() {
           $scope.loading = false;
         });
-      }
-  }
+    }
+  };
 
   $scope.changeAddress = function(address) {
-    if(address.as_default == 1) {
+    if (address.as_default == 1) {
       $scope.getAddress = address;
-      
-      if(!$scope.isUserLoggedIn) {
+
+      if (!$scope.isUserLoggedIn) {
         $scope.localData.addressDetails = address;
-        let obj = JSON.stringify($scope.localData);
-        saveLocalData(obj);
+        saveLocalData($scope.localData);
       }
 
-      $rootScope.closeModal('#addressChangeModal');
+      $rootScope.closeModal("#addressAddModal");
+      $rootScope.closeModal("#addressChangeModal");
     } else {
       $scope.loading = true;
 
       var request_data = {};
       request_data.id = address.id;
-      request_data.action = $scope.isUserLoggedIn? "authenticate_ajax_call": "ajax_call";
+      request_data.action = $scope.isUserLoggedIn
+        ? "authenticate_ajax_call"
+        : "ajax_call";
       request_data.sub_action = "set_default_address";
-      if(!$scope.isUserLoggedIn)
+      if (!$scope.isUserLoggedIn)
         request_data.customer_id = $scope.localData.userDetails.id;
 
       CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
@@ -1777,14 +1800,13 @@ app.controller("OrdersummaryCtrl", function(
                   return (address.as_default = 0);
                 }
               });
-              
-              address.as_default = '1';
+
+              address.as_default = "1";
               $scope.getAddress = address;
 
-              if(!$scope.isUserLoggedIn) {
+              if (!$scope.isUserLoggedIn) {
                 $scope.localData.addressDetails = address;
-                let obj = JSON.stringify($scope.localData);
-                saveLocalData(obj);
+                saveLocalData($scope.localData);
               }
 
               $rootScope.closeModal("#addressAddModal");
@@ -1796,11 +1818,11 @@ app.controller("OrdersummaryCtrl", function(
         .finally(function() {
           $scope.loading = false;
         });
-      }
-  }
+    }
+  };
 
   $scope.openAddAddressModal = function() {
-    $scope.localData.addressDetails = {
+    $scope.addressDetails = {
       id: null,
       street_name: null,
       floor: null,
@@ -1811,7 +1833,7 @@ app.controller("OrdersummaryCtrl", function(
     $rootScope.closeModal("#addressChangeModal");
 
     $rootScope.showModal("#addressAddModal");
-  }
+  };
 
   $scope.openAddVaultModal = function() {
     debugger;
@@ -1820,14 +1842,14 @@ app.controller("OrdersummaryCtrl", function(
     $rootScope.showModal("#vaultAddModal");
     $timeout(function() {
       functionForPaymentDetail();
-    }, 1000)
-  }
+    }, 1000);
+  };
 
   /* Perform Action contains multiple actions */
   $scope.performAction = function(action, value) {
     switch (action) {
       case "SAVE_PICKUP_DATE":
-      if($scope.isUserLoggedIn == true) {
+        if ($scope.isUserLoggedIn == true) {
           $scope.localData.pickupDate = value;
           $scope.Wizard.next();
         } else {
@@ -1838,11 +1860,19 @@ app.controller("OrdersummaryCtrl", function(
 
       case "SELECT_PICKUP_TIME":
         $scope.localData.pickupTime = value;
+        if(!$scope.isUserLoggedIn && $scope.set_order_system == 'QUICK') {
+          $scope.createOrder();
+          return false;
+        }
         break;
 
       case "SELECT_PICKUP_AT_DOOR":
         $scope.localData.pickupTime = {};
         $scope.localData.pickupTime.leaveAtdoor = "y";
+        if(!$scope.isUserLoggedIn && $scope.set_order_system == 'QUICK') {
+          $scope.createOrder();
+          return false;
+        }
         break;
 
       case "SAVE_DELIVERY_DATE":
@@ -1874,8 +1904,7 @@ app.controller("OrdersummaryCtrl", function(
         break;
     }
 
-    let obj = JSON.stringify($scope.localData);
-    saveLocalData(obj);
+    saveLocalData($scope.localData);
 
     // Check Validation
     $scope.checkValidation();
@@ -1885,100 +1914,110 @@ app.controller("OrdersummaryCtrl", function(
   $scope.createOrder = function() {
     $scope.err = false;
 
-    if (!$scope.getAddress) {
-      $scope.err = true;
-      $scope.errorMessage = "Please add address details";
-      return;
-    }
+    var request_data = {};
+    if ($scope.isUserLoggedIn == true || $scope.set_order_system == "FULL") {
+      if (!$scope.getAddress) {
+        $scope.err = true;
+        $scope.errorMessage = "Please add address details";
+        return;
+      }
 
-    if (!$scope.getPayment) {
-      $scope.err = true;
-      $scope.errorMessage = "Please add payment details";
-      return;
+      if (!$scope.getPayment) {
+        $scope.err = true;
+        $scope.errorMessage = "Please add payment details";
+        return;
+      }
+
+      var confuseDate = $scope.localData.deliveryDate.date;
+      var simpleDate = new Date(confuseDate).toISOString().substr(0, 10);
+
+      request_data = {
+        drop_date: simpleDate,
+        drop_time_from: $scope.localData.deliveryTime.time_from,
+        drop_time_to: $scope.localData.deliveryTime.time_to,
+        drop_price: $scope.localData.deliveryTime.price,
+        drop_type: $scope.localData.deliveryTime.type,
+        next_day_drop:
+          $scope.localData.deliveryDate.name == "next day deliever" ? 1 : 0,
+        drop_at_door: $scope.localData.deliveryTime.leaveAtdoor == "y" ? 1 : 0
+      };
     }
 
     var confuseDatepickup = $scope.localData.pickupDate.date;
     var simpleDatepickup = new Date(confuseDatepickup)
       .toISOString()
       .substr(0, 10);
-    var confuseDate = $scope.localData.deliveryDate.date;
-    var simpleDate = new Date(confuseDate).toISOString().substr(0, 10);
 
-    let data = {
-      payment_id: $scope.getPayment.id,
-      status: "0",
-      pickup_date: simpleDatepickup,
-      pickup_time_from: $scope.localData.pickupTime.time_from,
-      pickup_time_to: $scope.localData.pickupTime.time_to,
-      pickup_price: $scope.localData.pickupTime.price,
-      pickup_type: $scope.localData.pickupTime.type,
-      drop_date: simpleDate,
-      drop_time_from: $scope.localData.deliveryTime.time_from,
-      drop_time_to: $scope.localData.deliveryTime.time_to,
-      drop_price: $scope.localData.deliveryTime.price,
-      drop_type: $scope.localData.deliveryTime.type,
-      address_id: $scope.getAddress.id,
-      same_day_pickup: $scope.localData.pickupDate.name == "Today" ? "1" : "0",
-      next_day_drop:
-        $scope.localData.deliveryDate.name == "next day deliever" ? "1" : "0",
-      comments: null,
-      customer_id: !$scope.isUserLoggedIn
-        ? $scope.localData.userDetails.id
-        : -1,
-      pickup_at_door: $scope.localData.pickupTime.leaveAtdoor == "y" ? 1 : 0,
-      drop_at_door: $scope.localData.deliveryTime.leaveAtdoor == "y" ? 1 : 0,
-      action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
-      sub_action: "create_order"
-    };
+    request_data["pickup_date"] = simpleDatepickup;
+    request_data["status"] = "0";
+    request_data["pickup_time_from"] = $scope.localData.pickupTime.time_from;
+    request_data["pickup_time_to"] = $scope.localData.pickupTime.time_to;
+    request_data["pickup_price"] = $scope.localData.pickupTime.price;
+    request_data["pickup_type"] = $scope.localData.pickupTime.type;
+    request_data["address_id"] = $scope.getAddress.id;
+    request_data["same_day_pickup"] =
+      $scope.localData.pickupDate.name == "Today" ? "1" : "0";
+    request_data["comments"] = null;
+    request_data["customer_id"] = !$scope.isUserLoggedIn
+      ? $scope.localData.userDetails.id
+      : -1;
+    request_data["pickup_at_door"] =
+      $scope.localData.pickupTime.leaveAtdoor == "y" ? 1 : 0;
+    request_data["action"] = !$scope.isUserLoggedIn
+      ? "ajax_call"
+      : "authenticate_ajax_call";
+    request_data["sub_action"] = "create_order";
 
-    for (let key in data) {
-      if (!data[key]) {
-        data[key] = "0";
+    for (let key in request_data) {
+      if (!request_data[key]) {
+        request_data[key] = "0";
       }
     }
 
     $scope.showLoading = true;
 
-    CommonService.CallAjaxUsingPostRequest(ajaxUrl, data).then(
-      function(data) {
-        if(data.Success == true) {
-
-          $scope.orderCreationDone = true;
-          $timeout(function() {
-            removeLoalStorageAndGoToDashboard();
-          }, 3000);
-        } else {
-          $scope.err = true;
-          $scope.errorMessage = data.Message;
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+      .then(
+        function(data) {
+          if (data.Success == true) {
+            $scope.orderCreationDone = true;
+            $timeout(function() {
+              removeLoalStorageAndGoToDashboard();
+            }, 3000);
+          } else {
+            $scope.err = true;
+            $scope.errorMessage = data.Message;
+          }
+        },
+        function(error) {
+          console.log("error");
+          console.log(err);
         }
-      },
-      function(error) {
-        console.log("error");
-        console.log(err);
-      }
-    )
-    .finally(function() {
-      $scope.showLoading = false;
-    });
+      )
+      .finally(function() {
+        $scope.showLoading = false;
+      });
   };
 
   /* Cancel Order */
   $scope.onCancelOrder = function() {
-
-    if(getObjectLength($scope.localData.pickupDate) > 0) {
-      var confirmation = confirm($filter('translate')('request_pickup_order_cancel_confirmation'));
+    if (getObjectLength($scope.localData.pickupDate) > 0) {
+      var confirmation = confirm(
+        $filter("translate")("request_pickup_order_cancel_confirmation")
+      );
 
       if (confirmation) {
         removeLoalStorageAndGoToDashboard();
       }
     } else {
-      $rootScope.closeModal('#requestPickupModal');
+      $rootScope.closeModal("#requestPickupModal");
     }
   };
 
   // save onto local storage closed
   function getLocalStorageData() {
-    var order = localStorage.getItem(getLocalStorageKeyOfOrder());
+    debugger;
+    var order = LocalDataService.getOrderData(); //localStorage.getItem(getLocalStorageKeyOfOrder());
 
     let obj = {};
     if (order) {
@@ -1994,20 +2033,12 @@ app.controller("OrdersummaryCtrl", function(
   }
 
   function removeLoalStorageAndGoToDashboard() {
-    localStorage.removeItem(getLocalStorageKeyOfOrder());
+    LocalDataService.removeOrderData();
     window.location.reload();
   }
 
   function saveLocalData(data) {
-    localStorage.setItem(getLocalStorageKeyOfOrder(), data);
-  }
-
-  function getLocalStorageKeyOfOrder() {
-    var key = "Myorder";
-    if ($scope.isUserLoggedIn) {
-      key = "Myorder_" + userId;
-    }
-
-    return key;
+    let obj = JSON.stringify(data);
+    LocalDataService.saveOrderData(obj);
   }
 });

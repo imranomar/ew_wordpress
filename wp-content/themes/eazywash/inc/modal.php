@@ -131,16 +131,28 @@
                                 <div class="col-sm-12">
                                     <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}</p>
 
-                                    <form name="partial_{{Steps.user_detail}}" id="partial_{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
+                                    <form name="partial_{{Steps.user_detail}}" id="partial_{{Steps.user_detail}}" ng-validate="userDetailsValidationOptions">
+                                        <div class="row">
+                                            <div class="form-group col-sm-12">
+                                                <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
+                                                <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="userDetails.full_name" ng-disabled="loading" />
+                                            </div>
+                                        </div>
+
                                         <div class="row">
                                             <div class="form-group col-sm-6">
-                                                <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
-                                                <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="localData.userDetails.full_name" ng-disabled="loading" />
-                                            </div>
-                                            
-                                            <div class="form-group col-sm-6">
                                                 <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
-                                                <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="localData.userDetails.phone" ng-disabled="loading" />
+                                                <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="userDetails.phone" ng-disabled="loading" />
+                                            </div>
+
+                                            <div class="form-group col-sm-6">
+                                                <label class="font-weight-bold">{{'address_details.city' | translate}}</label>
+                                                <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control">
+                                                    <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
+                                                    <option ng-repeat="value in cityData" value="{{value.id}}">
+                                                        {{value.title}}
+                                                    </option>                                 
+                                                </select>
                                             </div>
                                         </div>
                                     </form>
@@ -255,7 +267,7 @@
                             </div>
                         </wz-step>
 
-                        <wz-step wz-title="3" wz-heading-title="{{Steps.drop_date}}" canenter="validateStep">
+                        <wz-step wz-title="3" wz-disabled="{{!isUserLoggedIn && set_order_system == 'QUICK'}}" wz-heading-title="{{Steps.drop_date}}" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-12">
                                     <h4> {{'request_drop_date' | translate}}</h4>
@@ -317,7 +329,7 @@
                             </div>
                         </wz-step>
 
-                        <wz-step wz-title="4" wz-heading-title="{{Steps.drop_time}}" canenter="validateStep">
+                        <wz-step wz-title="4" wz-disabled="{{!isUserLoggedIn && set_order_system == 'QUICK'}}" wz-heading-title="{{Steps.drop_time}}" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-12">
                                     <div class='left-align'>
@@ -373,7 +385,7 @@
                             </div>
                         </wz-step>
 
-                        <wz-step wz-title="5" wz-heading-title="{{Steps.user_detail}}" wz-disabled="{{isUserLoggedIn}}" canenter="validateStep">
+                        <wz-step wz-title="5" wz-heading-title="{{Steps.user_detail}}" wz-disabled="{{isUserLoggedIn || (!isUserLoggedIn && set_order_system == 'QUICK')}}" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-12">
                                     <div class='left-align'>
@@ -388,20 +400,20 @@
                                     <form name="{{Steps.user_detail}}" id="{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
-                                            <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="localData.userDetails.full_name" ng-disabled="loading" />
+                                            <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="userDetails.full_name" ng-disabled="loading" />
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.email' | translate}}</label>
 
-                                            <input type="email" name="email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-model="localData.userDetails.email" ng-disabled="loading" />
+                                            <input type="email" name="email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-model="userDetails.email" ng-disabled="loading" />
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.password' | translate}}</label>
-                                            <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="localData.userDetails.password" ng-disabled="loading" />
+                                            <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="userDetails.password" ng-disabled="loading" />
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
-                                            <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="localData.userDetails.phone" ng-disabled="loading" />
+                                            <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="userDetails.phone" ng-disabled="loading" />
                                         </div>
                                     </form>
                                 </div>
@@ -415,7 +427,7 @@
                             </div>
                         </wz-step>
 
-                        <wz-step wz-title="{{isUserLoggedIn && showAddressDetailStep?'5':'6'}}" wz-heading-title="{{Steps.address_detail}}" wz-disabled="{{isUserLoggedIn && showAddressDetailStep == false}}" canenter="validateStep">
+                        <wz-step wz-title="{{isUserLoggedIn && showAddressDetailStep?'5':'6'}}" wz-heading-title="{{Steps.address_detail}}" wz-disabled="{{(isUserLoggedIn && showAddressDetailStep == false) || (!isUserLoggedIn && set_order_system == 'quick')}}" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-12">
                                     <div class='left-align'>
@@ -436,7 +448,7 @@
                             </div>
                         </wz-step>
 
-                        <wz-step wz-title="{{isUserLoggedIn && showPaymentDetailStep?(showAddressDetailStep?'6':'5'):'7'}}" wz-heading-title="{{Steps.payment_detail}}" wz-disabled="{{isUserLoggedIn && showPaymentDetailStep == false}}" canenter="validateStep">
+                        <wz-step wz-title="{{isUserLoggedIn && showPaymentDetailStep?(showAddressDetailStep?'6':'5'):'7'}}" wz-heading-title="{{Steps.payment_detail}}" wz-disabled="{{(isUserLoggedIn && showPaymentDetailStep == false) || (!isUserLoggedIn && set_order_system == 'quick')}}" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-12">
                                     <div class='left-align'>
@@ -454,7 +466,7 @@
                             </div>
                         </wz-step>
                                                     
-                        <wz-step wz-title="{{lastStepNumber}}" wz-heading-title="{{Steps.order_summary}}" canenter="validateStep">
+                        <wz-step wz-title="{{lastStepNumber}}" wz-heading-title="{{Steps.order_summary}}" wz-disabled="!isUserLoggedIn && set_order_system == 'QUICK'" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-12">
                                     <div class='left-align'>
@@ -634,9 +646,11 @@
                     </wizard>
                 </div>
                 <div class="other-content" ng-if="showLoading || orderCreationDone">
-                    <div class="loader" ng-if="showLoading"></div>
+                    <div class="loader-container" ng-if="showLoading">
+                        <div class="loader"></div>
+                    </div>
                     <div class="row text-center" ng-if="orderCreationDone">
-                        <div class="col-sm-6 col-sm-offset-3">
+                        <div class="col-sm-12">
                             <h2 class="text-success">
                                 <i class="glyphicon glyphicon-ok-circle"></i>
                                 <br>
@@ -648,9 +662,29 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- No Services Modal -->
+            <div class="modal fade vertical" id="noServiceModal" role="dialog"  data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{'request_pickup' | translate}}</h4>
+                            <button type="button" class="close" ng-click="closeModal('#noServiceModal')">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                <p>Sorry we are not yet serving your city but will let you know as soon as we get there.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End No Services Modal -->    
         </div>
-    </div>
-    
+    </div>                                            
+
     <!--Vault Card Template-->
     <script type="text/ng-template" id="vault-card.html">
         <div class="card-box">
@@ -706,23 +740,23 @@
             <div class="col-sm-12">
                 <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
                 <div class="form-group">
-                    <input type="text" name="street_name" class="form-control" ng-disabled="loading" placeholder="{{'address_details.street_name' | translate}}" ng-model="localData.addressDetails.street_name" />
+                    <input type="text" name="street_name" class="form-control" ng-disabled="loading" placeholder="{{'address_details.street_name' | translate}}" ng-model="addressDetails.street_name" />
                 </div>
                 
                 <div class="form-group">
-                    <input type="text" name="floor" class="form-control" ng-disabled="loading" placeholder="{{'address_details.floor' | translate}}" ng-model="localData.addressDetails.floor" />
+                    <input type="text" name="floor" class="form-control" ng-disabled="loading" placeholder="{{'address_details.floor' | translate}}" ng-model="addressDetails.floor" />
                 </div>
 
                 <div class="form-group">
-                    <input type="text" name="pobox" class="form-control" ng-disabled="loading" placeholder="{{'address_details.po_box' | translate}}"" ng-model="localData.addressDetails.pobox" />
+                    <input type="text" name="pobox" class="form-control" ng-disabled="loading" placeholder="{{'address_details.po_box' | translate}}"" ng-model="addressDetails.pobox" />
                 </div>
                 
                 <div class="form-group">
-                    <input type="text" name="unit_number" class="form-control" ng-disabled="loading" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="localData.addressDetails.unit_number" />
+                    <input type="text" name="unit_number" class="form-control" ng-disabled="loading" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="addressDetails.unit_number" />
                 </div>
 
                 <div class="form-group">
-                    <select ng-model="localData.addressDetails.city_id" ng-disabled="loading" name="city" class="form-control">
+                    <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control">
                         <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
                         <option ng-repeat="value in cityData" value="{{value.id}}">
                             {{value.title}}

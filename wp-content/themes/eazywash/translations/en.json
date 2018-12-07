@@ -87,7 +87,7 @@
   "request_pickup_order_success": "Order Success",
   "request_pickup_order_success_message": "Thank you. Your order is created successfully.",
   "request_pickup_order_success_information": "Your account is also created. Please login to skip extra steps to place order.",
-  "request_pickup_order_cancel_confirmation": "Do you want to delete address details?",
+  "request_pickup_order_cancel_confirmation": "Your order will be deleted. Do you want to cancel order?",
   "address_deletion_confirmation": "Do you want to delete address details?",
   "deletion_confirmation": "Do you want to delete",
   "change_address": "Change Address",

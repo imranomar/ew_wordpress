@@ -1,4 +1,4 @@
-var app = angular.module("laundryApp", ["ngStorage", "ngRoute", "ngValidate", "mgo-angular-wizard", "pascalprecht.translate"]);
+var app = angular.module("laundryApp", ["ngStorage", "ngCookies", "ngRoute", "ngValidate", "mgo-angular-wizard", "pascalprecht.translate"]);
 
 app.config(function($translateProvider, $validatorProvider) {
   $translateProvider.preferredLanguage('en');
@@ -19,8 +19,7 @@ app.config(function($translateProvider, $validatorProvider) {
   }, "Letters only please");
 });
 
-app.run(function($rootScope, $translate, $filter, CommonService) {
-
+app.run(function($rootScope, $translate, $filter, CommonService, LocalDataService) {
   $rootScope.Languages = {
     'en': 'English',
     'dm': 'Denmark'
@@ -28,15 +27,13 @@ app.run(function($rootScope, $translate, $filter, CommonService) {
 
   $rootScope.SelectedLang = 'en';
 
-  var langauage = CommonService.getLanguageFromLocal();
+  var langauage = LocalDataService.getLanguageFromLocal();
 
   if (langauage) {
     $rootScope.SelectedLang = langauage;
   }
   
   $translate.use($rootScope.SelectedLang);
-
-  
  
   $rootScope.CardTypes = {
     "MC": "Master Card",
@@ -180,21 +177,10 @@ app.run(function($rootScope, $translate, $filter, CommonService) {
 });
 
 
-app.factory("CommonService", function ($http, $q, $httpParamSerializer, $localStorage) {
+app.factory("CommonService", function ($http, $q, $httpParamSerializer) {
     var LOCALSTORAGE_LANGUAGE = "locale";
 
     return {
-      storeLanguageLocal(language) {
-          $localStorage[LOCALSTORAGE_LANGUAGE] = language;
-      },
-      getLanguageFromLocal() {
-          var language = $localStorage[LOCALSTORAGE_LANGUAGE];
-
-          if (!language) {
-              return false;
-          }
-          return language;
-      },
       CallAjaxUsingPostRequest: function (url, dataObject) {
           var defer = $q.defer();
           $http({
@@ -240,6 +226,64 @@ app.factory("CommonService", function ($http, $q, $httpParamSerializer, $localSt
       }
     };
 });
+
+
+
+app.factory("LocalDataService", function ($cookies, $localStorage) {
+    var LOCALSTORAGE_LANGUAGE = "locale";
+    var LOCAL_PREFIX_MYORDER = "myorder";
+
+    return {
+      storeLanguageLocal(language) {
+          $localStorage[LOCALSTORAGE_LANGUAGE] = language;
+      },
+      getLanguageFromLocal() {
+          var language = $localStorage[LOCALSTORAGE_LANGUAGE];
+
+          if (!language) {
+              return false;
+          }
+          return language;
+      },
+      saveOrderData: function(data) {
+        if(is_user_logged_in) {
+            $localStorage[LOCAL_PREFIX_MYORDER + "_"+ logged_in_user_id] = data;
+        } else {
+            var date = new Date();
+            var expireDate = new Date(date.setHours(date.getHours()+1)).toUTCString();
+
+            $cookies.put(LOCAL_PREFIX_MYORDER, data ,{
+                expires: expireDate
+            });
+        }
+      },
+      getOrderData: function(data) {
+        var orderDetails;
+
+        if(is_user_logged_in) {
+            orderDetails = $localStorage[LOCAL_PREFIX_MYORDER + "_"+ logged_in_user_id];
+        } else {
+            orderDetails = $cookies.get(LOCAL_PREFIX_MYORDER);
+        }
+
+        if(!orderDetails) {
+            return false;
+        }
+        return orderDetails;
+      },
+      removeOrderData: function() {
+        if(is_user_logged_in) {
+            delete $localStorage[LOCAL_PREFIX_MYORDER + "_"+ logged_in_user_id];
+        } else {
+            $cookies.remove(LOCAL_PREFIX_MYORDER);
+        }
+      },
+      removeUserData: function() {
+        delete $localStorage[LOCAL_PREFIX_MYORDER + "_"+ logged_in_user_id];
+      }
+    };
+});
+
 
 app.directive('itemFloatingLabel', function() {
   return {

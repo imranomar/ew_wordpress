@@ -186,7 +186,6 @@ function ajax_call() {
 				echo json_encode($result); die;
 			break;
 			
-
 			case "register":
 				if(isset($data['id']) && $data['id'] > 0):
 					$method = 'PUT';
@@ -194,6 +193,11 @@ function ajax_call() {
 				else:
 					$url = 'customersapi/create';
 				endif;
+			break;
+
+			case "save_user_info":
+				$method = 'POST';
+				$url = 'customersapi/adduserinfo';
 			break;
 
 			case 'create_address':
@@ -249,6 +253,7 @@ function ajax_call() {
 						set_user_session($user['data']);
 					}
 				}
+				
 				if(isset($result['data'])) {
 					unset($result['data']['api_token']);
 					unset($result['data']['password']);
@@ -469,6 +474,7 @@ function callAPI($method, $parital_url, $data) {
 	$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	curl_close($curl);
 	$isValidJson = isJson($result);
+	//pr($result);
 	//echo 'ok'.$isValidJson;die;
 	if($isValidJson) {
 		$final_result = json_decode($result, true);
@@ -479,7 +485,12 @@ function callAPI($method, $parital_url, $data) {
 				$response["Message"] = $final_result["Message"];
 				$response["Success"] = false;
 			} else {
-				$response["data"] = $final_result;
+				if(isset($final_result['Data']) && !empty($final_result['Data'])) {
+					$response["data"] = $final_result["Data"];
+				} else {
+					$response["data"] = $final_result;
+				}
+
 				$response["Message"] = null;
 				$response["Success"] = true;
 			}

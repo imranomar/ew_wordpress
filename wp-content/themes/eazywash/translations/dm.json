@@ -89,7 +89,7 @@
 "request_pickup_order_success": "Ordreudvikling",
 "request_pickup_order_success_message": "Tak skal du have. Din ordre er oprettet med succes.",
 "request_pickup_order_success_information": "Din konto er også oprettet. Log venligst ind for at springe ekstra trin for at placere ordre.",
-"request_pickup_order_cancel_confirmation": "Vil du slette adresseoplysninger?",
+"request_pickup_order_cancel_confirmation": "Din ordre bliver slettet. Vil du annullere ordren?",
 "address_deletion_confirmation": "Vil du slette adresseoplysninger?",
 "deletion_confirmation": "Vil du slette",
 "change_address": "Skift adresse",

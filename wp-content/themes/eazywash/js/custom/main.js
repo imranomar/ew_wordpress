@@ -2,12 +2,12 @@ const baseUrl = "http://localhost/advanced/backend/web/";
 const ajaxUrl = my_ajax_object.ajax_url;
 const translationFolderPath  = 'http://localhost/eazywash/wp-content/themes/eazywash/translations/';
 
-window.addEventListener("beforeunload", function (e) {
-  if(!localStorage.getItem('rememberMe')){
-    let date1 = new Date().toUTCString();
-    document.cookie = 'laundryCookie=y; expires=' + date1;
-  }
-});
+// window.addEventListener("beforeunload", function (e) {
+//   if(!localStorage.getItem('rememberMe')){
+//     let date1 = new Date().toUTCString();
+//     document.cookie = 'laundryCookie=y; expires=' + date1;
+//   }
+// });
 
 //initialise and setup facebook js sdk
   window.fbAsyncInit = function() {
@@ -59,21 +59,22 @@ window.addEventListener("beforeunload", function (e) {
                       },
                       success: function (ress) {
                         console.log(ress.id);
-                        let check = document.getElementsByClassName('rememberMeCheck')[0];
-                        localStorage.setItem('laundryUser', ress.id);
+
+                        // let check = document.getElementsByClassName('rememberMeCheck')[0];
+                        // localStorage.setItem('laundryUser', ress.id);
                         
-                        let date = new Date();
-                        if(check){
-                          localStorage.setItem('rememberMe', 'y');
-                          let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
-                          document.cookie = 'laundryCookie=y; expires=' + date1;
-                        }else{
-                          localStorage.removeItem('rememberMe');
-                          let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
-                          document.cookie = 'laundryCookie=y; expires=' + date1;
-                        }
+                        // let date = new Date();
+                        // if(check){
+                        //   localStorage.setItem('rememberMe', 'y');
+                        //   let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
+                        //   document.cookie = 'laundryCookie=y; expires=' + date1;
+                        // }else{
+                        //   localStorage.removeItem('rememberMe');
+                        //   let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
+                        //   document.cookie = 'laundryCookie=y; expires=' + date1;
+                        // }
                           
-                        test();
+                        //test();
 
                         location.reload();
                       },
