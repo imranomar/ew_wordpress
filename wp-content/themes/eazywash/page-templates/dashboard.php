@@ -7,7 +7,8 @@ Template Name: Dashboard
 get_header(); 
 //echo get_theme_file_uri('common/authenticate.php');die;
 if(!is_user_login())	{
-    header('Location: http://localhost/eazywash');
+	$site_url = get_site_url();
+    header('Location: '.$site_url);
 }
 
 //include_once();

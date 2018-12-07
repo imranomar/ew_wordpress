@@ -3,8 +3,11 @@ app.controller("AppController", function(
   $scope,
   $rootScope,
   $translate,
-  CommonService
+  $filter,
+  CommonService,
+  $timeout
 ) {
+
   $scope.changeLanguage = function(lang) {
     $rootScope.SelectedLang = lang;
     CommonService.storeLanguageLocal(lang);
@@ -15,14 +18,29 @@ app.controller("AppController", function(
   $rootScope.loadAddPaymentMethodForm = function(userId) {
     var formHtml = CommonService.GenerateAddPaymentForm(userId);
   
-    jQuery('.paymentIframeContainer').html('<iframe id="paymentIframe" width="100%" height="450px"></iframe>');
+    jQuery('.paymentIframeContainer').html('');
+    jQuery('.paymentIframeContainer:visible').html('<iframe id="paymentIframe" width="100%" height="450px"></iframe>');
     var doc = document.getElementById("paymentIframe").contentWindow.document;
     doc.open();
     doc.write('<h3 class="text-center">Loading...</h3>' + formHtml);
     doc.close();
   }
   
+  
+  $rootScope.showModal = function(modalId) {
+    jQuery(modalId).modal('show');
+  }
 
+  $rootScope.closeModal = function(modalId) {
+    jQuery(modalId).modal('hide');
+    
+    $timeout(function() {
+      if(jQuery('.modal:visible').length > 0) {
+        jQuery('body').addClass('modal-open');
+      }
+    }, 500);
+  }
+  
   /** Validation **/
   $rootScope.loginValidationOptions = {
     rules: {
@@ -36,11 +54,17 @@ app.controller("AppController", function(
     },
     messages: {
       email: {
-        required: "Please enter email address",
-        email: "Email address is invalid"
+        required: function(){
+          return $filter('translate')('validation_message_email_required');
+        },
+        email: function(){
+          return $filter('translate')('validation_message_email_invalid');
+        }
       },
       password: {
-        required: "Please enter password"
+        required:  function(){
+          return $filter('translate')('validation_message_password_required');
+        }
       }
     }
   };
@@ -67,17 +91,27 @@ app.controller("AppController", function(
     },
     messages: {
       fullname: {
-        required: "Please enter name",
-        lettersonly: "Only alphabets and space is allowed"
+        required: function(){
+          return $filter('translate')('validation_message_fullname_required');
+        },
+        lettersonly: function(){
+          return $filter('translate')('validation_message_lettersonly');
+        }
       },
       email: {
-        required: "Please enter email"
+        required: function(){
+          return $filter('translate')('validation_message_email_required');
+        }
       },
       phone: {
-        required: "Please enter phone number"
+        required: function(){
+          return $filter('translate')('validation_message_phone_required');
+        }
       },
       password: {
-        required: "Please enter password"
+        required: function(){
+          return $filter('translate')('validation_message_password_required');
+        }
       }
     }
   };
@@ -104,16 +138,24 @@ app.controller("AppController", function(
     },
     messages: {
       street_name: {
-        required: "Please enter street name"
+        required: function() {
+          return $filter('translate')('validation_message_street_required');
+        }
       },
       floor: {
-        required: "Please enter floor"
+        required: function() {
+          return $filter('translate')('validation_message_floor_required');
+        }
       },
       pobox: {
-        required: "Please enter pobox"
+        required: function() {
+          return $filter('translate')('validation_message_pobox_required');
+        }
       },
       city: {
-        required: "Please select city"
+        required: function() {
+          return $filter('translate')('validation_message_city_required');
+        }
       }
     }
   };
@@ -133,15 +175,25 @@ app.controller("AppController", function(
     },
     messages: {
       oldpassword: {
-        required: "Please enter old password"
+        required: function(){
+          return $filter('translate')('validation_message_old_password_required');
+        }
       },
       newpassword: {
-        required: "Please enter new password",
-        minimum: "Minimum length should be 6 characters"
+        required: function(){
+          return $filter('translate')('validation_message_new_password_required');
+        },
+        minimum: function(){
+          return $filter('translate')('validation_message_minimum_six');
+        }
       },
       confirmpassword: {
-        required: "Password do not match",
-        equalTo: "Enter password again"
+        required: function(){
+          return $filter('translate')('validation_message_password_mismatch');
+        },
+        equalTo: function(){
+          return $filter('translate')('validation_message_equalTo');
+        }
       }
     }
   };
@@ -168,8 +220,9 @@ app.controller("AppController", function(
 app.controller("LoginCtrl", function(
   $scope,
   $location,
-  $http,
-  $httpParamSerializer
+  $filter,
+  $translate,
+  CommonService
 ) {
   $scope.loading = false;
   $scope.field = "email";
@@ -184,65 +237,52 @@ app.controller("LoginCtrl", function(
   $scope.loginsubmit = function(form) {
     if(form.validate()){
       $scope.err = false;
-
-      let email = $scope.logindata.email;
-      let password = $scope.logindata.password;
-
       $scope.loading = true;
 
-      var req = {
-        method: "POST",
-        url: ajaxUrl,
-        data: $httpParamSerializer({
-          email: email,
-          password: password,
+      var request_data = {
+          email: $scope.logindata.email,
+          password: $scope.logindata.password,
           action: "ajax_call",
           sub_action: "login"
-        }),
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
       };
 
-      $http(req)
-        .then(function(response) {
-          console.log(response);
-          $scope.loading = false;
-          var res = response.data;
+      CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+        .then(
+          function(data) {
+            if (data.Success == true && data.data != 0) {
+              localStorage.setItem("laundryUser", data.data);
+              let date = new Date();
+              if ($scope.checkbox == true) {
+                localStorage.setItem("rememberMe", "y");
+                let date1 = new Date(
+                  date.setDate(date.getDate() + 10)
+                ).toUTCString();
+                document.cookie = "laundryCookie=y; expires=" + date1;
+              } else {
+                localStorage.removeItem("rememberMe");
+                let date1 = new Date(
+                  date.setHours(date.getHours() + 1)
+                ).toUTCString();
+                document.cookie = "laundryCookie=y; expires=" + date1;
+              }
+              window.location.reload();
 
-          if (res.Success == true && res.data != 0) {
-            localStorage.setItem("laundryUser", res.data);
-            let date = new Date();
-            if ($scope.checkbox == true) {
-              localStorage.setItem("rememberMe", "y");
-              let date1 = new Date(
-                date.setDate(date.getDate() + 10)
-              ).toUTCString();
-              document.cookie = "laundryCookie=y; expires=" + date1;
             } else {
-              localStorage.removeItem("rememberMe");
-              let date1 = new Date(
-                date.setHours(date.getHours() + 1)
-              ).toUTCString();
-              document.cookie = "laundryCookie=y; expires=" + date1;
+              $scope.err = true;
+              $scope.errorMessage = $filter('translate')('validation_message_login_failed');
             }
-            window.location.reload();
-          } else {
-            $scope.err = true;
-            $scope.errorMessage = "Invalid login credentials";
-          }
-        })
-        .catch(function(err) {
+          },
+          function(error) {}
+        )
+        .finally(function() {
           $scope.loading = false;
-          console.log("error");
-          console.log(err);
         });
     }
   };
 });
 
 //Logout of Controller
-app.controller("LogoutCtrl", function($scope, $http, $httpParamSerializer) {
+app.controller("LogoutCtrl", function($scope, CommonService) {
   $scope.loading = false;
 
   $scope.err = false;
@@ -250,44 +290,30 @@ app.controller("LogoutCtrl", function($scope, $http, $httpParamSerializer) {
 
   $scope.logout = function() {
     $scope.err = false;
-
     $scope.loading = true;
 
-    var req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer({
-        action: "logout_method"
-      }),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, { action: "logout_method"})
+        .then(
+          function(data) {
+            if (data.Success == true) {
+              let date = new Date().toUTCString();
+              document.cookie = "laundryCookie=y; expires=" + date;
 
-    $http(req)
-      .then(function(response) {
-        console.log(response);
-        $scope.loading = false;
-        var res = response.data;
+              localStorage.removeItem("Myorder_" + localStorage.getItem("laundryUser"));
+              localStorage.removeItem("laundryUser");
+              localStorage.removeItem("rememberMe");
 
-        if (res.Success == true) {
-          let date = new Date().toUTCString();
-          document.cookie = "laundryCookie=y; expires=" + date;
-
-          localStorage.removeItem("laundryUser");
-          localStorage.removeItem("rememberMe");
-
-          window.location.reload();
-        } else {
-          $scope.err = true;
-          $scope.errorMessage = res.Message;
-        }
-      })
-      .catch(function(err) {
-        $scope.loading = false;
-        console.log("error");
-        console.log(err);
-      });
+              window.location.reload();
+            } else {
+              $scope.err = true;
+              $scope.errorMessage = data.Message;
+            }
+          },
+          function(error) {}
+        )
+        .finally(function() {
+          $scope.loading = false;
+        });
   };
 });
 
@@ -425,6 +451,7 @@ app.controller("DashboardCtrl", function(
   $scope,
   $rootScope,
   CommonService,
+  $filter,
   $location,
   $timeout
 ) {
@@ -552,7 +579,7 @@ app.controller("DashboardCtrl", function(
                 message = "Address added successfully";
 
                 $timeout(function() {
-                  jQuery("#addressModal").modal("hide");
+                  $rootScope.closeModal("#addressModal");
                 }, 2000);
               }
 
@@ -730,7 +757,7 @@ app.controller("DashboardCtrl", function(
   }
   $scope.deleteAddress = function(addressDetail, index) {
     if (addressDetail && addressDetail !== null) {
-      var confirmation = confirm("Do you want to delete address details?");
+      var confirmation = confirm($filter('translate')('address_deletion_confirmation'));
       if (confirmation) {
         var data = {};
         data.id = addressDetail.id;
@@ -773,9 +800,9 @@ app.controller("DashboardCtrl", function(
         ? $rootScope.CardTypes[vaultDetail.payment_type]
         : vaultDetail.payment_type;
       var confirmation = confirm(
-        "Do you want to delete " +
+        $filter('translate')('deletion_confirmation') +
           cardName +
-          " end with " +
+          " "+ $filter('translate')('vault_details.ends_with') + " " +
           vaultDetail.number +
           "?"
       );
@@ -816,9 +843,10 @@ app.controller("DashboardCtrl", function(
   };
 
   $scope.openVaultModal = function() {
-    $rootScope.loadAddPaymentMethodForm(logged_in_user_id);
-
-    jQuery("#vaultModal").modal("show");
+    $rootScope.showModal("#vaultModal");
+    $timeout(function(){
+      $rootScope.loadAddPaymentMethodForm(logged_in_user_id);
+    }, 1000)
   };
 
   $scope.openAddressModal = function(addressDetail, index) {
@@ -828,8 +856,7 @@ app.controller("DashboardCtrl", function(
     } else {
       defaultAddressFields();
     }
-
-    jQuery("#addressModal").modal("show");
+    $rootScope.showModal("#addressModal");
   };
 
   
@@ -923,7 +950,8 @@ app.controller("OrdersummaryCtrl", function(
   $httpParamSerializer,
   $location,
   CommonService,
-  WizardHandler
+  WizardHandler,
+  $filter
 ) {
   $scope.showLoading = true;
   $scope.loading = false;
@@ -998,7 +1026,8 @@ app.controller("OrdersummaryCtrl", function(
       floor: null,
       pobox: null,
       unit_number: null,
-      city_id: null
+      city_id: null,
+      as_default: null
     },
     paymentDetails: {}
   };
@@ -1029,10 +1058,15 @@ app.controller("OrdersummaryCtrl", function(
   initializeOrderCreation();
 
   function initializeOrderCreation() {
+
+    if (getLocalStorageData()) {
+      $scope.localData = getLocalStorageData();
+    }
+
     let req = {
       method: "POST",
       url: ajaxUrl,
-      data: $httpParamSerializer({ action: "order_creation_data" }),
+      data: $httpParamSerializer({ action: "order_creation_data", customer_id: $scope.localData.userDetails.id}),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       }
@@ -1052,7 +1086,7 @@ app.controller("OrdersummaryCtrl", function(
           if (res.timeslots && res.timeslots.length > 0)
             $scope.TimeSlots = res.timeslots;
 
-          if ($scope.isUserLoggedIn) {
+          if($scope.isUserLoggedIn == true) {
             if (res.addresses && res.addresses.length > 0) {
               extractDefaultAddress(res.addresses);
             } else {
@@ -1065,6 +1099,14 @@ app.controller("OrdersummaryCtrl", function(
             } else {
               $scope.showPaymentDetailStep = true;
               $scope.lastStepNumber += 1;
+            }
+          } else {
+            if (res.addresses && res.addresses.length > 0) {
+              $scope.AllAddresses = res.addresses;
+            }
+
+            if (res.vaults && res.vaults.length > 0) {
+              $scope.AllPayments = res.vaults;
             }
           }
         }
@@ -1082,9 +1124,7 @@ app.controller("OrdersummaryCtrl", function(
     $scope.Wizard = WizardHandler.wizard("requestPickupWizard");
 
     if (getLocalStorageData()) {
-      jQuery("#requestPickupModal").modal("show");
-
-      $scope.localData = getLocalStorageData();
+      $rootScope.showModal("#requestPickupModal");
 
       if (!$scope.isUserLoggedIn) {
         $scope.getAddress = $scope.localData.addressDetails;
@@ -1127,7 +1167,7 @@ app.controller("OrdersummaryCtrl", function(
       var step = $scope.Wizard.currentStep();
       var stepTitle = step.wzHeadingTitle;
 
-      return validationByStepTitle();
+      return validationByStepTitle(stepTitle);
     }
     return true;
   };
@@ -1159,9 +1199,15 @@ app.controller("OrdersummaryCtrl", function(
         functionForDropDate();
         break;
 
+      case $scope.Steps.address_detail:
+        $scope.localData = getLocalStorageData();
+      break;
+
       case $scope.Steps.payment_detail:
-        functionForPaymentDetail();
-        break;
+        $timeout(function() {
+            functionForPaymentDetail();
+        }, 1000);
+      break;
     }
   });
 
@@ -1177,9 +1223,16 @@ app.controller("OrdersummaryCtrl", function(
     if ($scope.optionsData.weekend) {
       length += 1;
     }
+
+    let name = "";
+    let price = "";
+    let label = "";
+
     for (var i = 0; i < 16 + length; i++) {
-      let name = "";
-      let price = "";
+      name = "";
+      price = "";
+      label = "";
+
       date = new Date();
       let d = new Date(date.setDate(date.getDate() + i));
       if (d.getDate() == new Date().getDate()) {
@@ -1189,15 +1242,20 @@ app.controller("OrdersummaryCtrl", function(
       } else if (d.getDate() == new Date().getDate() + 1) {
         // if day is day after
         name = "Tomorrow";
+      } else if (d.getDate() == new Date().getDate() + 2) {
+        // if day is day after
+        name = "Day After Tomorrow";
       } else {
         name = days[d.getDay()];
       }
+
+      label = ordinal_suffix_of(d.getDate()) + " " + months[d.getMonth()];
 
       array.push({
         date: d,
         name: name,
         price: price,
-        shortDate: d.getDate() + "th " + months[d.getMonth()]
+        shortDate: label
       });
     }
 
@@ -1248,9 +1306,16 @@ app.controller("OrdersummaryCtrl", function(
     if ($scope.optionsData.weekend) {
       length += 1;
     }
+
+    let name = "";
+    let price = "";
+    let label = "";
+    
     for (var i = 0; i < 16 + length; i++) {
-      let name = "";
-      let price = "";
+      name = "";
+      price = "";
+      label = "";
+
       let d = new Date(date.setDate(date.getDate() + 1));
       if (d.getDate() == new Date().getDate() + 1) {
         // if day is day after
@@ -1259,15 +1324,19 @@ app.controller("OrdersummaryCtrl", function(
       } else if (d.getDate() == pickupD.getDate() + 1) {
         // if  day is tomorrow
         // name = 'day after';
-        name = "next day deliever";
+        name = "Next day delievery";
         price = $scope.optionsData.next_day_delivery_price;
+      }  else {
+        name = days[d.getDay()];
       }
+
+      label = ordinal_suffix_of(d.getDate()) + " " + months[d.getMonth()];
 
       array.push({
         date: d,
         name: name,
         price: price,
-        shortDate: d.getDate() + "th " + days[d.getDay()]
+        shortDate: label
       });
     }
     for (var i = 0; i < array.length; i++) {
@@ -1318,6 +1387,21 @@ app.controller("OrdersummaryCtrl", function(
   // End Wizard last step
 
   /* Common Functions */
+
+  function ordinal_suffix_of(i) {
+      var j = i % 10,
+          k = i % 100;
+      if (j == 1 && k != 11) {
+          return i + "st";
+      }
+      if (j == 2 && k != 12) {
+          return i + "nd";
+      }
+      if (j == 3 && k != 13) {
+          return i + "rd";
+      }
+      return i + "th";
+  }
 
   function validationByStepTitle(stepTitle) {
     if (
@@ -1394,7 +1478,10 @@ app.controller("OrdersummaryCtrl", function(
               let obj = JSON.stringify($scope.localData);
               saveLocalData(obj);
 
-              $scope.Wizard.next();
+              if(jQuery('#vaultAddModal').is(":visible"))
+              $rootScope.closeModal('#vaultAddModal');
+              else
+                $scope.Wizard.next();
             }
             //getVault($scope.getPayment.vault_id);
           } else {
@@ -1439,69 +1526,79 @@ app.controller("OrdersummaryCtrl", function(
       });
   }
 
-  function saveUserDetails() {
-    if (!validationByStepTitle($scope.Steps.user_detail)) return;
+  function saveUserDetails(partialInfo, pickupDate) {
+    if(partialInfo && !jQuery('#partial_' + $scope.Steps.user_detail).valid()) return;
+    else if (!validationByStepTitle($scope.Steps.user_detail)) return;
+
 
     $scope.loading = true;
 
     var userData = $scope.localData.userDetails;
-    let data = {
-      id: userData.id,
-      full_name: userData.full_name,
-      email: userData.email,
-      password: userData.password,
-      phone: userData.phone,
-      sex: userData.sex,
-      action: "ajax_call",
-      sub_action: "register"
-    };
 
-    let req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer(data),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
+    var request_data = {};
+    if(partialInfo) {
+      request_data = {
+        id: userData.id,
+        full_name: userData.full_name,
+        phone: userData.phone,
+        sex: '1',
+        action: "ajax_call",
+        sub_action: "register"
+      };
+    } else {
+      request_data = {
+        id: userData.id,
+        full_name: userData.full_name,
+        email: userData.email,
+        password: userData.password,
+        phone: userData.phone,
+        sex: '1',
+        action: "ajax_call",
+        sub_action: "register"
+      };
+    }
 
     $scope.userErr = false;
     $scope.loading = true;
-    $http(req)
-      .then(function(response) {
-        $scope.loading = false;
 
-        var res = response.data;
-        console.log(res.data);
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+        .then(
+          function(data) {
+            if (data.Success == true) {
+              if (!$scope.isUserLoggedIn) {
+                if(partialInfo) {
+                  $scope.localData.pickupDate = pickupDate;
+                }
 
-        if (res.Success == true) {
-          if (!$scope.isUserLoggedIn) {
-            $scope.localData.userDetails.id = res.data.id;
-            // Save local storage
-            let obj = JSON.stringify($scope.localData);
-            saveLocalData(obj);
-          }
-          $scope.Wizard.next();
-        } else {
-          $scope.userErr = true;
-          $scope.userErrorMessage = res.Message;
-        }
-      })
-      .catch(function(error) {
-        $scope.loading = false;
-        let err = error.data;
-        $scope.userErr = false;
-        $scope.userErrorMessage = err[0].message;
-      });
+                $scope.localData.userDetails.id = data.data.id;
+
+                // Save local storage
+                let obj = JSON.stringify($scope.localData);
+                saveLocalData(obj);
+              }
+              $scope.Wizard.next();
+            } else {
+              $scope.userErr = true;
+              $scope.userErrorMessage = data.Message;
+            } 
+          },
+          function(error) {}
+        )
+        .finally(function() {
+          $scope.loading = false;
+        });
   }
 
-  function saveAddressDetails() {
-    if (!validationByStepTitle($scope.Steps.address_detail)) return;
+  function saveAddressDetails(nextAllowed) {
+    if(nextAllowed && !validationByStepTitle($scope.Steps.address_detail))
+      return;
+    else if(!nextAllowed && !jQuery('#partial_' + $scope.Steps.address_detail).valid())
+      return;
 
     $scope.loading = true;
 
     let data = {
-      id: $scope.getAddress != null ? $scope.getAddress.id : -1,
+      id: $scope.localData.addressDetails.id,
       customer_id: !$scope.isUserLoggedIn
         ? $scope.localData.userDetails.id
         : -1,
@@ -1510,7 +1607,7 @@ app.controller("OrdersummaryCtrl", function(
       pobox: $scope.localData.addressDetails.pobox,
       city_id: $scope.localData.addressDetails.city_id,
       unit_number: $scope.localData.addressDetails.unit_number,
-      as_default: "0",
+      as_default: "1",
       action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
       sub_action: "create_address"
     };
@@ -1523,7 +1620,7 @@ app.controller("OrdersummaryCtrl", function(
         "Content-Type": "application/x-www-form-urlencoded"
       }
     };
-
+    $scope.loading = true;
     $scope.addressErr = false;
 
     $http(req)
@@ -1541,7 +1638,12 @@ app.controller("OrdersummaryCtrl", function(
             let obj = JSON.stringify($scope.localData);
             saveLocalData(obj);
           }
-          $scope.Wizard.next();
+
+          if(nextAllowed)
+            $scope.Wizard.next();
+          else
+            $scope.changeAddress(res.data);
+
         } else {
           $scope.addressErr = true;
           $scope.addressErrorMessage = res.Message;
@@ -1588,21 +1690,150 @@ app.controller("OrdersummaryCtrl", function(
 
   /* End of Common Functions */
 
-  $scope.changeVault = function(vault) {
-    $scope.getPayment = vault;
-    jQuery("#vaultChangeModal").modal("hide");
+  $scope.changeVault = function(vaultDetail) {
+    if(vaultDetail.as_default == 1) {
+      $scope.getPayment = vaultDetail;
+      
+      if(!$scope.isUserLoggedIn) {
+        $scope.localData.paymentDetails = vaultDetail;
+        let obj = JSON.stringify($scope.localData);
+        saveLocalData(obj);
+      }
+
+      $rootScope.closeModal('#vaultChangeModal');
+    } else {
+      $scope.loading = true;
+
+      var request_data = {};
+      request_data.id = vaultDetail.id;
+      request_data.action = $scope.isUserLoggedIn? "authenticate_ajax_call": "ajax_call";
+      request_data.sub_action = "set_default_vault";
+      if(!$scope.isUserLoggedIn)
+        request_data.customer_id = $scope.localData.userDetails.id;
+
+      CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+        .then(
+          function(data) {
+
+            if (data.Success == true) {
+              $scope.AllPayments.map(function(vault) {
+                if (vault.id == request_data.id) {
+                  return (vault.as_default = 1);
+                } else {
+                  return (vault.as_default = 0);
+                }
+              });
+
+              vaultDetail.as_default = '1';
+              $scope.getPayment = vaultDetail;
+
+              if(!$scope.isUserLoggedIn) {
+                $scope.localData.paymentDetails = vaultDetail;
+                let obj = JSON.stringify($scope.localData);
+                saveLocalData(obj);
+              }
+
+              $rootScope.closeModal('#vaultAddModal');
+              $rootScope.closeModal('#vaultChangeModal');
+            } 
+          },
+          function(error) {}
+        )
+        .finally(function() {
+          $scope.loading = false;
+        });
+      }
   }
 
   $scope.changeAddress = function(address) {
-    $scope.getAddress = address;
-    jQuery("#addressChangeModal").modal("hide");
+    if(address.as_default == 1) {
+      $scope.getAddress = address;
+      
+      if(!$scope.isUserLoggedIn) {
+        $scope.localData.addressDetails = address;
+        let obj = JSON.stringify($scope.localData);
+        saveLocalData(obj);
+      }
+
+      $rootScope.closeModal('#addressChangeModal');
+    } else {
+      $scope.loading = true;
+
+      var request_data = {};
+      request_data.id = address.id;
+      request_data.action = $scope.isUserLoggedIn? "authenticate_ajax_call": "ajax_call";
+      request_data.sub_action = "set_default_address";
+      if(!$scope.isUserLoggedIn)
+        request_data.customer_id = $scope.localData.userDetails.id;
+
+      CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+        .then(
+          function(data) {
+            if (data.Success == true) {
+              $scope.AllAddresses.map(function(address) {
+                if (address.id == request_data.id) {
+                  return (address.as_default = 1);
+                } else {
+                  return (address.as_default = 0);
+                }
+              });
+              
+              address.as_default = '1';
+              $scope.getAddress = address;
+
+              if(!$scope.isUserLoggedIn) {
+                $scope.localData.addressDetails = address;
+                let obj = JSON.stringify($scope.localData);
+                saveLocalData(obj);
+              }
+
+              $rootScope.closeModal("#addressAddModal");
+              $rootScope.closeModal("#addressChangeModal");
+            }
+          },
+          function(error) {}
+        )
+        .finally(function() {
+          $scope.loading = false;
+        });
+      }
+  }
+
+  $scope.openAddAddressModal = function() {
+    $scope.localData.addressDetails = {
+      id: null,
+      street_name: null,
+      floor: null,
+      pobox: null,
+      unit_number: null,
+      city_id: null
+    };
+    $rootScope.closeModal("#addressChangeModal");
+
+    $rootScope.showModal("#addressAddModal");
+  }
+
+  $scope.openAddVaultModal = function() {
+    debugger;
+    $scope.localData.paymentDetails = {};
+    $rootScope.closeModal("#vaultChangeModal");
+    $rootScope.showModal("#vaultAddModal");
+    $timeout(function() {
+      functionForPaymentDetail();
+    }, 1000)
   }
 
   /* Perform Action contains multiple actions */
   $scope.performAction = function(action, value) {
     switch (action) {
       case "SAVE_PICKUP_DATE":
-        $scope.localData.pickupDate = value;
+      if($scope.isUserLoggedIn == true) {
+          $scope.localData.pickupDate = value;
+          $scope.Wizard.next();
+        } else {
+          saveUserDetails(true, value);
+          return false;
+        }
         break;
 
       case "SELECT_PICKUP_TIME":
@@ -1628,12 +1859,12 @@ app.controller("OrdersummaryCtrl", function(
         break;
 
       case "SAVE_USER_DETAILS":
-        saveUserDetails();
+        saveUserDetails(false);
         return false;
         break;
 
       case "SAVE_ADDRESS_DETAILS":
-        saveAddressDetails();
+        saveAddressDetails(value);
         return false;
         break;
 
@@ -1706,50 +1937,42 @@ app.controller("OrdersummaryCtrl", function(
       }
     }
 
-    let req = {
-      method: "POST",
-      url: ajaxUrl,
-      data: $httpParamSerializer(data),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
-
     $scope.showLoading = true;
-    $http(req)
-      .then(function(response) {
-        $scope.showLoading = false;
-        var res = response.data;
-        if (res.Success == true) {
+
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, data).then(
+      function(data) {
+        if(data.Success == true) {
+
           $scope.orderCreationDone = true;
           $timeout(function() {
             removeLoalStorageAndGoToDashboard();
           }, 3000);
         } else {
           $scope.err = true;
-          $scope.errorMessage = res.Message;
+          $scope.errorMessage = data.Message;
         }
-      })
-      .catch(function(error) {
-        $scope.showLoading = false;
-        let err = error.data;
-        console.log(error);
-        $scope.err = true;
-        $scope.errorMessage = err[0].message;
-      });
+      },
+      function(error) {
+        console.log("error");
+        console.log(err);
+      }
+    )
+    .finally(function() {
+      $scope.showLoading = false;
+    });
   };
 
   /* Cancel Order */
   $scope.onCancelOrder = function() {
 
     if(getObjectLength($scope.localData.pickupDate) > 0) {
-      var confirmation = confirm("Do you want to cancel order ?");
+      var confirmation = confirm($filter('translate')('request_pickup_order_cancel_confirmation'));
 
       if (confirmation) {
         removeLoalStorageAndGoToDashboard();
       }
     } else {
-      jQuery('#requestPickupModal').modal('hide');
+      $rootScope.closeModal('#requestPickupModal');
     }
   };
 

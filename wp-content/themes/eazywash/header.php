@@ -8,6 +8,8 @@
  * @subpackage Twenty_Fifteen
  * @since Twenty Fifteen 1.0
  */
+global $theme_options;
+$favicon = $theme_options['site-favicon']['url'];
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js" ng-app="laundryApp" ng-cloak>
 <head>
@@ -61,11 +63,13 @@
     <ul class="navbar-nav float-right search-menu">
 	
 	<?php if($is_login == true): ?>
-      <li>
-	  	<a href="javascipt:void(0)"><?php echo $user['full_name']; ?></a>
+     	<li class="menu-item <?php if(strpos($_SERVER['REQUEST_URI'], 'dashboard') !== false){ echo 'current-menu-item'; }?>">
+	  		<a href="<?php echo get_permalink( get_page_by_path( 'dashboard' ) ); ?>"><?php echo $user['full_name']; ?>'s {{'menu_link_dashboard' | translate}}</a>
 		</li>
-	<?php endif; ?>
-      <li><a class="search" href="#search">search</a></li>
+		<li class="login-required logout-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_logout' | translate}}</a></li>
+		<?php endif; ?>
+		<li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_login' | translate}}</a></li>
+      	<li><a class="search" href="#search">search</a></li>
   	 </ul>
 	 
 	 <div id="search">
