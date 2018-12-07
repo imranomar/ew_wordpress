@@ -1,4 +1,9 @@
 
+h4
+{
+  margin-bottom: 1rem;
+}
+
 h6
 {
   margin-bottom: 0px;
@@ -6,7 +11,19 @@ h6
 
 h5
 {
-  font-size:1.30rem
+  font-size:1.25rem
+}
+
+h5.larger
+{
+  font-size: 1.85rem
+}
+
+.form-control
+{
+  background-color: #dedede;
+  font-size: 1.5rem;
+  height: 50px;
 }
 
 a:not([href]):not([tabindex]) {
@@ -96,13 +113,14 @@ span.required {
 {
   background-color: white;
   border-radius: 3px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   min-height: 66px;
   margin-bottom: 10px;
   display: inline-block;
   width: 100%;
   padding: 0.5rem!important;
   font-size: 15px;
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
 }
 
 .card-box h5
@@ -342,6 +360,10 @@ tr {
   vertical-align: top;
 }
 
+.modal-header
+{
+  /* display:none */
+}
 .modal.vertical .modal-body .cards-container {
   max-height: 400px;
   overflow:hidden;

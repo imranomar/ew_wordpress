@@ -223,12 +223,16 @@
                                                 <div class="col-sm-3 text-center">
                                                     <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png" />
                                                 </div>
-                                                <div class="col-sm-6 mt-3">
-                                                    <!-- we do not have one hour slot option now -->
-                                                    <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
-                                                    <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
-                                                    <h6 class="text-upper"> {{'text.between' | translate}} </h6>
-                                                    <h5> {{value.time_from}}:00 to {{value.time_to}}:00 </h5>
+                                                <div class="col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <!-- we do not have one hour slot option now -->
+                                                            <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
+                                                            <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
+                                                            <h6 class="text-capitalize"> {{'text.between' | translate}} </h6>
+                                                            <h5 class='larger'> {{value.time_from}}:00 to {{value.time_to}}:00 </h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-sm-3 mt-3">
@@ -239,17 +243,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+
+                                <!-- <div class="row">
+                                    <div class="col-sm-12 text-center text-upper mb-3">{{'text.or' | translate}}</div>
+                                </div> -->
 
                                 <div class="row" ng-class="{'active': localData.pickupTime && localData.pickupTime.leaveAtdoor == 'y' }">
                                     <div class="col-sm-12">
                                         <div class='card-box' wz-next="performAction('SELECT_PICKUP_AT_DOOR', '')">
                                             <div class="row">
-                                                <div class="col-sm-3 text-center">
-                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.jpg" />
+                                            <div class="col-sm-3">
+                                            <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.jpg" />
                                                 </div>
-                                                <div class="col-sm-6 mt-3">
+                                                <div class="col-sm-6">
                                                     <div class="item ">
-                                                        <h6> {{'request_pikcup_leave_at_door' | translate}} </h6>
+                                                        <label class="" for="pickAtDoor"><h5> {{'request_pickup_leave_at_door' | translate}} </h5>
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3 mt-3">
@@ -274,7 +284,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" ng-repeat="value in deliveryDateList" ng-hide="!showAlldeliveryDateList && $index > 4"
+                            <div class="row" ng-repeat="value in deliveryDateList" ng-hide="!showAlldeliveryDateList && $index > 3"
                                 wz-next="performAction('SAVE_DELIVERY_DATE', value)" ng-class="{
                                                     'tomorrow-div': value.name == 'Tomorrow',
                                                     'day-after-div': value.name == 'day after',
@@ -345,12 +355,16 @@
                                                 <div class="col-sm-3 text-center">
                                                     <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png" />
                                                 </div>
-                                                <div class="col-sm-5 mt-3">
-                                                    <h6 class="text-upper"> {{'text.between' | translate}} </h6>
-                                                    <h5 class="text-upper"> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
+                                                <div class="col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <h6 class="text-captalize"> {{'text.between' | translate}} </h6>
+                                                            <h5 class="text-upper larger"> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-4 mt-3">
-                                                    <span class="round_button fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                                <div class="col-sm-3">
+                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
                                                     <span class="round_button fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
                                                 </div>
                                             </div>
@@ -367,7 +381,7 @@
                                                 </div>
                                                 <div class="col-sm-6 mt-3">
                                                     <div class="item ">
-                                                        <h6> {{'request_drop_leave_at_door' | translate}} </h6>
+                                                        <h5> {{'request_drop_leave_at_door' | translate}} </h5>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3 mt-3">
@@ -436,9 +450,45 @@
                                 </div>
                             </div>
 
-                            <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
+                                    <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
+                                        <div class="form-group">
+                                            <label class='font-weight-bold ng-binding'>Street Name</label>
+                                            <input type="text" name="street_name" class="form-control" placeholder="{{'address_details.street_name' | translate}}" ng-model="localData.addressDetails.street_name" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class='font-weight-bold ng-binding'>Floor Number</label>
+                                            <input type="text" name="floor" class="form-control" placeholder="{{'address_details.floor' | translate}}" ng-model="localData.addressDetails.floor" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class='font-weight-bold ng-binding'>P.O.Box Number</label>
+                                            <input type="text" name="pobox" class="form-control" placeholder="{{'address_details.po_box' | translate}}" ng-model="localData.addressDetails.pobox" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class='font-weight-bold ng-binding'>Unit Number</label>
+                                            <input type="text" name="unit_number" class="form-control" placeholder="{{'address_details.unit_number' | translate}}" ng-model="localData.addressDetails.unit_number" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class='font-weight-bold ng-binding'>City</label>
+                                            <select ng-model="localData.addressDetails.city_id" name="city" class="form-control">
+                                                <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
+                                                <option ng-repeat="value in cityData" value="{{value.id}}">
+                                                    {{value.title}}
+                                                </option>                                 
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">  
                                 <div ng-include="'address-form.html'"></div>
-                            </form>
+                            </form> -->
                             
                             <div class="row">
                                 <div class="col-sm-12">
