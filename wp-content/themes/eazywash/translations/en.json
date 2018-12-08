@@ -96,6 +96,7 @@
   "add_vault": "Add Vault",
   "payement_details_text": "Payment Details",
   "address_details_text": "Address Details",
+  "start_text": "Let's get started!",
 
   "validation_message_login_failed": "Invalid login credentials",
   "validation_message_email_required": "Please enter email address",

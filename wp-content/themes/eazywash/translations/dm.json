@@ -98,6 +98,8 @@
 "add_vault": "Tilføj Vault",
 "payement_details_text": "Betalingsoplysninger",
 "address_details_text": "Adresseoplysninger",
+"start_text": "Lad os komme igang!",
+
 
 "validation_message_login_failed": "Ugyldige loginoplysninger",
 "validation_message_email_required": "Indtast venligst e-mail-adresse",

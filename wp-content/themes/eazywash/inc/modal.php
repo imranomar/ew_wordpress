@@ -123,7 +123,7 @@
                         <wz-step wz-title="0" wz-disabled="{{isUserLoggedIn}}" wz-heading-title="{{Steps.partial_user_detail}}" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-11">
-                                    <h4 class="pull-left">{{'request_pickup_date' | translate}} :-)</h4>
+                                    <h4 class="pull-left">{{'start_text' | translate}} :-)</h4>
                                 </div>
                                 <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                             </div>
