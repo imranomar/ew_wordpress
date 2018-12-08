@@ -1,46 +1,65 @@
-var app = angular.module("laundryApp", ["ngStorage", "ngCookies", "ngRoute", "ngValidate", "mgo-angular-wizard", "pascalprecht.translate"]);
+var app = angular.module("laundryApp", [
+  "ngStorage",
+  "ngCookies",
+  "ngRoute",
+  "ngValidate",
+  "mgo-angular-wizard",
+  "pascalprecht.translate"
+]);
 
 app.config(function($translateProvider, $validatorProvider) {
-  $translateProvider.preferredLanguage('en');
-  $translateProvider.registerAvailableLanguageKeys(['en', 'dm'], {
-      'en': 'en',
-      'dm': 'dm'
+  $translateProvider.preferredLanguage("en");
+  $translateProvider.registerAvailableLanguageKeys(["en", "dm"], {
+    en: "en",
+    dm: "dm"
   });
 
   $translateProvider.useStaticFilesLoader({
-      prefix: translationFolderPath,
-      suffix: '.json'
+    prefix: translationFolderPath,
+    suffix: ".json"
   });
 
   $translateProvider.useSanitizeValueStrategy(null);
 
-  $validatorProvider.addMethod("lettersonly", function (value, element) {
+  $validatorProvider.addMethod(
+    "lettersonly",
+    function(value, element) {
       return this.optional(element) || /^[a-z. ]+$/i.test(value);
-  }, "Letters only please");
+    },
+    "Letters only please"
+  );
 });
 
-app.run(function($rootScope, $translate, $filter, CommonService, LocalDataService) {
+app.run(function(
+  $rootScope,
+  $translate,
+  $filter,
+  CommonService,
+  LocalDataService
+) {
+  $rootScope.serviceOfferedToCity = "copenhagen";
+
   $rootScope.Languages = {
-    'en': 'English',
-    'dm': 'Denmark'
+    en: "English",
+    dm: "Denmark"
   };
 
-  $rootScope.SelectedLang = 'en';
+  $rootScope.SelectedLang = "en";
 
   var langauage = LocalDataService.getLanguageFromLocal();
 
   if (langauage) {
     $rootScope.SelectedLang = langauage;
   }
-  
+
   $translate.use($rootScope.SelectedLang);
- 
+
   $rootScope.CardTypes = {
-    "MC": "Master Card",
-    "VISA": "VISA Card",
-    "DK": "Dankort Card",
+    MC: "Master Card",
+    VISA: "VISA Card",
+    DK: "Dankort Card",
     "V-DK": "VISA/Dankort Card",
-    "ELEC": "VISA Electron Card"
+    ELEC: "VISA Electron Card"
   };
 
   /** Validation **/
@@ -56,11 +75,11 @@ app.run(function($rootScope, $translate, $filter, CommonService, LocalDataServic
     },
     messages: {
       email: {
-        required: $filter('translate')('validation_message_email_required'),
-        email: $filter('translate')('validation_message_email_invalid')
+        required: $filter("translate")("validation_message_email_required"),
+        email: $filter("translate")("validation_message_email_invalid")
       },
       password: {
-        required: $filter('translate')('validation_message_password_required')
+        required: $filter("translate")("validation_message_password_required")
       }
     }
   };
@@ -87,17 +106,17 @@ app.run(function($rootScope, $translate, $filter, CommonService, LocalDataServic
     },
     messages: {
       fullname: {
-        required: $filter('translate')('validation_message_fullname_required'),
-        lettersonly: $filter('translate')('validation_message_lettersonly')
+        required: $filter("translate")("validation_message_fullname_required"),
+        lettersonly: $filter("translate")("validation_message_lettersonly")
       },
       email: {
-        required: $filter('translate')('validation_message_email_required')
+        required: $filter("translate")("validation_message_email_required")
       },
       phone: {
-        required: $filter('translate')('validation_message_phone_required')
+        required: $filter("translate")("validation_message_phone_required")
       },
       password: {
-        required: $filter('translate')('validation_message_password_required')
+        required: $filter("translate")("validation_message_password_required")
       }
     }
   };
@@ -124,16 +143,16 @@ app.run(function($rootScope, $translate, $filter, CommonService, LocalDataServic
     },
     messages: {
       street_name: {
-        required: $filter('translate')('validation_message_street_required')
+        required: $filter("translate")("validation_message_street_required")
       },
       floor: {
-        required: $filter('translate')('validation_message_floor_required')
+        required: $filter("translate")("validation_message_floor_required")
       },
       pobox: {
-        required: $filter('translate')('validation_message_pobox_required')
+        required: $filter("translate")("validation_message_pobox_required")
       },
       city: {
-        required: $filter('translate')('validation_message_city_required')
+        required: $filter("translate")("validation_message_city_required")
       }
     }
   };
@@ -153,15 +172,19 @@ app.run(function($rootScope, $translate, $filter, CommonService, LocalDataServic
     },
     messages: {
       oldpassword: {
-        required: $filter('translate')('validation_message_old_password_required')
+        required: $filter("translate")(
+          "validation_message_old_password_required"
+        )
       },
       newpassword: {
-        required: $filter('translate')('validation_message_new_password_required'),
-        minimum: $filter('translate')('validation_message_minimum_six')
+        required: $filter("translate")(
+          "validation_message_new_password_required"
+        ),
+        minimum: $filter("translate")("validation_message_minimum_six")
       },
       confirmpassword: {
-        required: $filter('translate')('validation_message_password_mismatch'),
-        equalTo: $filter('translate')('validation_message_equalTo')
+        required: $filter("translate")("validation_message_password_mismatch"),
+        equalTo: $filter("translate")("validation_message_equalTo")
       }
     }
   };
@@ -176,45 +199,53 @@ app.run(function($rootScope, $translate, $filter, CommonService, LocalDataServic
   };
 });
 
+app.factory("CommonService", function($http, $q, $httpParamSerializer) {
+  var LOCALSTORAGE_LANGUAGE = "locale";
 
-app.factory("CommonService", function ($http, $q, $httpParamSerializer) {
-    var LOCALSTORAGE_LANGUAGE = "locale";
-
-    return {
-      CallAjaxUsingPostRequest: function (url, dataObject) {
-          var defer = $q.defer();
-          $http({
-              method: 'POST',
-              url: url,
-              data: $httpParamSerializer(dataObject),
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-          }).success(function (data, status, header, config) {
-              defer.resolve(data);
-          }).error(function (data, status, header, config) {
-              defer.reject(status);
-          });
-          return defer.promise;
-      },
-      CallAjaxUsingGetRequest: function (url) {
-          var defer = $q.defer();
-          $http({
-              method: 'GET',
-              url: url
-          }).success(function (data, status, header, config) {
-              defer.resolve(data);
-          }).error(function (data, status, header, config) {
-              defer.reject(status);
-          });
-          return defer.promise;
-      },
-      GenerateAddPaymentForm: function(userId) {
-        return '<FORM ACTION="https://payment.architrade.com/paymentweb/start.action" METHOD="POST" CHARSET="UTF -8"> \
-                    <INPUT TYPE="hidden" NAME="accepturl" VALUE="'+ baseUrl +'vault/createvaultweb"> \
+  return {
+    CallAjaxUsingPostRequest: function(url, dataObject) {
+      var defer = $q.defer();
+      $http({
+        method: "POST",
+        url: url,
+        data: $httpParamSerializer(dataObject),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
+      })
+        .success(function(data, status, header, config) {
+          defer.resolve(data);
+        })
+        .error(function(data, status, header, config) {
+          defer.reject(status);
+        });
+      return defer.promise;
+    },
+    CallAjaxUsingGetRequest: function(url) {
+      var defer = $q.defer();
+      $http({
+        method: "GET",
+        url: url
+      })
+        .success(function(data, status, header, config) {
+          defer.resolve(data);
+        })
+        .error(function(data, status, header, config) {
+          defer.reject(status);
+        });
+      return defer.promise;
+    },
+    GenerateAddPaymentForm: function(userId) {
+      return (
+        '<FORM ACTION="https://payment.architrade.com/paymentweb/start.action" METHOD="POST" CHARSET="UTF -8"> \
+                    <INPUT TYPE="hidden" NAME="accepturl" VALUE="' +
+        baseUrl +
+        'vault/createvaultweb"> \
                     <INPUT TYPE="hidden" NAME="callbackurl" VALUE=""> \
                     <INPUT TYPE="hidden" NAME="amount" VALUE="1"> \
                     <INPUT TYPE="hidden" NAME="currency" VALUE="578"> \
                     <INPUT TYPE="hidden" NAME="merchant" VALUE="90246240"> \
-                    <INPUT TYPE="hidden" NAME="orderid" id="orderid" VALUE="' + userId +'"> \
+                    <INPUT TYPE="hidden" NAME="orderid" id="orderid" VALUE="' +
+        userId +
+        '"> \
                     <INPUT TYPE="hidden" NAME="lang" VALUE="EN"> \
                     <INPUT TYPE="hidden" NAME="preauth" VALUE="1"> \
                     <INPUT TYPE="hidden" NAME="test" VALUE="1"> \
@@ -222,95 +253,93 @@ app.factory("CommonService", function ($http, $q, $httpParamSerializer) {
                     <INPUT type="Submit" id="submit" name="submit" style="visibility:hidden"> \
                 </FORM> \
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> \
-                <script>$("#submit").click();</script>';
-      }
-    };
+                <script>$("#submit").click();</script>'
+      );
+    }
+  };
 });
 
+app.factory("LocalDataService", function($cookies, $localStorage) {
+  var LOCALSTORAGE_LANGUAGE = "locale";
+  var LOCAL_PREFIX_MYORDER = "myorder";
 
-
-app.factory("LocalDataService", function ($cookies, $localStorage) {
-    var LOCALSTORAGE_LANGUAGE = "locale";
-    var LOCAL_PREFIX_MYORDER = "myorder";
-
-    return {
-      storeLanguageLocal(language) {
-          $localStorage[LOCALSTORAGE_LANGUAGE] = language;
-      },
-      getLanguageFromLocal() {
-          var language = $localStorage[LOCALSTORAGE_LANGUAGE];
-
-          if (!language) {
-              return false;
-          }
-          return language;
-      },
-      saveOrderData: function(data) {
-        if(is_user_logged_in) {
-            $localStorage[LOCAL_PREFIX_MYORDER + "_"+ logged_in_user_id] = data;
-        } else {
-            var date = new Date();
-            var expireDate = new Date(date.setHours(date.getHours()+1)).toUTCString();
-
-            $cookies.put(LOCAL_PREFIX_MYORDER, data ,{
-                expires: expireDate
-            });
-        }
-      },
-      getOrderData: function(data) {
-        var orderDetails;
-
-        if(is_user_logged_in) {
-            orderDetails = $localStorage[LOCAL_PREFIX_MYORDER + "_"+ logged_in_user_id];
-        } else {
-            orderDetails = $cookies.get(LOCAL_PREFIX_MYORDER);
-        }
-
-        if(!orderDetails) {
-            return false;
-        }
-        return orderDetails;
-      },
-      removeOrderData: function() {
-        if(is_user_logged_in) {
-            delete $localStorage[LOCAL_PREFIX_MYORDER + "_"+ logged_in_user_id];
-        } else {
-            $cookies.remove(LOCAL_PREFIX_MYORDER);
-        }
-      },
-      removeUserData: function() {
-        delete $localStorage[LOCAL_PREFIX_MYORDER + "_"+ logged_in_user_id];
-      }
-    };
-});
-
-
-app.directive('itemFloatingLabel', function() {
   return {
-    restrict: 'C',
+    storeLanguageLocal(language) {
+      $localStorage[LOCALSTORAGE_LANGUAGE] = language;
+    },
+    getLanguageFromLocal() {
+      var language = $localStorage[LOCALSTORAGE_LANGUAGE];
+
+      if (!language) {
+        return false;
+      }
+      return language;
+    },
+    saveOrderData: function(data) {
+      if (is_user_logged_in) {
+        $localStorage[LOCAL_PREFIX_MYORDER + "_" + logged_in_user_id] = data;
+      } else {
+        var date = new Date();
+        var expireDate = new Date(
+          date.setHours(date.getHours() + 1)
+        ).toUTCString();
+
+        $cookies.put(LOCAL_PREFIX_MYORDER, data, {
+          expires: expireDate
+        });
+      }
+    },
+    getOrderData: function(data) {
+      var orderDetails;
+
+      if (is_user_logged_in) {
+        orderDetails =
+          $localStorage[LOCAL_PREFIX_MYORDER + "_" + logged_in_user_id];
+      } else {
+        orderDetails = $cookies.get(LOCAL_PREFIX_MYORDER);
+      }
+
+      if (!orderDetails) {
+        return false;
+      }
+      return orderDetails;
+    },
+    removeOrderData: function() {
+      if (is_user_logged_in) {
+        delete $localStorage[LOCAL_PREFIX_MYORDER + "_" + logged_in_user_id];
+      } else {
+        $cookies.remove(LOCAL_PREFIX_MYORDER);
+      }
+    },
+    removeUserData: function() {
+      delete $localStorage[LOCAL_PREFIX_MYORDER + "_" + logged_in_user_id];
+    }
+  };
+});
+
+app.directive("itemFloatingLabel", function() {
+  return {
+    restrict: "C",
     link: function(scope, element) {
       var el = element[0];
-      var input = el.querySelector('input, textarea');
-      var inputLabel = el.querySelector('.input-label');
+      var input = el.querySelector("input, textarea");
+      var inputLabel = el.querySelector(".input-label");
 
       if (!input || !inputLabel) return;
 
       var onInput = function() {
         if (input.value) {
-          inputLabel.classList.add('has-input');
+          inputLabel.classList.add("has-input");
         } else {
-          inputLabel.classList.remove('has-input');
+          inputLabel.classList.remove("has-input");
         }
       };
 
-      input.addEventListener('input', onInput);
+      input.addEventListener("input", onInput);
 
-      
-
-      scope.$on('$destroy', function() {
-        input.removeEventListener('input', onInput);
+      scope.$on("$destroy", function() {
+        input.removeEventListener("input", onInput);
       });
     }
   };
 });
-

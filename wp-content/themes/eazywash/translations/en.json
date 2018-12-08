@@ -94,6 +94,8 @@
   "change_vault": "Change Vault",
   "add_address": "Add Address",
   "add_vault": "Add Vault",
+  "payement_details_text": "Payment Details",
+  "address_details_text": "Address Details",
 
   "validation_message_login_failed": "Invalid login credentials",
   "validation_message_email_required": "Please enter email address",

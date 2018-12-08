@@ -19,13 +19,6 @@ h5.larger
   font-size: 1.85rem
 }
 
-.form-control
-{
-  background-color: #dedede;
-  font-size: 1.5rem;
-  height: 50px;
-}
-
 a:not([href]):not([tabindex]) {
   color: #fff;
   cursor: pointer;
@@ -149,6 +142,14 @@ span.required {
 	transition: 0.9s;
 
 }
+
+#requestPickupModal .form-control
+{
+  background-color: #dedede;
+  font-size: 1.5rem;
+  height: 50px;
+}
+
 .wizard-btn {
     border-radius: 2px;
     background-color: #41c166;
@@ -200,7 +201,7 @@ tr {
 	border-color: #444 !important;
 }
 
-#div_slots>.row.active .card-box {
+#requestPickupModal .active .card-box {
   background: #E1F5FE;
   /* color: #fff; */
 }
@@ -311,7 +312,7 @@ tr {
   background: #0c3f5a;
   color: #fff;
 }
-.modal .modal-header .close {
+.modal .close {
   outline: none;
   border-radius: 50%;
   text-align: center;
@@ -322,11 +323,11 @@ tr {
   float: right;
   font-size: 22px;
   border: 2px solid;
-  margin-top: 3px;
-  text-shadow: none;
-  opacity: 1;
+  margin-top: 5px;
   margin-right: 5px;
+  text-shadow: none;
 }
+
 
 .modal .modal-content {
   border: none;

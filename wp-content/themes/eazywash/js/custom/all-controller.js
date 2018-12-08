@@ -161,13 +161,12 @@ app.controller("AppController", function(
       floor: {
         required: true
       },
-      pobox: {
-        required: true,
-        number: true
-      },
+      // pobox: {
+      //   required: true,
+      //   number: true
+      // },
       unit_number: {
-        required: true,
-        number: true
+        required: true
       },
       city: {
         required: true
@@ -184,11 +183,11 @@ app.controller("AppController", function(
           return $filter("translate")("validation_message_floor_required");
         }
       },
-      pobox: {
-        required: function() {
-          return $filter("translate")("validation_message_pobox_required");
-        }
-      },
+      // pobox: {
+      //   required: function() {
+      //     return $filter("translate")("validation_message_pobox_required");
+      //   }
+      // },
       city: {
         required: function() {
           return $filter("translate")("validation_message_city_required");
@@ -1015,8 +1014,9 @@ app.controller("OrdersummaryCtrl", function(
 
   $scope.paymentErr = false;
   $scope.paymentErrorMessage = null;
-
+  
   $scope.Steps = {
+    partial_user_detail: "PartialUserDetail",
     pickup_date: "PickupDate",
     pickup_time: "PickupTime",
     drop_date: "DropDate",
@@ -1055,6 +1055,8 @@ app.controller("OrdersummaryCtrl", function(
     city_id: null,
     as_default: null
   };
+
+  var defaultCityId = -1;
 
   var days = [
     "sunday",
@@ -1096,10 +1098,18 @@ app.controller("OrdersummaryCtrl", function(
       .then(
         function(response) {
           if (response.Success == true) {
-            if (response.cities && response.cities.length > 0)
+            if (response.cities && response.cities.length > 0) {
               $scope.cityData = response.cities;
 
-            if (response.options && response.options.length > 0)
+              var cityDetails = $scope.cityData.find(x => x.title == $rootScope.serviceOfferedToCity);
+
+              if(cityDetails && cityDetails.id > 0) {
+                defaultCityId = cityDetails.id;
+                $scope.addressDetails.city_id = defaultCityId;
+              }
+            }
+
+            if (response.options && response.options.length > 0) 
               $scope.optionsData = response.options[0];
 
             if (response.timeslots && response.timeslots.length > 0)
@@ -1175,7 +1185,13 @@ app.controller("OrdersummaryCtrl", function(
         goToStep = 2;
       } else if (getObjectLength($scope.localData.pickupDate) != 0) {
         goToStep = 1;
+      } else if(getObjectLength($scope.localData.userDetails) != 0 &&
+                $scope.localData.userDetails.id > 0){
+        goToStep = 0;
       }
+
+      if(!$scope.isUserLoggedIn)
+        goToStep += 1;
 
       $scope.goToStep(goToStep);
     }
@@ -1206,19 +1222,24 @@ app.controller("OrdersummaryCtrl", function(
 
     switch (stepTitle) {
       case $scope.Steps.pickup_date:
-        $scope.showAllpickupDateList = false;
+        //$scope.showAllpickupDateList = false;
         $scope.userDetails = angular.copy($scope.localData.userDetails);
         $scope.addressDetails = angular.copy($scope.localData.addressDetails);
-        break;
+      break;
 
       case $scope.Steps.pickup_time:
         console.log("second");
-        break;
+      break;
 
       case $scope.Steps.drop_date:
-        $scope.showAlldeliveryDateList = false;
+        //$scope.showAlldeliveryDateList = false;
         functionForDropDate();
-        break;
+      break;
+
+      case $scope.Steps.partial_user_detail:
+        $scope.userDetails = angular.copy($scope.localData.userDetails);
+        $scope.addressDetails = angular.copy($scope.localData.addressDetails);
+      break;
 
       case $scope.Steps.user_detail:
         $scope.userDetails = angular.copy($scope.localData.userDetails);
@@ -1226,7 +1247,7 @@ app.controller("OrdersummaryCtrl", function(
 
       case $scope.Steps.address_detail:
         $scope.addressDetails = angular.copy($scope.localData.addressDetails);
-        break;
+      break;
 
       case $scope.Steps.payment_detail:
         $timeout(function() {
@@ -1441,6 +1462,11 @@ app.controller("OrdersummaryCtrl", function(
 
   function validationByStepTitle(stepTitle) {
     if (
+      stepTitle == $scope.Steps.partial_user_detail &&
+      jQuery("#" + stepTitle).valid() == false
+    ) {
+      return false;
+    } else if (
       stepTitle == $scope.Steps.pickup_date &&
       getObjectLength($scope.localData.pickupDate) == 0
     ) {
@@ -1484,7 +1510,7 @@ app.controller("OrdersummaryCtrl", function(
     var request_data = {
       action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
       sub_action: "vaults",
-      user_id: !$scope.isUserLoggedIn ? $scope.userDetails.id : -1
+      user_id: !$scope.isUserLoggedIn ? $scope.localData.userDetails.id : -1
     };
 
     $scope.paymentErr = false;
@@ -1522,9 +1548,9 @@ app.controller("OrdersummaryCtrl", function(
       });
   }
 
-  function saveUserDetails(partialInfo, pickupDate) {
+  function saveUserDetails(partialInfo) {
     debugger;
-    if (partialInfo && !jQuery("#partial_" + $scope.Steps.user_detail).valid())
+    if (partialInfo && !validationByStepTitle($scope.Steps.partial_user_detail))
       return;
     else if (!validationByStepTitle($scope.Steps.user_detail)) return;
 
@@ -1576,7 +1602,6 @@ app.controller("OrdersummaryCtrl", function(
                 if(check == true) {
                   return false;
                 }
-                $scope.localData.pickupDate = pickupDate;
 
                 if($scope.set_order_system == "QUICK") {
                   $scope.localData.userDetails.id = angular.copy($scope.userDetails.id);
@@ -1828,7 +1853,7 @@ app.controller("OrdersummaryCtrl", function(
       floor: null,
       pobox: null,
       unit_number: null,
-      city_id: null
+      city_id: defaultCityId
     };
     $rootScope.closeModal("#addressChangeModal");
 
@@ -1848,14 +1873,14 @@ app.controller("OrdersummaryCtrl", function(
   /* Perform Action contains multiple actions */
   $scope.performAction = function(action, value) {
     switch (action) {
+      case "SAVE_USER_PARTIAL_INFORMATION":
+        saveUserDetails(true);
+        return false;
+      break;
+
       case "SAVE_PICKUP_DATE":
-        if ($scope.isUserLoggedIn == true) {
           $scope.localData.pickupDate = value;
           $scope.Wizard.next();
-        } else {
-          saveUserDetails(true, value);
-          return false;
-        }
         break;
 
       case "SELECT_PICKUP_TIME":
@@ -1932,6 +1957,7 @@ app.controller("OrdersummaryCtrl", function(
       var simpleDate = new Date(confuseDate).toISOString().substr(0, 10);
 
       request_data = {
+        payment_id: $scope.getPayment.id,
         drop_date: simpleDate,
         drop_time_from: $scope.localData.deliveryTime.time_from,
         drop_time_to: $scope.localData.deliveryTime.time_to,
@@ -1948,6 +1974,7 @@ app.controller("OrdersummaryCtrl", function(
       .toISOString()
       .substr(0, 10);
 
+
     request_data["pickup_date"] = simpleDatepickup;
     request_data["status"] = "0";
     request_data["pickup_time_from"] = $scope.localData.pickupTime.time_from;
@@ -1955,6 +1982,7 @@ app.controller("OrdersummaryCtrl", function(
     request_data["pickup_price"] = $scope.localData.pickupTime.price;
     request_data["pickup_type"] = $scope.localData.pickupTime.type;
     request_data["address_id"] = $scope.getAddress.id;
+    
     request_data["same_day_pickup"] =
       $scope.localData.pickupDate.name == "Today" ? "1" : "0";
     request_data["comments"] = null;
