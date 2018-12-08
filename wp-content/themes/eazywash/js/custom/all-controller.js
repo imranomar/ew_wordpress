@@ -1223,8 +1223,7 @@ app.controller("OrdersummaryCtrl", function(
     switch (stepTitle) {
       case $scope.Steps.pickup_date:
         //$scope.showAllpickupDateList = false;
-        $scope.userDetails = angular.copy($scope.localData.userDetails);
-        $scope.addressDetails = angular.copy($scope.localData.addressDetails);
+        
       break;
 
       case $scope.Steps.pickup_time:
@@ -1237,8 +1236,14 @@ app.controller("OrdersummaryCtrl", function(
       break;
 
       case $scope.Steps.partial_user_detail:
-        $scope.userDetails = angular.copy($scope.localData.userDetails);
-        $scope.addressDetails = angular.copy($scope.localData.addressDetails);
+        if(getObjectLength($scope.localData.userDetails) != 0) {
+          $scope.userDetails = angular.copy($scope.localData.userDetails);
+        }
+        
+
+        if(getObjectLength($scope.localData.addressDetails) != 0) {
+          $scope.addressDetails = angular.copy($scope.localData.addressDetails);
+        }
       break;
 
       case $scope.Steps.user_detail:

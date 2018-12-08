@@ -120,7 +120,7 @@
             <div class="modal-body">
                 <div class="myorder Deliverydate finaldate" ng-if="!showLoading && !orderCreationDone">
                     <wizard on-finish="finished()" indicators-position="top" name="requestPickupWizard" edit-mode="true" ng-init="initializeWizard()">
-                        <wz-step wz-title="0" wz-disabled="{{isUserLoggedIn}}" wz-heading-title="{{Steps.partial_user_detail}" canenter="validateStep">
+                        <wz-step wz-title="0" wz-disabled="{{isUserLoggedIn}}" wz-heading-title="{{Steps.partial_user_detail}}" canenter="validateStep">
                             <div class="row my-3">
                                 <div class="col-sm-11">
                                     <h4 class="pull-left">{{'request_pickup_date' | translate}} :-)</h4>
@@ -148,11 +148,11 @@
 
                                             <div class="form-group col-sm-12">
                                                 <label class="font-weight-bold">{{'address_details.city' | translate}}</label>
-                                                <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control">
+                                                <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control" ng-options="city.id as city.title for city in cityData">
                                                     <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
-                                                    <option ng-repeat="value in cityData" value="{{value.id}}">
+                                                    <!-- <option ng-repeat="value in cityData" value="{{value.id}}">
                                                         {{value.title}}
-                                                    </option>                                 
+                                                    </option>                                  -->
                                                 </select>
                                             </div>
                                         </div>
@@ -826,11 +826,11 @@
                 </div>
 
                 <div class="form-group">
-                    <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control">
+                    <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control" ng-options="city.id as city.title for city in cityData" required>
                         <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
-                        <option ng-repeat="value in cityData" value="{{value.id}}">
+                        <!-- <option ng-repeat="value in cityData"  value="{{value.id}}">
                             {{value.title}}
-                        </option>                                 
+                        </option>                                  -->
                     </select>
                 </div>
             </div>
