@@ -134,10 +134,10 @@ jQuery(document).ready(function(){
     //   jQuery("#loginForm").modal("show");
     // }
   });
+  
   jQuery("#requestPickupModal").on('shown.bs.modal', function(){
-    alert("I want this to appear after the modal has opened!");
     jQuery('#requestPickupModal input[name="fullname"]').focus();
-});
+  });
 
   jQuery(".logout-form-handler a").click(function(){
       jQuery("#logoutForm").modal("show");

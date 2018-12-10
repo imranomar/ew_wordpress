@@ -895,8 +895,28 @@ app.controller("DashboardCtrl", function(
 
 // pricing of Controller
 
-app.controller("PricingCtrl", function($scope) {
-  // body...
+app.controller("PricingCtrl", function($scope, $rootScope, CommonService) {
+  var request_data = {
+    action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
+    sub_action: "pricing"
+  };
+
+  $scope.prices = [];
+  CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+      .then(
+        function(data) {
+          if (data.Success == true) {
+            var result  = data.data;
+            if(result && result.length > 0) {
+              $scope.prices = result;
+            }
+          }
+        },
+        function(error) {}
+      )
+      .finally(function() {
+        $scope.loading = false;
+      });
 });
 
 // Aboutus of Controller

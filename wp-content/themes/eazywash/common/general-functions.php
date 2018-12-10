@@ -136,6 +136,11 @@ function authenticate_ajax_call() {
 				$method = 'POST';
 				$url = 'tasksapi/createtasks';
 			break;
+			
+			case "pricing":
+				$method = 'GET';			
+				$url = 'laundrypricingapi';
+			break;
 		}
 		
 		if(!empty($url)) {
@@ -237,6 +242,11 @@ function ajax_call() {
 			case "set_default_vault":
 				$method = 'POST';			
 				$url = 'vaultapi/setdefault?id='.$data['id'];
+			break;
+
+			case "pricing":
+				$method = 'GET';			
+				$url = 'laundrypricingapi';
 			break;
 	   }
 	   
@@ -425,15 +435,23 @@ function logout_method() {
 
 /* Common Method for Calling API's */
 function callAPI($method, $parital_url, $data) {
-	
+	$whitelist = array(
+		'127.0.0.1',
+		'::1'
+	);
+
 	$valid_status_codes = [200, 201];
 
 	$response = array();
 	$response["Success"] = false;
 	$response["Message"] = "Something went wrong !!!";
-			
-
-	$baseUrl = 'http://localhost/advanced/backend/web/';
+	
+	if(in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+		$baseUrl = 'http://localhost/advanced/backend/web/';
+	} else {
+		$site_url = get_site_url();
+		$baseUrl = $site_url.'/advanced/backend/web/';
+	}
 
 	$api = $baseUrl.$parital_url;
 
@@ -474,7 +492,6 @@ function callAPI($method, $parital_url, $data) {
 	$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	curl_close($curl);
 	$isValidJson = isJson($result);
-	//pr($result);
 	//echo 'ok'.$isValidJson;die;
 	if($isValidJson) {
 		$final_result = json_decode($result, true);

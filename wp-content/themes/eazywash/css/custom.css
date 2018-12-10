@@ -2,9 +2,6 @@
 h4
 {
   margin-bottom: 1rem;
-  color: #ff00c6 ;
-  line-height: 30px;
-  font-weight:bold;
 }
 
 h6
@@ -154,6 +151,13 @@ span.required {
 .form-control.error {
   background: #ffd8d5 !important;
   border-color: #F44336 !important;
+}
+
+#requestPickupModal h4
+{
+  color: #ff00c6 ;
+  line-height: 30px;
+  font-weight:bold;
 }
 
 #requestPickupModal .form-control
