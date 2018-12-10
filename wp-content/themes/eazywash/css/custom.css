@@ -143,11 +143,59 @@ span.required {
 
 }
 
+.form-control:focus {
+  border-color: #ced4da !important;
+  box-shadow: none !important;
+}
+
+.form-control.error {
+  background: #ffd8d5 !important;
+  border-color: #F44336 !important;
+}
+
 #requestPickupModal .form-control
 {
   background-color: #dedede;
   font-size: 1.5rem;
   height: 50px;
+}
+
+
+#requestPickupModal .active .card-box {
+  background: #E1F5FE;
+  /* color: #fff; */
+}
+
+#requestPickupModal .alert {
+  font-size: 15px;
+  padding: 10px 15px;
+}
+
+
+.error {
+  color: #F44336;
+  display: block;
+  text-align: left;
+  font-size: 18px;
+}
+
+#requestPickupModal .myorder h2 {
+  display: none;
+}
+
+#paymentIframe {
+  width: 100%;
+  border:none;
+}
+
+#requestPickupModal .summary-tabs h4 {
+  background-color: #E1F5FE;
+  padding: 10px;
+}
+
+.lighter-text
+{
+  color: #797979;
 }
 
 .wizard-btn {
@@ -201,12 +249,6 @@ tr {
 	border-color: #444 !important;
 }
 
-#requestPickupModal .active .card-box {
-  background: #E1F5FE;
-  /* color: #fff; */
-}
-
-
 
 
 .myorder span.checkmark {
@@ -254,10 +296,6 @@ tr {
   background: #20b9e5;
 }
 
-#requestPickupModal .alert {
-  font-size: 15px;
-  padding: 10px 15px;
-}
 
 .other-content 
 {
@@ -306,6 +344,7 @@ tr {
 
 .modal {
   background: rgba(68, 100, 117, 1);
+  padding-right: 0 !important;
 }
 
 .modal .modal-header {
@@ -323,7 +362,6 @@ tr {
   float: right;
   font-size: 22px;
   border: 2px solid;
-  margin-top: 5px;
   margin-right: 5px;
   text-shadow: none;
 }
@@ -370,31 +408,61 @@ tr {
   overflow:hidden;
   overflow-y:auto;
 }
-
-.error {
-  color: #F44336;
-  display: block;
-  text-align: left;
+.modal-copyright, .modal-copyright a {
+  color: #fff;
+  font-size: 14px;
 }
 
-#requestPickupModal .myorder h2 {
-  display: none;
+.modal-copyright a {
+  text-decoration: underline;
 }
 
-#paymentIframe {
-  width: 100%;
-  border:none;
-}
-
-.lighter-text
-{
-  color: #797979;
-}
 
 /* CREATE ORDER ENDS HERE */
 
+@media only screen and (max-width: 576px) {
+  .fixed-width-btn {
+      min-width: 90px;
+  }
 
-@media only screen and (max-width: 768px) {
+  .small-fixed-width-btn {
+    min-width: 70px;
+  }
+
+  .round_button {
+    border-radius: 16vw;
+    padding: 7px 14px;
+    font-size: 14px;
+  }
+  #requestPickupModal .title h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  #requestPickupModal .card-box h5 {
+    font-size: 1.1rem;
+  }
+
+  #requestPickupModal #div_slots .card-box h6 {
+    margin-top:15px;
+  }
+
+  #requestPickupModal #div_slots .title h5 {
+    margin-top:10px;
+  }
+
+  #requestPickupModal .summary-tabs {
+    font-size: 1rem;
+  }
+  #requestPickupModal .summary-tabs h4 {
+    background-color: #E1F5FE;
+    padding: 6px;
+    font-size: 1.2rem;
+  }
+
+  
+  #requestPickupModal .summary-tabs .round_button.action-btn {
+    font-size: 14px;
+  }
   
 }
-

@@ -37,7 +37,7 @@
       "floor": "Floor",
       "po_box": "P.O. Box",
       "city": "City",
-      "unit_number": "Unit Number"
+      "unit_number": "Unit No."
   },
   "vault_details": {
     "ends_with": "ends with"

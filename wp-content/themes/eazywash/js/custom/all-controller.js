@@ -1560,7 +1560,7 @@ app.controller("OrdersummaryCtrl", function(
     else if (!validationByStepTitle($scope.Steps.user_detail)) return;
 
     $scope.loading = true;
-
+    
     var userData = $scope.userDetails;
     var addressData = $scope.addressDetails;
 
@@ -1799,6 +1799,14 @@ app.controller("OrdersummaryCtrl", function(
   $scope.changeAddress = function(address) {
     if (address.as_default == 1) {
       $scope.getAddress = address;
+
+      $scope.AllAddresses.map(function(address) {
+        if (address.id == request_data.id) {
+          return (address.as_default = 1);
+        } else {
+          return (address.as_default = 0);
+        }
+      });
 
       if (!$scope.isUserLoggedIn) {
         $scope.localData.addressDetails = address;
@@ -2074,4 +2082,16 @@ app.controller("OrdersummaryCtrl", function(
     let obj = JSON.stringify(data);
     LocalDataService.saveOrderData(obj);
   }
+
+  $scope.displayCityName = function(cityId) {
+    var cityText = "N/A";
+    if (cityId > 0) {
+      var cityObj = $scope.cityData.find(function(city) {
+        return city.id == cityId;
+      });
+
+      if (cityObj !== null) cityText = cityObj.title;
+    }
+    return cityText;
+  };
 });

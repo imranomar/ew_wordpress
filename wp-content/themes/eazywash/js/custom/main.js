@@ -128,10 +128,16 @@ jQuery(document).ready(function(){
   jQuery(".request-pickup-handler a").click(function(){
     //if(is_user_logged_in) {
       jQuery("#requestPickupModal").modal("show");
+      debugger;
+      jQuery('#requestPickupModal input[name="fullname"]').focus();
     // } else {
     //   jQuery("#loginForm").modal("show");
     // }
   });
+  jQuery("#requestPickupModal").on('shown.bs.modal', function(){
+    alert("I want this to appear after the modal has opened!");
+    jQuery('#requestPickupModal input[name="fullname"]').focus();
+});
 
   jQuery(".logout-form-handler a").click(function(){
       jQuery("#logoutForm").modal("show");
