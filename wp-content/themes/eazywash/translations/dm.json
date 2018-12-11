@@ -23,7 +23,13 @@
   "save": "Gemme",
   "add": "Tilføje",
   "remove": "Fjerne",
-  "change": "Lave om"
+  "change": "Lave om",
+  "close": "Tæt",
+  "loading": "Indlæser",
+  "type": "Type",
+  "price": "Pris",
+  "delete": "Slet",
+  "edit": "Redigere"
 },
 "basic_details": {
   "name": "Navn",
@@ -41,6 +47,10 @@
 },
 
 "vault_details": {
+  "card_type": "Kort type",
+  "card_number": "Kortnummer",
+  "expiry_date": "Udløbsdato",
+  "expiry_month": "Udløbs måned",
   "ends_with": "slutter med"
 },
 
@@ -70,7 +80,7 @@
 "request_pickup": "Anmodning afhentning",
 "request_pickup_date": "Vælg Pickup Date",
 "request_pickup_time": "Vælg Pickup Time",
-"request_pikcup_leave_at_door": "Jeg laver mit vasketøj uden for døren på mit ansvar",
+"request_pickup_leave_at_door": "Jeg laver mit vasketøj uden for døren på mit ansvar",
 "request_drop_date": "Vælg Drop Date",
 "request_drop_time": "Vælg Drop Time",
 "request_drop_leave_at_door": "Lad mit tøj stå uden for døren på mit ansvar",
@@ -92,14 +102,23 @@
 "request_pickup_order_cancel_confirmation": "Din ordre bliver slettet. Vil du annullere ordren?",
 "address_deletion_confirmation": "Vil du slette adresseoplysninger?",
 "deletion_confirmation": "Vil du slette",
+"change_password": "Skift kodeord",
+"new_password": "nyt kodeord",
+"old_password": "Gammelt kodeord",
+"confirm_password": "Bekræft kodeord",
 "change_address": "Skift adresse",
 "change_vault": "Skift Vault",
 "add_address": "Tilføj adresse",
+"update_address": "Opdateringsadresse",
 "add_vault": "Tilføj Vault",
+"basic_details_text": "Grundlæggende detaljer",
+"update_details_text": "Opdater detaljer",
 "payement_details_text": "Betalingsoplysninger",
 "address_details_text": "Adresseoplysninger",
+"vaults_details_text": "Vaults Detaljer",
 "start_text": "Lad os komme igang!",
-
+"view_summary": "Se Sammendrag",
+"set_default_text": "Sæt standard",
 
 "validation_message_login_failed": "Ugyldige loginoplysninger",
 "validation_message_email_required": "Indtast venligst e-mail-adresse",

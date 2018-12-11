@@ -172,6 +172,7 @@ app.factory("LocalDataService", function($cookies, $localStorage) {
       return orderDetails;
     },
     removeOrderData: function() {
+      debugger;
       if (is_user_logged_in) {
         delete $localStorage[LOCAL_PREFIX_MYORDER + "_" + logged_in_user_id];
       } else {

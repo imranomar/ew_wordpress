@@ -153,7 +153,7 @@ span.required {
   border-color: #F44336 !important;
 }
 
-#requestPickupModal h4
+#requestPickupModal .title h4
 {
   color: #ff00c6 ;
   line-height: 30px;
@@ -347,6 +347,10 @@ tr {
 
 .text-upper {
   text-transform: uppercase;
+}
+
+.text-captalize {
+  text-transform: capitalize;
 }
 
 .modal {

@@ -23,7 +23,13 @@
     "save": "Save",
     "add": "Add",
     "remove": "Remove",
-    "change": "Change"
+    "change": "Change",
+    "close": "Close",
+    "loading": "Loading",
+    "type": "Type",
+    "price": "Price",
+    "delete": "Delete",
+    "edit": "Edit"
   },
   "basic_details": {
     "name": "Name",
@@ -40,6 +46,10 @@
       "unit_number": "Unit No."
   },
   "vault_details": {
+    "card_type": "Card Type",
+    "card_number": "Card Number",
+    "expiry_date": "Expiry Date",
+    "exipry_month": "Expiry Month",
     "ends_with": "ends with"
   },
 
@@ -91,12 +101,23 @@
   "address_deletion_confirmation": "Do you want to delete address details?",
   "deletion_confirmation": "Do you want to delete",
   "change_address": "Change Address",
+  "change_password": "Change Password",
+  "new_password": "New Password",
+  "old_password": "Old Password",
+  "confirm_password": "Confirm Password",
   "change_vault": "Change Vault",
   "add_address": "Add Address",
+  "update_address": "Update Address",
   "add_vault": "Add Vault",
+  "basic_details_text": "Basic Details",
+  "update_details_text": "Update Details",
   "payement_details_text": "Payment Details",
   "address_details_text": "Address Details",
+  "vaults_details_text": "Vaults Details",
   "start_text": "Let's get started!",
+  "view_summary": "View Summary",
+  "set_default_text": "Set Default",
+
 
   "validation_message_login_failed": "Invalid login credentials",
   "validation_message_email_required": "Please enter email address",

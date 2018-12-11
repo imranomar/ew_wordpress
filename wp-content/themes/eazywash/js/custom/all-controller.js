@@ -999,6 +999,7 @@ app.controller("OrdersummaryCtrl", function(
   $scope.set_order_system = "FULL"; // 'full' or 'quick'
 
   $scope.orderCreationDone = false;
+  $scope.orderSummary = null;
 
   $scope.lastStepNumber = $scope.isUserLoggedIn ? 5 : 8;
 
@@ -1010,30 +1011,20 @@ app.controller("OrdersummaryCtrl", function(
   $scope.AllPayments = [];
   $scope.optionsData = null;
 
+  $scope.TimeSlots = [];
+  $scope.pickupDateList = [];
+  $scope.deliveryDateList = [];
+
   $scope.getAddress = null;
   $scope.getPayment = null;
-  $scope.TimeSlots = [];
 
-  $scope.pickupDateList = [];
-  $scope.showAllpickupDateList = false;
-
-  $scope.deliveryDateList = [];
-  $scope.showAlldeliveryDateList = false;
+  $scope.orderSummary = null;
+  $scope.orderCreationDone = false;
 
   $scope.Wizard = null;
   $scope.stepValidation = true;
 
-  $scope.err = false;
-  $scope.errorMessage = null;
-
-  $scope.userErr = false;
-  $scope.userErrorMessage = null;
-
-  $scope.addressErr = false;
-  $scope.addressErrorMessage = null;
-
-  $scope.paymentErr = false;
-  $scope.paymentErrorMessage = null;
+  var defaultCityId = -1;
   
   $scope.Steps = {
     partial_user_detail: "PartialUserDetail",
@@ -1046,37 +1037,6 @@ app.controller("OrdersummaryCtrl", function(
     payment_detail: "PaymentDetail",
     order_summary: "OrderSummary"
   };
-
-  //  localstorage keys
-  $scope.localData = {
-    pickupDate: {},
-    pickupTime: {},
-    deliveryDate: {},
-    deliveryTime: {},
-    userDetails: {},
-    addressDetails: {},
-    paymentDetails: {}
-  };
-
-  $scope.userDetails =  {
-    id: null,
-    full_name: null,
-    email: null,
-    password: null,
-    phone: null
-  };
-
-  $scope.addressDetails = {
-    id: null,
-    street_name: null,
-    floor: null,
-    pobox: null,
-    unit_number: null,
-    city_id: null,
-    as_default: null
-  };
-
-  var defaultCityId = -1;
 
   var days = [
     "sunday",
@@ -1102,6 +1062,54 @@ app.controller("OrdersummaryCtrl", function(
   months[10] = "November";
   months[11] = "December";
 
+  loadDefaults();
+
+  function loadDefaults() {
+    $scope.err = false;
+    $scope.errorMessage = null;
+  
+    $scope.userErr = false;
+    $scope.userErrorMessage = null;
+  
+    $scope.addressErr = false;
+    $scope.addressErrorMessage = null;
+  
+    $scope.paymentErr = false;
+    $scope.paymentErrorMessage = null;
+
+    $scope.showAlldeliveryDateList = false;  
+    $scope.showAllpickupDateList = false;
+
+    //  localstorage keys
+    $scope.localData = {
+      pickupDate: {},
+      pickupTime: {},
+      deliveryDate: {},
+      deliveryTime: {},
+      userDetails: {},
+      addressDetails: {},
+      paymentDetails: {}
+    };
+
+    $scope.userDetails =  {
+      id: null,
+      full_name: null,
+      email: null,
+      password: null,
+      phone: null
+    };
+
+    $scope.addressDetails = {
+      id: null,
+      street_name: null,
+      floor: null,
+      pobox: null,
+      unit_number: null,
+      city_id: defaultCityId != -1? String(defaultCityId): null,
+      as_default: null
+    };
+  }
+
   initializeOrderCreation();
 
   function initializeOrderCreation() {
@@ -1125,7 +1133,7 @@ app.controller("OrdersummaryCtrl", function(
 
               if(cityDetails && cityDetails.id > 0) {
                 defaultCityId = cityDetails.id;
-                $scope.addressDetails.city_id = defaultCityId;
+                $scope.addressDetails.city_id = String(defaultCityId);
               }
             }
 
@@ -1817,66 +1825,46 @@ app.controller("OrdersummaryCtrl", function(
   };
 
   $scope.changeAddress = function(address) {
-    if (address.as_default == 1) {
-      $scope.getAddress = address;
+    $scope.loading = true;
 
-      $scope.AllAddresses.map(function(address) {
-        if (address.id == request_data.id) {
-          return (address.as_default = 1);
-        } else {
-          return (address.as_default = 0);
-        }
-      });
+    var request_data = {};
+    request_data.id = address.id;
+    request_data.action = $scope.isUserLoggedIn
+      ? "authenticate_ajax_call"
+      : "ajax_call";
+    request_data.sub_action = "set_default_address";
+    if (!$scope.isUserLoggedIn)
+      request_data.customer_id = $scope.localData.userDetails.id;
 
-      if (!$scope.isUserLoggedIn) {
-        $scope.localData.addressDetails = address;
-        saveLocalData($scope.localData);
-      }
-
-      $rootScope.closeModal("#addressAddModal");
-      $rootScope.closeModal("#addressChangeModal");
-    } else {
-      $scope.loading = true;
-
-      var request_data = {};
-      request_data.id = address.id;
-      request_data.action = $scope.isUserLoggedIn
-        ? "authenticate_ajax_call"
-        : "ajax_call";
-      request_data.sub_action = "set_default_address";
-      if (!$scope.isUserLoggedIn)
-        request_data.customer_id = $scope.localData.userDetails.id;
-
-      CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
-        .then(
-          function(data) {
-            if (data.Success == true) {
-              $scope.AllAddresses.map(function(address) {
-                if (address.id == request_data.id) {
-                  return (address.as_default = 1);
-                } else {
-                  return (address.as_default = 0);
-                }
-              });
-
-              address.as_default = "1";
-              $scope.getAddress = address;
-
-              if (!$scope.isUserLoggedIn) {
-                $scope.localData.addressDetails = address;
-                saveLocalData($scope.localData);
+    CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
+      .then(
+        function(data) {
+          if (data.Success == true) {
+            $scope.AllAddresses.map(function(address) {
+              if (address.id == request_data.id) {
+                return (address.as_default = 1);
+              } else {
+                return (address.as_default = 0);
               }
+            });
 
-              $rootScope.closeModal("#addressAddModal");
-              $rootScope.closeModal("#addressChangeModal");
+            address.as_default = "1";
+            $scope.getAddress = address;
+
+            if (!$scope.isUserLoggedIn) {
+              $scope.localData.addressDetails = address;
+              saveLocalData($scope.localData);
             }
-          },
-          function(error) {}
-        )
-        .finally(function() {
-          $scope.loading = false;
-        });
-    }
+
+            $rootScope.closeModal("#addressAddModal");
+            $rootScope.closeModal("#addressChangeModal");
+          }
+        },
+        function(error) {}
+      )
+      .finally(function() {
+        $scope.loading = false;
+      });
   };
 
   $scope.openAddAddressModal = function() {
@@ -1886,7 +1874,7 @@ app.controller("OrdersummaryCtrl", function(
       floor: null,
       pobox: null,
       unit_number: null,
-      city_id: defaultCityId
+      city_id: String(defaultCityId)
     };
     $rootScope.closeModal("#addressChangeModal");
 
@@ -2042,9 +2030,11 @@ app.controller("OrdersummaryCtrl", function(
         function(data) {
           if (data.Success == true) {
             $scope.orderCreationDone = true;
-            $timeout(function() {
+            $scope.orderSummary = $scope.localData;
+
+            //$timeout(function() {
               removeLoalStorageAndGoToDashboard();
-            }, 3000);
+            //}, 3000);
           } else {
             $scope.err = true;
             $scope.errorMessage = data.Message;
@@ -2069,11 +2059,19 @@ app.controller("OrdersummaryCtrl", function(
 
       if (confirmation) {
         removeLoalStorageAndGoToDashboard();
+      } else {
+        return false;
       }
-    } else {
-      $rootScope.closeModal("#requestPickupModal");
-    }
+    } 
+    $rootScope.closeModal("#requestPickupModal");
   };
+
+
+  $scope.closeOrder = function() {
+    $scope.orderCreationDone = false;
+    $scope.orderSummary = null;
+    $rootScope.closeModal('#requestPickupModal');
+  }
 
   // save onto local storage closed
   function getLocalStorageData() {
@@ -2095,7 +2093,9 @@ app.controller("OrdersummaryCtrl", function(
 
   function removeLoalStorageAndGoToDashboard() {
     LocalDataService.removeOrderData();
-    window.location.reload();
+    $scope.noValidation();
+    loadDefaults();
+    //window.location.reload();
   }
 
   function saveLocalData(data) {

@@ -19,9 +19,9 @@ while(have_posts()) : the_post(); ?>
 
             <div class="nav flex-column nav-pills" id="dashboard-tabs" role="tablist" aria-orientation="vertical">
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action active" data-toggle="pill" href="javascript:void(0)" data-target="#basic_details" role="tab" aria-controls="dashboard_basic_details" aria-selected="true">Basic Details</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="pill" href="javascript:void(0)" data-target="#address_details" role="tab" aria-controls="dashboard_address_details" aria-selected="false">Address Details</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="pill" href="javascript:void(0)" data-target="#payment_details" role="tab" aria-controls="dashboard_payment_details" aria-selected="false">Vaults</a>
+                    <a class="list-group-item list-group-item-action active" data-toggle="pill" href="javascript:void(0)" data-target="#basic_details" role="tab" aria-controls="dashboard_basic_details" aria-selected="true">{{'basic_details_text' | translate }}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="pill" href="javascript:void(0)" data-target="#address_details" role="tab" aria-controls="dashboard_address_details" aria-selected="false">{{'address_details_text' | translate }}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="pill" href="javascript:void(0)" data-target="#payment_details" role="tab" aria-controls="dashboard_payment_details" aria-selected="false">{{'vaults_details_text' | translate }}</a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@ while(have_posts()) : the_post(); ?>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4>User Details</h4>
+                                        <h4>{{'basic_details_text' | translate}}</h4>
                                         <hr>
                                     </div>
                                 </div>
@@ -44,28 +44,28 @@ while(have_posts()) : the_post(); ?>
                                     <div class="col-md-12">
                                         <form name="basicDetailsForm" autocomplete="off" ng-submit="!loading && saveUserDetails(basicDetailsForm)" ng-validate="basicDetailsValidationOptions">
                                             <div class="form-group row">
-                                                <label for="fullname" class="col-4 col-form-label">Full Name <span class="required">*</span></label>
+                                                <label for="fullname" class="col-4 col-form-label">{{'basic_details.name' | translate}} <span class="required">*</span></label>
                                                 <div class="col-8">
-                                                    <input id="fullname" type="text" name="fullname" placeholder="Full Name" class="form-control" ng-model="userdata.full_name" ng-disabled="loading" />
+                                                    <input id="fullname" type="text" name="fullname" class="form-control" ng-model="userdata.full_name" ng-disabled="loading" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="email" class="col-4 col-form-label">Email <span class="required">*</span></label>
+                                                <label for="email" class="col-4 col-form-label">{{'basic_details.email' | translate}} <span class="required">*</span></label>
                                                 <div class="col-8">
-                                                    <input id="email" type="text" name="email" placeholder="Email" class="form-control" ng-model="userdata.email" ng-disabled="loading" />
+                                                    <input id="email" type="text" name="email" class="form-control" ng-model="userdata.email" ng-disabled="loading" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="phone" class="col-4 col-form-label">Phone <span class="required">*</span></label>
+                                                <label for="phone" class="col-4 col-form-label">{{'basic_details.phone' | translate}} <span class="required">*</span></label>
                                                 <div class="col-8">
-                                                    <input id="phone" type="text" name="phone" placeholder="Phone" class="form-control" ng-model="userdata.phone" ng-disabled="loading" />
+                                                    <input id="phone" type="text" name="phone" class="form-control" ng-model="userdata.phone" ng-disabled="loading" />
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <div class="offset-4 col-8">
-                                                    <button name="submit" type="submit" class="btn btn-primary">Update Details</button>
-                                                    <button data-toggle="modal" type="button" data-target="#changePassword" class="btn btn-primary">Change Password</button>
+                                                    <button name="submit" type="submit" class="btn btn-primary">{{'update_details_text' | translate}}</button>
+                                                    <button data-toggle="modal" type="button" data-target="#changePassword" class="btn btn-primary">{{'change_password' | translate}}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -78,8 +78,8 @@ while(have_posts()) : the_post(); ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4>
-                                        Address
-                                        <button type="button" class="btn btn-primary pull-right" ng-click="openAddressModal(null, -1)">Add</button>
+                                        {{'address_details_text' | translate }}
+                                        <button type="button" class="btn btn-primary pull-right" ng-click="openAddressModal(null, -1)">{{'text.add' | translate}}</button>
                                     </h4>
                                     <hr>
                                 </div>
@@ -88,33 +88,33 @@ while(have_posts()) : the_post(); ?>
                                 <div class="col-md-12">
                                     <div class="card mb-3 p-4" ng-repeat="address in addresses">
                                         <div class="form-group row">
-                                            <label for="streetname" class="col-4 col-form-label">Street Name <span class="required">*</span></label>
+                                            <label for="streetname" class="col-4 col-form-label">{{'address_details.street_name' | translate}} <span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span>{{address.street_name}} </span> <span ng-if="address.as_default == 1" class="text-success"><i class="fa fa-check"></i></span></label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="floor" class="col-4 col-form-label">Floor <span class="required">*</span></label>
+                                            <label for="floor" class="col-4 col-form-label">{{'address_details.floor' | translate}} <span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span>{{address.floor}}</span></label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="unitnumber" class="col-4 col-form-label">Unit Number <span class="required">*</span></label>
+                                            <label for="unitnumber" class="col-4 col-form-label">{{'address_details.unit_number' | translate}} <span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span>{{address.unit_number}}</span></label>
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <label for="pincode" class="col-4 col-form-label">Pin Code <span class="required">*</span></label>
+                                        <!-- <div class="form-group row">
+                                            <label for="pincode" class="col-4 col-form-label">{{'address_details.pobox' | translate}} <span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span>{{address.pobox}}</span></label>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="form-group row">
-                                            <label for="city" class="col-4 col-form-label">City <span class="required">*</span></label>
+                                            <label for="city" class="col-4 col-form-label">{{'address_details.city' | translate}} <span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span ng-bind="displayCityName(address.city_id)"></span></label>
                                             </div>
@@ -122,9 +122,9 @@ while(have_posts()) : the_post(); ?>
 
                                         <div class="form-group row">
                                             <div class="offset-4 col-8">
-                                                <button type="button" class="btn btn-primary" ng-click="openAddressModal(address, $index)">Edit</button>
-                                                <button type="button" class="btn btn-danger" ng-click="deleteAddress(address, $index)">Delete</button>
-                                                <button type="button" class="btn btn-primary" ng-click="setDefaultAddress(address, $index)" ng-if="address.as_default != 1">Set Default</button>
+                                                <button type="button" class="btn btn-primary" ng-click="openAddressModal(address, $index)">{{'text.edit' | translate}}</button>
+                                                <button type="button" class="btn btn-danger" ng-click="deleteAddress(address, $index)">{{'text.delete' | translate}}</button>
+                                                <button type="button" class="btn btn-primary" ng-click="setDefaultAddress(address, $index)" ng-if="address.as_default != 1">{{'set_default_text' | translate}}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -135,8 +135,8 @@ while(have_posts()) : the_post(); ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4>
-                                        Vaults
-                                        <button type="button" class="btn btn-primary pull-right" ng-click="openVaultModal()">Add</button>                                        
+                                        {{'vaults_details_text' | translate}}
+                                        <button type="button" class="btn btn-primary pull-right" ng-click="openVaultModal()">{{'text.add' | translate}}</button>                                        
                                     </h4>
                                     <hr>
                                 </div>
@@ -146,26 +146,26 @@ while(have_posts()) : the_post(); ?>
                                     <div class="card mb-3 p-4" ng-repeat="vault in vaults">
 
                                         <div class="form-group row">
-                                            <label for="cardtype" class="col-4 col-form-label">Card Type <span class="required">*</span></label>
+                                            <label for="cardtype" class="col-4 col-form-label">{{'vault_details.card_type' | translate}} <span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span ng-bind="displayCardName(vault.payment_type)"></span> <span ng-if="vault.as_default == 1" class="text-success"><i class="fa fa-check"></i></span></label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="cardnumber" class="col-4 col-form-label">Card Number<span class="required">*</span></label>
+                                            <label for="cardnumber" class="col-4 col-form-label">{{'vault_details.card_number' | translate}}<span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span>{{vault.number}}</span></label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="expirydate" class="col-4 col-form-label">Expiry Date <span class="required">*</span></label>
+                                            <label for="expirydate" class="col-4 col-form-label">{{'vault_details.expiry_date' | translate}} <span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span>{{vault.expiry_date}}</span></label>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="expirymonth" class="col-4 col-form-label">Expiry Month<span class="required">*</span></label>
+                                            <label for="expirymonth" class="col-4 col-form-label">{{'vault_details.expiry_month' | translate}} <span class="required">*</span></label>
                                             <div class="col-8">
                                                 <label> <span>{{vault.expiry_month}}</span></label>
                                             </div>
@@ -173,8 +173,8 @@ while(have_posts()) : the_post(); ?>
 
                                         <div class="form-group row">
                                             <div class="offset-4 col-8">
-                                                <button type="button" class="btn btn-danger" ng-click="deleteVault(vault, $index)">Delete</button>
-                                                <button type="button" class="btn btn-primary" ng-click="setDefaultVault(vault, $index)" ng-if="vault.as_default != 1">Set Default</button>
+                                                <button type="button" class="btn btn-danger" ng-click="deleteVault(vault, $index)">{{'text.delete' | translate }}</button>
+                                                <button type="button" class="btn btn-primary" ng-click="setDefaultVault(vault, $index)" ng-if="vault.as_default != 1">{{'set_default_text' | translate }}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -192,35 +192,35 @@ while(have_posts()) : the_post(); ?>
                 <form name="changePasswordForm" ng-submit="!loading && changePassowrd(changePasswordForm)" autocomplete="off" ng-validate="resetPasswordValidationOptions">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Change Password</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{'change_password' | translate}}</h4>
+                            <button type="button" class="close mt-1" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
                             <div ng-if="popupMessageObj" ng-class="popupMessageObj.class">{{popupMessageObj.message}}</div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" name="oldpassword" class="form-control" placeholder="Old Password" ng-model="changePassword.old_password" ng-disabled="loading" />
+                                        <input type="text" name="oldpassword" class="form-control" placeholder="{{'old_password' | translate}}" ng-model="changePassword.old_password" ng-disabled="loading" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="password" id="newpassword" name="newpassword" class="form-control" ng-model="changePassword.new_password" placeholder="New Password" ng-disabled="loading" />
+                                        <input type="password" id="newpassword" name="newpassword" class="form-control" ng-model="changePassword.new_password" placeholder="{{'new_password' | translate}}" ng-disabled="loading" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password"  ng-model="changePassword.cpassword" ng-disabled="loading" />
+                                        <input type="password" name="confirmpassword" class="form-control" placeholder="{{'confirm_password' | translate}}"  ng-model="changePassword.cpassword" ng-disabled="loading" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" ng-disabled="loading">Change</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="loading">{{'text.change' | translate}}</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="loading">{{'text.cancel' | translate}}</button>
                         </div>
                     </div>
@@ -234,8 +234,8 @@ while(have_posts()) : the_post(); ?>
                 <form name="addressForm" ng-submit="!loading && saveAddressDetails(addressForm)" autocomplete="off" ng-validate="addressDetailsValidationOptions">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">{{address_details && address_details.id > 0?'Update':'Add'}} Address</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{address_details && address_details.id > 0?('update_address' | translate):('add_address' | translate)}}</h4>
+                            <button type="button" class="close mt-1" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
                             <div ng-if="popupMessageObj" ng-class="popupMessageObj.class">{{popupMessageObj.message}}</div>
@@ -248,9 +248,9 @@ while(have_posts()) : the_post(); ?>
                                 <input type="text" name="floor" class="form-control" placeholder="{{'address_details.floor' | translate}}" ng-model="addressDetails.floor" />
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <input type="text" name="pobox" class="form-control" placeholder="{{'address_details.po_box' | translate}}"" ng-model="addressDetails.pobox" />
-                            </div>
+                            </div> -->
                             
                             <div class="form-group">
                                 <input type="text" name="unit_number" class="form-control" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="addressDetails.unit_number" />
@@ -266,7 +266,7 @@ while(have_posts()) : the_post(); ?>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" ng-disabled="loading">{{address_details && address_details.id > 0?'Update':'Save'}}</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="loading">{{address_details && address_details.id > 0?('text.update' | translate):('text.save' | translate)}}</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="loading">{{'text.cancel' | translate}}</button>
                         </div>
                     </div>
@@ -279,8 +279,8 @@ while(have_posts()) : the_post(); ?>
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Add Payment</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{'add_vault' | translate}}</h4>
+                        <button type="button" class="close mt-1" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body p-0">
                         <div ng-if="popupMessageObj" ng-class="popupMessageObj.class">{{popupMessageObj.message}}</div>
