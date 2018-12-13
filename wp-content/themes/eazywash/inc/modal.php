@@ -38,6 +38,9 @@
                                 </form>
                             </div>
                         </div>
+
+                        <div ng-include="'loader.html'" ng-if="loading"></div>
+
                     </div>
                     <div id="register" class="tab-pane fade" ng-controller="SignupCtrl">
                         <div class="row">
@@ -64,6 +67,9 @@
                                 </form>
                             </div>
                         </div>
+
+                        <div ng-include="'loader.html'" ng-if="loading"></div>
+
                     </div>
                 </div>
 

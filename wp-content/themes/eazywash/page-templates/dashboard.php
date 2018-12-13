@@ -15,7 +15,7 @@ if(!is_user_login())	{
 while(have_posts()) : the_post(); ?>
 <div class="container my-4" ng-controller="DashboardCtrl">
     <div class="row">
-        <div class="col-3">
+        <div class="col-12 col-sm-3 mb-3">
 
             <div class="nav flex-column nav-pills" id="dashboard-tabs" role="tablist" aria-orientation="vertical">
                 <div class="list-group">
@@ -25,7 +25,7 @@ while(have_posts()) : the_post(); ?>
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-12 col-sm-9">
             <div ng-if="messageObj" ng-class="messageObj.class">{{messageObj.message}}</div>
 
             <div class="card">

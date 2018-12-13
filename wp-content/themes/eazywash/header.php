@@ -57,12 +57,22 @@ $favicon = $theme_options['site-favicon']['url'];
 		<?php 
 			wp_nav_menu(array('menu' => 'Header Menu', 'container' => '', 'menu_class' => 'navbar-nav header-nav'));
 		?>  
+
+		<ul class="navbar-nav header-nav">
+			<?php if($is_login == true): ?>
+			<li class="menu-item dupserchbtn <?php if(strpos($_SERVER['REQUEST_URI'], 'dashboard') !== false){ echo 'current-menu-item'; }?>">
+				<a href="<?php echo get_permalink( get_page_by_path( 'dashboard' ) ); ?>"><?php echo $user['full_name']; ?>'s {{'menu_link_dashboard' | translate}}</a>
+			</li>
+			<li class="login-required dupserchbtn logout-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_logout' | translate}}</a></li>
+			<?php endif; ?>
+			<li class="login-not-required dupserchbtn login-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_login' | translate}}</a></li>
+		</ul>
       
     </div>
 
     <ul class="navbar-nav float-right search-menu">
 	
-	<?php if($is_login == true): ?>
+		<?php if($is_login == true): ?>
      	<li class="menu-item <?php if(strpos($_SERVER['REQUEST_URI'], 'dashboard') !== false){ echo 'current-menu-item'; }?>">
 	  		<a href="<?php echo get_permalink( get_page_by_path( 'dashboard' ) ); ?>"><?php echo $user['full_name']; ?>'s {{'menu_link_dashboard' | translate}}</a>
 		</li>
