@@ -27,13 +27,13 @@
                                         <input type="password" name="password" ng-model="logindata.password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group text-center">
-                                        <a href="javascript:void(0)" onclick="openForgotPasswordModal()">
+                                        <a href="javascript:void(0)" id="forgot-pwd-link" onclick="openForgotPasswordModal()">
                                             <span class="hidden-xs">Forgot Password</span>
                                         </a>
                                     </div>
 
                                     <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary">{{'text.login' | translate}}</button>
+                                        <button type="submit" id="login-btn" class="form-control btn btn-primary">{{'text.login' | translate}}</button>
                                     </div>
                                 </form>
                             </div>
@@ -59,10 +59,10 @@
                                         <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="signupdata.password" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="phone" class="form-control" placeholder="{{'basic_details.phone' | translate}}" ng-model="signupdata.phone" ng-disabled="loading" />
+                                        <input type="text" name="phone" class="form-control" ng-model="signupdata.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary" ng-disabled="loading">{{'text.register_now' | translate}}</button>
+                                        <button type="submit" class="form-control btn btn-primary" id="register-btn" ng-disabled="loading">{{'text.register_now' | translate}}</button>
                                     </div>
                                 </form>
                             </div>
@@ -150,7 +150,7 @@
                                         <div class="row">
                                             <div class="form-group col-sm-12">
                                                 <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
-                                                <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ng-disabled="loading" />
+                                                <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
                                             </div>
 
                                             <div class="form-group col-sm-12">
@@ -469,7 +469,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
-                                            <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ng-disabled="loading" />
+                                            <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
                                         </div>
                                     </form>
                                 </div>
@@ -1043,13 +1043,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="text" name="email" ng-model="form.email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-disabled="loading" />
+                                <input type="text" name="email" id="fw-email" ng-model="form.email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-disabled="loading" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" ng-disabled="loading">{{'text.submit' | translate}}</button>
+                    <button type="submit" class="btn btn-primary" id="forgot-pwd" ng-disabled="loading">{{'text.submit' | translate}}</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="loading">{{'text.cancel' | translate}}</button>
                 </div>
             </div>

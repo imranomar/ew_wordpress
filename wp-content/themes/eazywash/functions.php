@@ -310,6 +310,7 @@ function twentyfifteen_scripts() {
 	wp_enqueue_script( 'angular-translate-storage-cookie', get_theme_file_uri( '/js/libraries/angular-translate/angular-translate-storage-cookie.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-translate-storage-local', get_theme_file_uri( '/js/libraries/angular-translate/angular-translate-storage-local.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-translate-loader-static-files', get_theme_file_uri( '/js/libraries/angular-translate/angular-translate-loader-static-files.js' ), array(), '1.0' );
+	wp_enqueue_script( 'angular-mask', get_theme_file_uri( '/js/libraries/mask.min.js' ), array(), '1.0' );
 
 	wp_enqueue_script( 'angular-app', get_theme_file_uri( '/js/custom/app.js' ), array(), '1.0' );
 	wp_enqueue_script( 'angular-controllers', get_theme_file_uri( '/js/custom/all-controller.js' ), array(), '1.0' );

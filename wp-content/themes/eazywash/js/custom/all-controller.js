@@ -19,7 +19,7 @@ app.controller("AppController", function(
 
     jQuery(".paymentIframeContainer").html("");
     jQuery(".paymentIframeContainer:visible").html(
-      '<iframe id="paymentIframe" width="100%" height="450px"></iframe>'
+      '<iframe id="paymentIframe" name="paymentIframe" width="100%" height="450px"></iframe>'
     );
     var doc = document.getElementById("paymentIframe").contentWindow.document;
     doc.open();
@@ -77,7 +77,7 @@ app.controller("AppController", function(
       },
       phone: {
         required: true,
-        number: true,
+        phonenumber: true,
         minlength: 7
       },
       city: {
@@ -118,7 +118,7 @@ app.controller("AppController", function(
       },
       phone: {
         required: true,
-        number: true,
+        phonenumber: true,
         minlength: 7
       },
       password: {
