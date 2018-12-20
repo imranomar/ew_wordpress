@@ -200,6 +200,10 @@ span.required {
   padding: 10px;
 }
 
+#requestPickupModal .round_button.action-btn {
+  margin: 10px;
+}
+
 .lighter-text
 {
   color: #797979;
@@ -302,7 +306,6 @@ tr {
   color: #fff;
   background: #20b9e5;
 }
-
 
 .other-content 
 {
@@ -428,7 +431,9 @@ tr {
   text-decoration: underline;
 }
 
-
+.visiblity-none {
+  visibility: hidden;
+}
 /* CREATE ORDER ENDS HERE */
 
 @media only screen and (max-width: 576px) {

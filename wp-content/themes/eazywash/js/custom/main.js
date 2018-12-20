@@ -1,6 +1,8 @@
-const baseUrl = "http://localhost/advanced/backend/web/";
+const rootUrl = "http://localhost/";
+const siteUrl = rootUrl + "eazywash/";
+const baseUrl = rootUrl + "advanced/backend/web/";
 const ajaxUrl = my_ajax_object.ajax_url;
-const translationFolderPath  = 'http://localhost/eazywash/wp-content/themes/eazywash/translations/';
+const translationFolderPath  = siteUrl + 'wp-content/themes/eazywash/translations/';
 
 // window.addEventListener("beforeunload", function (e) {
 //   if(!localStorage.getItem('rememberMe')){
@@ -137,6 +139,11 @@ jQuery(document).ready(function(){
   
   jQuery("#requestPickupModal").on('shown.bs.modal', function(){
     jQuery('#requestPickupModal input[name="fullname"]').focus();
+  });
+
+  jQuery("#requestPickupModal, #loginForm").on('hidden.bs.modal', function(){
+    jQuery(this).find("label.error").remove();
+    jQuery(this).find(".form-control").removeClass('error');
   });
 
   jQuery(".logout-form-handler a").click(function(){

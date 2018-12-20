@@ -119,7 +119,7 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="text-center mb-3">
-            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo-wo-text.png" width="25%" class="img-responsive" />
+            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo.png" width="25%" class="img-responsive" />
         </div>
         <div class="modal-content">
             <div class="modal-body">
@@ -131,7 +131,7 @@
                                     <h4 class="pull-left">{{'start_text' | translate}} :-)</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -181,7 +181,7 @@
                                     <h4 class="pull-left">{{'request_pickup_date' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -248,7 +248,7 @@
                                     <h4 class="pull-left">{{'request_pickup_time' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -319,7 +319,7 @@
                                     <h4 class="pull-left">{{'request_drop_date' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -384,7 +384,7 @@
                                     <h4 class="pull-left">{{'request_drop_time' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -446,7 +446,7 @@
                                     <h4 class="pull-left">{{'request_pickup_enter_basic_details' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -490,7 +490,7 @@
                                     <h4 class="pull-left">{{'request_pickup_enter_address_details' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -521,7 +521,7 @@
                                     <h4 class="pull-left">{{'request_pickup_enter_payemnt_details' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -530,7 +530,8 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="round_button action-btn pull-right" id="orderLoadVaults" ng-click="performAction('GET_PAYMENT_DETAILS')">{{'text.next' | translate}}</button>
+                                    <a class="pull-right mt-4" href="javascript:void(0)" ng-click="reloadPaymentWindow()">{{'text.reload_Payment_window' | translate}}</a>
+                                    <button class="round_button action-btn pull-right visiblity-none" id="orderLoadVaults" ng-click="performAction('GET_PAYMENT_DETAILS')">{{'text.next' | translate}}</button>
                                 </div>
                             </div>
                         </wz-step>
@@ -541,7 +542,7 @@
                                     <h4 class="pull-left">{{'request_pickup_order_summary' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
-                                    <button type="button" class="close pull-right" wz-reset="onCancelOrder()">&times;</button>
+                                    <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
 
@@ -772,7 +773,7 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="text-center mb-3">
-                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo-wo-text.png" width="25%" class="img-responsive" />
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo.png" width="25%" class="img-responsive" />
             </div>
             <div class="modal-content">
                 <div class="modal-body">
@@ -943,7 +944,7 @@
 
                 <div class="col-sm-3 p-0 col-3" ng-hide="$index > -1">
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
-                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length <= 1">{{'text.add' | translate}}</a>
+                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length == 1">{{'text.change' | translate}}</a>
                 </div>
             </div>
         </div>
@@ -964,7 +965,7 @@
                 </div>
                 <div class="col-sm-3 col-3 p-0" ng-hide="$index > -1">
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button action-btn mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">{{'text.change' | translate}}</a>
-                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length <= 1">{{'text.add' | translate}}</a>
+                    <a href="javascript:void(0)" class="round_button action-btn small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length == 1">{{'text.change' | translate}}</a>
                 </div>
             </div>
         </div>

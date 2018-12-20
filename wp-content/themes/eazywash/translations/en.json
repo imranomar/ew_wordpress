@@ -29,7 +29,8 @@
     "type": "Type",
     "price": "Price",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "reload_Payment_window": "Reload Payment Window"
   },
   "basic_details": {
     "name": "Name",
@@ -105,10 +106,10 @@
   "new_password": "New Password",
   "old_password": "Old Password",
   "confirm_password": "Confirm Password",
-  "change_vault": "Change Vault",
+  "change_vault": "Change Payment Method",
   "add_address": "Add Address",
   "update_address": "Update Address",
-  "add_vault": "Add Vault",
+  "add_vault": "Add Payment Method",
   "basic_details_text": "Basic Details",
   "update_details_text": "Update Details",
   "payement_details_text": "Payment Details",

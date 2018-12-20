@@ -29,7 +29,8 @@
   "type": "Type",
   "price": "Pris",
   "delete": "Slet",
-  "edit": "Redigere"
+  "edit": "Redigere",
+  "reload_Payment_window": "Genindlæs betalingsvindue"
 },
 "basic_details": {
   "name": "Navn",
@@ -107,10 +108,10 @@
 "old_password": "Gammelt kodeord",
 "confirm_password": "Bekræft kodeord",
 "change_address": "Skift adresse",
-"change_vault": "Skift Vault",
+"change_vault": "Skift betalingsmetode",
 "add_address": "Tilføj adresse",
 "update_address": "Opdateringsadresse",
-"add_vault": "Tilføj Vault",
+"add_vault": "Tilføj betalingsmetode",
 "basic_details_text": "Grundlæggende detaljer",
 "update_details_text": "Opdater detaljer",
 "payement_details_text": "Betalingsoplysninger",

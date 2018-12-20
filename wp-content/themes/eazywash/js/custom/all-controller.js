@@ -23,7 +23,7 @@ app.controller("AppController", function(
     );
     var doc = document.getElementById("paymentIframe").contentWindow.document;
     doc.open();
-    doc.write('<h3 class="text-center">Loading...</h3>' + formHtml);
+    doc.write('<h3 class="text-center"><div class="loader-container"><div class="loader"></div></div></h3><link rel="stylesheet" href="'+ siteUrl + 'wp-content/themes/eazywash/css/custom.css" />' + formHtml);
     doc.close();
   };
 
@@ -772,6 +772,7 @@ app.controller("DashboardCtrl", function(
         $scope.loading = false;
       });
   };
+  
   $scope.deleteAddress = function(addressDetail, index) {
     if (addressDetail && addressDetail !== null) {
       var confirmation = confirm(
@@ -1129,7 +1130,7 @@ app.controller("OrdersummaryCtrl", function(
             if (response.cities && response.cities.length > 0) {
               $scope.cityData = response.cities;
 
-              var cityDetails = $scope.cityData.find(x => x.title == $rootScope.serviceOfferedToCity);
+              var cityDetails = $scope.cityData.find(x => $filter('lowercase')(x.title) == $filter('lowercase')($rootScope.serviceOfferedToCity));
 
               if(cityDetails && cityDetails.id > 0) {
                 defaultCityId = cityDetails.id;
@@ -1824,6 +1825,10 @@ app.controller("OrdersummaryCtrl", function(
     }
   };
 
+  $scope.reloadPaymentWindow = function() {
+    functionForPaymentDetail();
+  }
+
   $scope.changeAddress = function(address) {
     $scope.loading = true;
 
@@ -2059,6 +2064,7 @@ app.controller("OrdersummaryCtrl", function(
 
       if (confirmation) {
         removeLoalStorageAndGoToDashboard();
+        $scope.Wizard.reset();
       } else {
         return false;
       }
