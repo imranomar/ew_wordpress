@@ -291,6 +291,16 @@ app.controller("LoginCtrl", function(
         .then(
           function(data) {
             if (data.Success == true && data.data != 0) {
+              if(jQuery("#requestPickupModal").is(":visible")) {
+                var order = LocalDataService.getOrderData();
+                var keysToRemove = ["userDetails", "addressDetails", "paymentDetails"];
+                angular.forEach(keysToRemove, function(index, key) {
+                  delete order[key]; 
+                });
+
+                LocalDataService.saveOrderDataForUser(data.data, order);
+                LocalDataService.removeGuestUserOrderData();
+              }
               window.location.reload();
             } else {
               $scope.err = true;

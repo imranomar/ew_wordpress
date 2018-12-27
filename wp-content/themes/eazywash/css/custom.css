@@ -434,6 +434,8 @@ tr {
 .visiblity-none {
   visibility: hidden;
 }
+
+#loginForm { z-index: 9999; }
 /* CREATE ORDER ENDS HERE */
 
 @media only screen and (max-width: 576px) {

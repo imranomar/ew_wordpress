@@ -30,7 +30,8 @@
   "price": "Pris",
   "delete": "Slet",
   "edit": "Redigere",
-  "reload_Payment_window": "Genindlæs betalingsvindue"
+  "reload_Payment_window": "Genindlæs betalingsvindue",
+  "click_here": "Klik her"
 },
 "basic_details": {
   "name": "Navn",

@@ -30,7 +30,8 @@
     "price": "Price",
     "delete": "Delete",
     "edit": "Edit",
-    "reload_Payment_window": "Reload Payment Window"
+    "reload_Payment_window": "Reload Payment Window",
+    "click_here": "Click here"
   },
   "basic_details": {
     "name": "Name",

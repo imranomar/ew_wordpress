@@ -166,6 +166,9 @@ app.factory("LocalDataService", function($cookies, $localStorage) {
         });
       }
     },
+    saveOrderDataForUser: function(user_id, data) {
+      $localStorage[LOCAL_PREFIX_MYORDER + "_" + user_id] = data;
+    },
     getOrderData: function(data) {
       var orderDetails;
 
@@ -188,6 +191,9 @@ app.factory("LocalDataService", function($cookies, $localStorage) {
       } else {
         $cookies.remove(LOCAL_PREFIX_MYORDER);
       }
+    },
+    removeGuestUserOrderData: function() {
+      $cookies.remove(LOCAL_PREFIX_MYORDER);
     },
     removeUserData: function() {
       delete $localStorage[LOCAL_PREFIX_MYORDER + "_" + logged_in_user_id];

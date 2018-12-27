@@ -21,7 +21,7 @@
                                 <p class="alert alert-danger" ng-show="err">{{errorMessage}}</p>
                                 <form name="LoginForm" ng-submit="!loading && loginsubmit(LoginForm)" autocomplete="off" ng-validate="loginValidationOptions">
                                     <div class="form-group">
-                                        <input type="text" name="email" ng-model="logindata.email" tabindex="1" class="form-control" placeholder="{{'text.user_or_email' | translate}}" ng-disabled="loading" />
+                                        <input type="text" name="email" ng-model="logindata.email" tabindex="1" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
                                         <input type="password" name="password" ng-model="logindata.password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-disabled="loading" />
@@ -452,7 +452,7 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}</p>
+                                    <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}. {{'text.click_here' | translate}} {{'text.to' | translate}} <a href="javascript:void(0)" ng-if="userErrorMessage.indexOf(userDetails.email) !== -1" ng-click="showModal('#loginForm');">{{'text.login' | translate}}</a></p>
                                     <form name="{{Steps.user_detail}}" id="{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
