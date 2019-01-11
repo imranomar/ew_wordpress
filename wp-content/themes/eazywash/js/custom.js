@@ -2,49 +2,66 @@
  Custom Js goes here....
 */
 
-$(function() {
-	$('a[href="#search"]').on("click", function(event) {
-	  event.preventDefault();
-	  $("#search").addClass("open");
-	  $('#search > form > input[type="search"]').focus();
-	 
+jQuery(function() {
+  jQuery('a[href*="\\#"]').click(function(event) {
+    var at_offset = jQuery.attr(this, "href");
+    var at_navbar = jQuery(".nav");
 
-	  setTimeout(function() {   //calls click event after a certain time
-		$("body").addClass("overflowrm");
-	}, 350);
+    at_offset = at_offset.replace("/", "");
 
-	});
- 
-	$("#search, #search button.close").on("click keyup", function(event) {
-	  if (
-		 
-		 event.target.className == "close" ||
-		 event.keyCode == 27
-	  ) {
-		 $(this).removeClass("open");
-		 $("body").removeClass("overflowrm");
-	  }
-	});
- 
-	/*$("form").submit(function(event) {
+    var id = at_offset.substring(1, at_offset.length);
+    if (!document.getElementById(id)) {
+      return;
+    }
+    if (jQuery(at_offset).offset()) {
+      var offset_height = at_navbar.height() * 2 + 30;
+      if (at_navbar.closest("body").hasClass("sticky-header")) {
+        offset_height = (offset_height - 30) / 2;
+      }
+      jQuery("html, body").animate(
+        {
+          scrollTop: jQuery(at_offset).offset().top - offset_height
+        },
+        1000
+      );
+      event.preventDefault();
+    }
+  });
+
+  jQuery('a[href="#search"]').on("click", function(event) {
+    event.preventDefault();
+    jQuery("#search").addClass("open");
+    jQuery('#search > form > input[type="search"]').focus();
+
+    setTimeout(function() {
+      //calls click event after a certain time
+      jQuery("body").addClass("overflowrm");
+    }, 350);
+  });
+
+  jQuery("#search, #search button.close").on("click keyup", function(event) {
+    if (event.target.className == "close" || event.keyCode == 27) {
+      jQuery(this).removeClass("open");
+      jQuery("body").removeClass("overflowrm");
+    }
+  });
+
+  /*jQuery("form").submit(function(event) {
 	  event.preventDefault();
 	  return false;
 	});*/
+});
 
- });
+jQuery(document).ready(function() {
+  if (jQuery(window).width() < 992) {
+    jQuery("body").removeClass("inner-page");
+  }
 
-
-$(document).ready(function(){
-	if ($(window).width() < 992) {
-		$("body").removeClass("inner-page");
-	}
-	
-    $(window).scroll(function(){
-		if ($(window).scrollTop() >= 50) {
-		   $('body').addClass('sticky-header');
-		}
-		else {
-		   $('body').removeClass('sticky-header');
-		}
-	}); 
+  jQuery(window).scroll(function() {
+    if (jQuery(window).scrollTop() >= 50) {
+      jQuery("body").addClass("sticky-header");
+    } else {
+      jQuery("body").removeClass("sticky-header");
+    }
+  });
 });

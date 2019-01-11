@@ -284,7 +284,6 @@ function twentyfifteen_scripts() {
 	) );
 	
 	// Js libraries
-	wp_enqueue_script( 'jquery-slim', get_theme_file_uri( '/js/jquery-3.3.1.slim.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'popper-js', get_theme_file_uri( '/js/popper.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'bootstrap-js', get_theme_file_uri( '/js/bootstrap.min.js' ), array(), '1.0' );
 	wp_enqueue_script( 'jquery-validate', get_theme_file_uri( '/js/jquery.validate.js' ), array(), '1.0' );

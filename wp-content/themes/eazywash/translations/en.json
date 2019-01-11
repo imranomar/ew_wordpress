@@ -31,7 +31,8 @@
     "delete": "Delete",
     "edit": "Edit",
     "reload_Payment_window": "Reload Payment Window",
-    "click_here": "Click here"
+    "click_here": "Click here",
+    "expiry": "Expiry"
   },
   "basic_details": {
     "name": "Name",

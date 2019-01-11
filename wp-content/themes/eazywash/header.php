@@ -19,7 +19,7 @@ $favicon = $theme_options['site-favicon']['url'];
 	<link rel="shortcut icon test" href="<?php echo $favicon; ?>" >
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100i,300,400,700,900" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 
 	<link href="<?php echo esc_url( get_template_directory_uri() ); ?>/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo esc_url( get_template_directory_uri() ); ?>/css/angular-wizard.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@ $favicon = $theme_options['site-favicon']['url'];
   <div class="container position-relative">
      <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <i class="fas fa-bars"></i>
+        <i class="fa fa-bars"></i>
 	</button>
 	
 	<ul class="navbar-nav header-nav lang">

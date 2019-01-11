@@ -31,7 +31,8 @@
   "delete": "Slet",
   "edit": "Redigere",
   "reload_Payment_window": "Genindlæs betalingsvindue",
-  "click_here": "Klik her"
+  "click_here": "Klik her",
+  "expiry": "Expiry"
 },
 "basic_details": {
   "name": "Navn",

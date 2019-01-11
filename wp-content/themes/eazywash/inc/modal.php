@@ -26,16 +26,24 @@
                                     <div class="form-group">
                                         <input type="password" name="password" ng-model="logindata.password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-disabled="loading" />
                                     </div>
-                                    <div class="form-group text-center">
-                                        <a href="javascript:void(0)" id="forgot-pwd-link" onclick="openForgotPasswordModal()">
-                                            <span class="hidden-xs">Forgot Password</span>
-                                        </a>
-                                    </div>
 
                                     <div class="form-group">
                                         <button type="submit" id="login-btn" class="form-control btn btn-primary">{{'text.login' | translate}}</button>
                                     </div>
+
+                                    
+                                    <div class="form-group text-center">
+                                        <a href="javascript:void(0)" id="forgot-pwd-link" class="text-decoration-none" onclick="openForgotPasswordModal()">
+                                            Forgot Password
+                                        </a>
+                                    </div>
                                 </form>
+
+                                <div class="form-group text-center">
+                                    <a href="javascript:void(0)" onclick="loginWithFacebook()" class="fb-btn">
+                                        <i class="fa fa-facebook-square fa-fw"></i> Login with Facebook
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -68,23 +76,15 @@
                             </div>
                         </div>
 
+                        <div class="form-group text-center">
+                            <a href="javascript:void(0)" onclick="loginWithFacebook()" class="fb-btn">
+                                <i class="fa fa-facebook-square fa-fw"></i> Register with Facebook
+                            </a>
+                        </div>
+
                         <div ng-include="'loader.html'" ng-if="loading"></div>
 
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-12 text-center text-upper mb-3">
-                            {{'text.or' | translate}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group text-center">
-                    <a href="javascript:void(0)" onclick="loginWithFacebook()" class="col-sm-12 ">
-                        <span class="hidden-xs">Facebook</span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="text-center mb-3">
-            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo.png" width="25%" class="img-responsive" />
+            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo-top.png" class="popup-top-logo img-responsive" />
         </div>
         <div class="modal-content">
             <div class="modal-body">
@@ -127,7 +127,7 @@
                     <wizard on-finish="finished()" indicators-position="top" name="requestPickupWizard" edit-mode="true" ng-init="initializeWizard()">
                         <wz-step wz-title="0" wz-disabled="{{isUserLoggedIn}}" wz-heading-title="{{Steps.partial_user_detail}}" canenter="validateStep">
                             <div class="row my-3 title">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-10 pr-0 col-10">
                                     <h4 class="pull-left">{{'start_text' | translate}} :-)</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
@@ -177,7 +177,7 @@
 
                         <wz-step wz-title="1" wz-heading-title="{{Steps.pickup_date}}" canenter="validateStep">
                             <div class="row my-3 title">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-10 pr-0 col-10">
                                     <h4 class="pull-left">{{'request_pickup_date' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
@@ -244,7 +244,7 @@
 
                         <wz-step wz-title="2" wz-heading-title="{{Steps.pickup_time}}" canenter="validateStep">
                             <div class="row my-3 title">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-10 pr-0 col-10">
                                     <h4 class="pull-left">{{'request_pickup_time' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
@@ -315,12 +315,12 @@
 
                         <wz-step wz-title="3" wz-disabled="{{!isUserLoggedIn && set_order_system == 'QUICK'}}" wz-heading-title="{{Steps.drop_date}}" canenter="validateStep">
                             <div class="row my-3 title">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-12 col-12">
                                     <h4 class="pull-left">{{'request_drop_date' | translate}}</h4>
                                 </div>
-                                <div class="col-sm-2 col-2">
+                                <!-- <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="row" ng-repeat="value in deliveryDateList" ng-hide="!showAlldeliveryDateList && $index > 3"
@@ -380,12 +380,12 @@
 
                         <wz-step wz-title="4" wz-disabled="{{!isUserLoggedIn && set_order_system == 'QUICK'}}" wz-heading-title="{{Steps.drop_time}}" canenter="validateStep">
                             <div class="row my-3 title">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-12 col-12">
                                     <h4 class="pull-left">{{'request_drop_time' | translate}}</h4>
                                 </div>
-                                <div class="col-sm-2 col-2">
+                                <!-- <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div id="div_slots">
@@ -442,12 +442,12 @@
 
                         <wz-step wz-title="5" wz-heading-title="{{Steps.user_detail}}" wz-disabled="{{isUserLoggedIn || (!isUserLoggedIn && set_order_system == 'QUICK')}}" canenter="validateStep">
                             <div class="row title my-3">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-12 col-12">
                                     <h4 class="pull-left">{{'request_pickup_enter_basic_details' | translate}}</h4>
                                 </div>
-                                <div class="col-sm-2 col-2">
+                                <!-- <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="row">
@@ -486,12 +486,12 @@
 
                         <wz-step wz-title="{{isUserLoggedIn && showAddressDetailStep?'5':'6'}}" wz-heading-title="{{Steps.address_detail}}" wz-disabled="{{(isUserLoggedIn && showAddressDetailStep == false) || (!isUserLoggedIn && set_order_system == 'quick')}}" canenter="validateStep">
                             <div class="row title my-3">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-12 col-12">
                                     <h4 class="pull-left">{{'request_pickup_enter_address_details' | translate}}</h4>
                                 </div>
-                                <div class="col-sm-2 col-2">
+                                <!-- <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="row">
@@ -538,12 +538,12 @@
 
                         <wz-step wz-title="{{lastStepNumber}}" wz-heading-title="{{Steps.order_summary}}" wz-disabled="!isUserLoggedIn && set_order_system == 'QUICK'" canenter="validateStep">
                             <div class="row title my-3">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-12">
                                     <h4 class="pull-left">{{'request_pickup_order_summary' | translate}}</h4>
                                 </div>
-                                <div class="col-sm-2 col-2">
+                                <!-- <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
-                                </div>
+                                </div> -->
                             </div>
 
                             <p class="alert alert-danger col-sm-12" ng-show="err">{{errorMessage}}</p>
@@ -773,7 +773,7 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="text-center mb-3">
-                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo.png" width="25%" class="img-responsive" />
+                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo-top.png" class="popup-top-logo img-responsive" />
             </div>
             <div class="modal-content">
                 <div class="modal-body">
@@ -864,11 +864,8 @@
                                             <div  ng-if="getPayment.number">
                                                 {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
                                             </div>
-                                            <div  ng-if="getPayment.expiry_date">
-                                                {{'request_pickup_card_expiry_date' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_date}} </span>
-                                            </div>
-                                            <div  ng-if="getPayment.expiry_month">
-                                                {{'request_pickup_card_expiry_month' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_month}} </span>
+                                            <div>
+                                                {{'text.expiry' | translate}} : - <span class="borderdotdot">  {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -934,11 +931,8 @@
                     <div  ng-if="getPayment.number">
                         {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
                     </div>
-                    <div  ng-if="getPayment.expiry_date">
-                        {{'request_pickup_card_expiry_date' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_date}} </span>
-                    </div>
-                    <div  ng-if="getPayment.expiry_month">
-                        {{'request_pickup_card_expiry_month' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_month}} </span>
+                    <div>
+                        {{'text.expiry' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
                     </div>
                 </div>
 
