@@ -67,7 +67,12 @@
                                         <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="signupdata.password" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="phone" class="form-control" ng-model="signupdata.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><strong>+45</strong></span>
+                                            </div>
+                                            <input type="text" name="phone" class="form-control" ng-model="signupdata.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-primary" id="register-btn" ng-disabled="loading">{{'text.register_now' | translate}}</button>
@@ -150,7 +155,12 @@
                                         <div class="row">
                                             <div class="form-group col-sm-12">
                                                 <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
-                                                <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><strong>+45</strong></span>
+                                                    </div>
+                                                    <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />                                                
+                                                </div>
                                             </div>
 
                                             <div class="form-group col-sm-12">
@@ -469,7 +479,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
-                                            <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><strong>+45</strong></span>
+                                                </div>
+                                                <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -1055,15 +1071,15 @@
 
 <!-- Pricing Modal -->
 <div class="modal fade" id="pricingModal" role="dialog" ng-controller="PricingCtrl">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{'menu_link_pricing' | translate}}</h4>
                 <button type="button" class="close mt-1" ng-click="closeModal('#pricingModal')">&times;</button>
             </div>
-            <div class="modal-body">
-                <div class="row">
+            <div class="modal-body p-4 mt-6">
+                <!-- <div class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered">
                             <tr>
@@ -1077,6 +1093,24 @@
                                 <td>{{price.price | currency}}</td>
                             </tr>
                         </table>
+                    </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="col-sm-4 price" ng-repeat="(key, price) in prices" ng-class="{'price-active': $odd}">
+                        <div class="price-logo text-center">
+                            <img class="img-fluid" ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/price-top{{$odd?'-active':''}}.png" alt="price">
+                            <img ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/upper.png" class="category upper" alt="upper" width="50" ng-if="key.toLowerCase().indexOf('upper') > -1" /> 
+                            <img ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/lower.png" class="category lower" alt="lower" width="50" ng-if="key.toLowerCase().indexOf('lower') > -1" /> 
+                            <img ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/non-wearable.png" class="category non-wearable" width="50" alt="non wearable" ng-if="key.toLowerCase().indexOf('non') > -1" />
+                        </div>
+                        <div class="price-heading mt-2 text-center">
+                            <h3>{{key}}</h3>
+                        </div>
+                        <div class="price-text mt-3">
+                            <p ng-repeat="item in price"><label class="pull-left">{{item.title}}</label> <strong class="pull-right text-right">{{item.price | currency}}</strong></p>
+                            <!-- <a class="cust-button mt-3" href="#">CHECK</a> -->
+                        </div>
                     </div>
                 </div>
             </div>

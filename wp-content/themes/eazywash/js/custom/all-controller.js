@@ -912,14 +912,25 @@ app.controller("PricingCtrl", function($scope, $rootScope, CommonService) {
     sub_action: "pricing"
   };
 
-  $scope.prices = [];
+  $scope.prices = {};
   CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
       .then(
         function(data) {
           if (data.Success == true) {
             var result  = data.data;
             if(result && result.length > 0) {
-              $scope.prices = result;
+              
+              var category;
+              var pricings = {};
+              angular.forEach(result, function(item) {
+                category = item.type;
+                if (!pricings[category]) {
+                  pricings[category] = [];
+                }
+                pricings[category].push(item);
+              });
+debugger;
+              $scope.prices = pricings;
             }
           }
         },

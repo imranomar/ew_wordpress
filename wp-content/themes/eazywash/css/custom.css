@@ -464,10 +464,91 @@ tr {
 #loginForm { z-index: 9999; }
 
 .popup-top-logo {
-  width: 50%;
+  width: 30%;
 }
-/* CREATE ORDER ENDS HERE */
 
+.search .no-results {
+  text-align: center;
+}
+.search .page-header .page-title {
+  color: #0c3d57;
+  font-weight: 900;
+}
+.search .page-header p { 
+  color: #0c3d57;
+  font-size: 1.2rem;
+}
+
+.search .search-form {
+  margin-bottom: 30px;
+}
+
+.search .search-form label {
+  width: 60%;
+  display:inline-block;
+}
+
+.search .search-form .screen-reader-text {
+  display: none;
+}
+.search .search-form .search-field{
+  border: 1px solid #ccc;
+  display: block;
+  border-radius: 50px;
+  padding: 10px 20px;
+  width: 60%;
+  outline: none;
+  display: block;
+  margin: 0 auto;
+}
+
+.search .search-form .search-submit{
+  display: block;
+  background: #20b9e5;
+  margin: 0 auto;
+  border: none;
+  color: #fff;
+  padding: 10px 30px;
+  font-size: 18px;
+  border-radius: 25px;
+  /* min-width: 310px; */
+}
+
+.search article .entry-header .entry-title a {
+  color: #20b9e5 ;
+}
+
+.price-logo .category {
+  position: absolute;
+  top: -28%;
+  left: 40%;
+  margin: 0;
+}
+
+
+/* CREATE ORDER ENDS HERE */
+@media only screen and (max-width: 1000px) {
+  .modal .price-logo img {
+    margin-top: -70px;
+    width: 70%;
+  }
+
+  .modal .price-logo .category {
+    position: absolute;
+    top: -56%;
+    left: 37%;
+    margin: 0;
+    width: 40px !important;
+  }
+
+  .modal .price-heading h3 {
+    font-size: 20px;
+  }
+
+  .modal .price-text p {
+    font-size: 14px;
+  }
+}
 @media only screen and (max-width: 576px) {
   .fixed-width-btn {
       min-width: 90px;
@@ -514,7 +595,9 @@ tr {
     margin: 0;
   }
   .popup-top-logo {
-    width: 50%;
+    width: 40%;
   }
+
+ 
   
 }

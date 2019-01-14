@@ -45,12 +45,12 @@ $favicon = $theme_options['site-favicon']['url'];
     <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <i class="fa fa-bars"></i>
 	</button>
-	
+<!-- 	
 	<ul class="navbar-nav header-nav lang">
-        <li><a class="uk" href="javascript:void(0)" <?php if($theme_options['first-lang-icon']['url']) { echo "style='background-image: url(".$theme_options['first-lang-icon']['url'].");'"; }?> ng-click="changeLanguage('en')">uk</a></li>
-		<li><a class="dm" href="javascript:void(0)" <?php if($theme_options['second-lang-icon']['url']) { echo "style='background-image: url(".$theme_options['second-lang-icon']['url'].");'"; }?> ng-click="changeLanguage('dm')">dm</a></li>
+        <li><a href="javascript:void(0)" ng-click="changeLanguage('en')">DAN</a></li>
+		<li><a href="javascript:void(0)" ng-click="changeLanguage('dm')">ENG</a></li>
 		<li class="dupserchbtn"><a class="search" href="#search">search</a></li>
-	</ul>
+	</ul> -->
 
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
 		
@@ -79,7 +79,11 @@ $favicon = $theme_options['site-favicon']['url'];
 		<li class="login-required logout-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_logout' | translate}}</a></li>
 		<?php endif; ?>
 		<li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_login' | translate}}</a></li>
-      	<li><a class="search" href="#search">search</a></li>
+		  <li><a class="search" href="#search">search</a></li>
+		  
+		  <li><a href="javascript:void(0)" ng-click="changeLanguage('en')">DAN</a></li>
+		<li><a href="javascript:void(0)" ng-click="changeLanguage('dm')">ENG</a></li>
+		<li class="dupserchbtn"><a class="search" href="#search">search</a></li>
   	 </ul>
 	 
 	 <div id="search">
