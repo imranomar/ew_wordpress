@@ -81,8 +81,8 @@ $favicon = $theme_options['site-favicon']['url'];
 		<li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_login' | translate}}</a></li>
 		  <li><a class="search" href="#search">search</a></li>
 		  
-		  <li><a href="javascript:void(0)" ng-click="changeLanguage('en')">DAN</a></li>
-		<li><a href="javascript:void(0)" ng-click="changeLanguage('dm')">ENG</a></li>
+		  <li><a href="javascript:void(0)" ng-click="changeLanguage('en')">ENG</a></li>
+		<li><a href="javascript:void(0)" ng-click="changeLanguage('dm')">DAN</a></li>
 		<li class="dupserchbtn"><a class="search" href="#search">search</a></li>
   	 </ul>
 	 
