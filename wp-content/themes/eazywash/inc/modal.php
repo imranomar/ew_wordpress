@@ -211,7 +211,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12 lighter-text">{{value.shortDate}} </div>
+                                                    <div class="col-sm-12 lighter-text">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}} </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 col-4">
@@ -348,7 +348,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12">{{value.shortDate}} </div>
+                                                    <div class="col-sm-12 lighter-text">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}} </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 col-4">

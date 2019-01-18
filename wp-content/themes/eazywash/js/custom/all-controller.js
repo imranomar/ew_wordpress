@@ -907,6 +907,8 @@ app.controller("DashboardCtrl", function(
 // pricing of Controller
 
 app.controller("PricingCtrl", function($scope, $rootScope, CommonService) {
+  $scope.isUserLoggedIn = is_user_logged_in;
+  
   var request_data = {
     action: !$scope.isUserLoggedIn ? "ajax_call" : "authenticate_ajax_call",
     sub_action: "pricing"
@@ -1328,11 +1330,13 @@ app.controller("OrdersummaryCtrl", function(
     let name = "";
     let price = "";
     let label = "";
+    let subname = "";
 
     for (var i = 0; i < 16 + length; i++) {
       name = "";
       price = "";
       label = "";
+      subname = "";
 
       date = new Date();
       let d = new Date(date.setDate(date.getDate() + i));
@@ -1340,12 +1344,15 @@ app.controller("OrdersummaryCtrl", function(
         // if  day is tomorrow
         name = "Today";
         price = $scope.optionsData.same_day_pickup_price;
+        subname = days[d.getDay()];
       } else if (d.getDate() == new Date().getDate() + 1) {
         // if day is day after
         name = "Tomorrow";
+        subname = days[d.getDay()];
       } else if (d.getDate() == new Date().getDate() + 2) {
         // if day is day after
         name = "Day After Tomorrow";
+        subname = days[d.getDay()];
       } else {
         name = days[d.getDay()];
       }
@@ -1355,6 +1362,7 @@ app.controller("OrdersummaryCtrl", function(
       array.push({
         date: d,
         name: name,
+        subname: subname,
         price: price,
         shortDate: label
       });
@@ -1411,22 +1419,28 @@ app.controller("OrdersummaryCtrl", function(
     let name = "";
     let price = "";
     let label = "";
+    let subname = "";
 
     for (var i = 0; i < 16 + length; i++) {
       name = "";
       price = "";
       label = "";
+      subname = "";
 
       let d = new Date(date.setDate(date.getDate() + 1));
       if (d.getDate() == new Date().getDate() + 1) {
         // if day is day after
         name = "Tomorrow";
         price = $scope.optionsData.next_day_delivery_price;
+        subname = days[d.getDay()];
+
       } else if (d.getDate() == pickupD.getDate() + 1) {
         // if  day is tomorrow
         // name = 'day after';
         name = "Next day delievery";
         price = $scope.optionsData.next_day_delivery_price;
+        subname = days[d.getDay()];
+
       } else {
         name = days[d.getDay()];
       }
@@ -1436,6 +1450,7 @@ app.controller("OrdersummaryCtrl", function(
       array.push({
         date: d,
         name: name,
+        subname: subname,        
         price: price,
         shortDate: label
       });

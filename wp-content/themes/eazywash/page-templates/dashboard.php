@@ -57,11 +57,14 @@ while(have_posts()) : the_post(); ?>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="phone" class="col-4 col-form-label">{{'basic_details.phone' | translate}} <span class="required">*</span></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"><strong>+45</strong></span>
+                                                <div class="col-8">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><strong>+45</strong></span>
+                                                        </div>
+                                                        <input id="phone" type="text" name="phone" class="form-control" ng-model="userdata.phone" ng-disabled="loading" />                                                    
                                                     </div>
-                                                    <input id="phone" type="text" name="phone" class="form-control" ng-model="userdata.phone" ng-disabled="loading" />                                                    
+                                                    <label id="phone-error" class="error" for="phone"></label>
                                                 </div>
                                             </div>
                                             

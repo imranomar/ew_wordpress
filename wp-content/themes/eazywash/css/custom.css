@@ -207,6 +207,7 @@ span.required {
 .lighter-text
 {
   color: #797979;
+  text-transform: capitalize;
 }
 
 .wizard-btn {
