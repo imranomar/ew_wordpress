@@ -488,6 +488,7 @@ app.controller("DashboardCtrl", function(
   $scope.popupMessageObj = null;
 
   var tempAddressIndex = -1;
+  var defaultCityId = -1;
 
   $scope.userdata = {};
   $scope.addresses = [];
@@ -504,7 +505,7 @@ app.controller("DashboardCtrl", function(
       floor: null,
       pobox: null,
       unit_number: null,
-      city_id: null
+      city_id:  defaultCityId != -1? String(defaultCityId): null
     };
   }
 
@@ -525,6 +526,11 @@ app.controller("DashboardCtrl", function(
           $scope.addresses = data.addresses;
           $scope.vaults = data.vaults;
           $scope.cityData = data.cities;
+
+          var cityDetails = $scope.cityData.find(x => $filter('lowercase')(x.title) == $filter('lowercase')($rootScope.serviceOfferedToCity));
+
+          if(cityDetails && cityDetails.id > 0)
+            defaultCityId = cityDetails.id;
         }
       },
       function(error) {}
@@ -916,6 +922,8 @@ app.controller("DashboardCtrl", function(
   $scope.openAddressModal = function(addressDetail, index) {
     if (addressDetail && addressDetail !== null) {
       tempAddressIndex = index;
+
+      addressDetail.city_id = String(addressDetail.city_id);
       $scope.addressDetails = angular.copy(addressDetail);
     } else {
       defaultAddressFields();
