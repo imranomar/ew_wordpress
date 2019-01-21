@@ -547,6 +547,15 @@ app.controller("DashboardCtrl", function(
             $scope.loading = false;
             if (data.Success == true) {
               var result = data.data;
+
+              //Update Name of navbar
+              var userTextSelector = jQuery('.customer-name-link a');
+              var currentUserText = userTextSelector.text();
+              var userTextArr = currentUserText.split(" ");
+
+              userTextSelector.text(result.full_name+"'s " + userTextArr[userTextArr.length - 1]);
+
+
               $scope.messageObj = {
                 class: "alert alert-success",
                 message: "Basic details updated successfully"
@@ -572,6 +581,17 @@ app.controller("DashboardCtrl", function(
 
   $scope.saveAddressDetails = function(form) {
     if (form.validate()) {
+      
+      
+      var check = checkNoServiceCity($scope.addressDetails.city_id);
+      if(check == true) {
+        $scope.popupMessageObj = {
+          class: "alert alert-danger",
+          message: "Sorry, Currently service offered only in " + $rootScope.serviceOfferedToCity + " city"
+        };
+        return false;
+      }
+      
       $scope.loading = true;
 
       let request_data = {
@@ -632,6 +652,14 @@ app.controller("DashboardCtrl", function(
         });
     }
   };
+
+  function checkNoServiceCity(city_id) {
+    var city = $scope.cityData.find(x => x.id == city_id);
+    if(city && $filter('lowercase')(city.title) != $filter('lowercase')($rootScope.serviceOfferedToCity)) {
+      return true;
+    }
+    return false;
+  }
 
   $scope.changePassowrd = function(form) {
     if (form.validate()) {
@@ -876,10 +904,14 @@ app.controller("DashboardCtrl", function(
 
   $scope.openVaultModal = function() {
     $rootScope.showModal("#vaultModal");
+    $scope.reloadPaymentWindow();
+  };
+
+  $scope.reloadPaymentWindow = function() {
     $timeout(function() {
       $rootScope.loadAddPaymentMethodForm(logged_in_user_id);
     }, 1000);
-  };
+  }
 
   $scope.openAddressModal = function(addressDetail, index) {
     if (addressDetail && addressDetail !== null) {
@@ -1523,7 +1555,7 @@ app.controller("OrdersummaryCtrl", function(
 
   function checkNoServiceCity(city_id) {
     var city = $scope.cityData.find(x => x.id == city_id);
-    if(city && $filter('lowercase')(city.title) != 'copenhagen') {
+    if(city && $filter('lowercase')(city.title) != $filter('lowercase')($rootScope.serviceOfferedToCity)) {
       $rootScope.showModal("#noServiceModal");
       return true;
     }

@@ -21,9 +21,11 @@
                                 <p class="alert alert-danger" ng-show="err">{{errorMessage}}</p>
                                 <form name="LoginForm" ng-submit="!loading && loginsubmit(LoginForm)" autocomplete="off" ng-validate="loginValidationOptions">
                                     <div class="form-group">
+                                        <label for="email" class="form-label">{{'basic_details.email' | translate}} <span class="required">*</span></label>
                                         <input type="text" name="email" ng-model="logindata.email" tabindex="1" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
+                                        <label for="password" class="form-label">{{'basic_details.password' | translate}} <span class="required">*</span></label>
                                         <input type="password" name="password" ng-model="logindata.password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-disabled="loading" />
                                     </div>
 
@@ -34,7 +36,7 @@
                                     
                                     <div class="form-group text-center">
                                         <a href="javascript:void(0)" id="forgot-pwd-link" class="text-decoration-none" onclick="openForgotPasswordModal()">
-                                            Forgot Password
+                                            {{'forgot_password' | translate}}
                                         </a>
                                     </div>
                                 </form>
@@ -53,21 +55,27 @@
                     <div id="register" class="tab-pane fade" ng-controller="SignupCtrl">
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="alert alert-danger" ng-show="err">{{errorMessage}}</p>
+      
+                                <p class="alert alert-danger" ng-show="err">{{errorMessage}} <a href="javascript:jQuery('#loginForm .nav-tabs>li:first>a').tab('show');" data-target="#login" ng-if="errorMessage.indexOf(signupdata.email) !== -1" >{{'text.login' | translate}}</a></p>
                                 <p class="alert alert-danger" ng-show="required"> {{field}} !!!</p>
 
                                 <form name="RegisterForm" autocomplete="off" ng-submit="!loading && signupsubmitform(RegisterForm)" ng-validate="basicDetailsValidationOptions">
                                     <div class="form-group">
+                                        <label for="fullname" class="form-label">{{'basic_details.name' | translate}} <span class="required">*</span></label>
                                         <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="signupdata.name" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
+                                        <label for="email" class="form-label">{{'basic_details.email' | translate}} <span class="required">*</span></label>
                                         <input type="email" name="email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-model="signupdata.email" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
+                                        <label for="password" class="form-label">{{'basic_details.password' | translate}} <span class="required">*</span></label>
                                         <input type="password" name="password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-model="signupdata.password" ng-disabled="loading" />
                                     </div>
                                     <div class="form-group">
+                                        <label for="phone" class="form-label">{{'basic_details.phone' | translate}} <span class="required">*</span></label>
                                         <div class="input-group mb-3">
+
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><strong>+45</strong></span>
                                             </div>
@@ -301,7 +309,7 @@
                                         <div class='card-box' wz-next="performAction('SELECT_PICKUP_AT_DOOR', '')">
                                             <div class="row">
                                                 <div class="col-sm-3 col-3 text-center">
-                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.jpg" />
+                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.png" />
                                                 </div>
                                                 <div class="col-sm-6 mt-1 col-6">
                                                     <div class="title">
@@ -428,7 +436,7 @@
                                         <div class="card-box" wz-next="performAction('SELECT_DELIVERY_AT_DOOR', '')">
                                             <div class="row">
                                                 <div class="col-sm-3 col-3 text-center">
-                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.jpg" />
+                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.png" />
                                                 </div>
                                                 <div class="col-sm-6 col-6 mt-1">
                                                     <div class="item ">

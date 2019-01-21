@@ -548,9 +548,11 @@ section.pricing {
     overflow-y: hidden;
 }
 
-li.dupserchbtn{
+.dupserchbtn{
     display: none;
 }
+
+.dupserchbtn li { float: left;}
 
 h2.searchpage-title {
     border-bottom: 2px solid #ededed;

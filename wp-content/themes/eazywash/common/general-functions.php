@@ -60,8 +60,10 @@ function authenticate_ajax_call() {
 		unset($data['sub_action']);
 
 		$user = get_user_session();
-		
-		switch($_POST["sub_action"]) {
+
+		$sub_action = $_POST["sub_action"];
+
+		switch($sub_action) {
 			case "address":
 				$method = 'GET';
 				$data = array();
@@ -145,6 +147,9 @@ function authenticate_ajax_call() {
 		
 		if(!empty($url)) {
 			$result = callAPI($method, $url, $data);
+			//pr($result);
+			if($sub_action == 'update_user_details')
+				set_user_session($result['data']);
 		}
 	}
 

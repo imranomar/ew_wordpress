@@ -45,6 +45,15 @@ $favicon = $theme_options['site-favicon']['url'];
     <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <i class="fa fa-bars"></i>
 	</button>
+	<ul class="navbar-nav float-right dupserchbtn">
+		<li ng-class="{'current-menu-item': SelectedLang == 'en'}">
+			<a href="javascript:void(0)" ng-click="changeLanguage('en')" class="pr-0">ENG</a>
+		</li>
+		<li ng-class="{'current-menu-item': SelectedLang == 'dm'}">
+			<a href="javascript:void(0)" ng-click="changeLanguage('dm')"class="pl-3">DAN</a>
+		</li>
+		<li><a class="search" href="#search">search</a></li>
+	</ul>
 <!-- 	
 	<ul class="navbar-nav header-nav lang">
         <li><a href="javascript:void(0)" ng-click="changeLanguage('en')">DAN</a></li>
@@ -73,19 +82,25 @@ $favicon = $theme_options['site-favicon']['url'];
     <ul class="navbar-nav float-right search-menu">
 	
 		<?php if($is_login == true): ?>
-     	<li class="menu-item <?php if(strpos($_SERVER['REQUEST_URI'], 'dashboard') !== false){ echo 'current-menu-item'; }?>">
+     	<li class="menu-item customer-name-link <?php if(strpos($_SERVER['REQUEST_URI'], 'dashboard') !== false){ echo 'current-menu-item'; }?>">
 	  		<a href="<?php echo get_permalink( get_page_by_path( 'dashboard' ) ); ?>"><?php echo $user['full_name']; ?>'s {{'menu_link_dashboard' | translate}}</a>
 		</li>
 		<li class="login-required logout-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_logout' | translate}}</a></li>
 		<?php endif; ?>
-		<li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_login' | translate}}</a></li>
-		  <li><a class="search" href="#search">search</a></li>
+		<li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)" data-type="login">{{'menu_link_login' | translate}}</a></li>
+		<li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)" data-type="register">{{'menu_link_register' | translate}}</a></li>
 		  
-		  <li><a href="javascript:void(0)" ng-click="changeLanguage('en')">ENG</a></li>
-		<li><a href="javascript:void(0)" ng-click="changeLanguage('dm')">DAN</a></li>
-		<li class="dupserchbtn"><a class="search" href="#search">search</a></li>
+		<li ng-class="{'current-menu-item': SelectedLang == 'en'}">
+			<a href="javascript:void(0)" ng-click="changeLanguage('en')" class="pr-0">ENG</a>
+		</li>
+		<li ng-class="{'current-menu-item': SelectedLang == 'dm'}">
+			<a href="javascript:void(0)" ng-click="changeLanguage('dm')"class="pl-3">DAN</a>
+		</li>
+		<li><a class="search" href="#search">search</a></li>
+
   	 </ul>
 	 
+
 	 <div id="search">
 		<button type="button" class="close">×</button>
 		<form method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">

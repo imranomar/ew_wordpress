@@ -526,6 +526,9 @@ tr {
   margin: 0;
 }
 
+.customer-name-link {
+  text-transform: capitalize;
+}
 
 /* CREATE ORDER ENDS HERE */
 @media only screen and (max-width: 1000px) {

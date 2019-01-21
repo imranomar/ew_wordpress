@@ -123,8 +123,10 @@ const translationFolderPath  = siteUrl + 'wp-content/themes/eazywash/translation
 
 
 jQuery(document).ready(function(){
-  jQuery(".login-form-handler a").click(function(){
+  jQuery(".login-form-handler a").click(function() {
+      var tab = jQuery(this).data('type');
       jQuery("#loginForm").modal("show");
+      jQuery('#loginForm a[data-target="#' + tab + '"]').tab('show');
   });
 
   jQuery(".request-pickup-handler a").click(function(){
