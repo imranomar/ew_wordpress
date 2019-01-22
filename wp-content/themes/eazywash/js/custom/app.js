@@ -139,6 +139,7 @@ app.factory("CommonService", function($http, $q, $httpParamSerializer) {
 app.factory("LocalDataService", function($cookies, $localStorage) {
   var LOCALSTORAGE_LANGUAGE = "locale";
   var LOCAL_PREFIX_MYORDER = "myorder";
+  var LOCAL_PREFIX_INCOMPLETE_ORDER_ID = "incomplete_order_id";
 
   return {
     storeLanguageLocal(language) {
@@ -197,7 +198,43 @@ app.factory("LocalDataService", function($cookies, $localStorage) {
     },
     removeUserData: function() {
       delete $localStorage[LOCAL_PREFIX_MYORDER + "_" + logged_in_user_id];
-    }
+    },
+    getIncompleteOrderId: function() {
+      var orderId = $localStorage[LOCAL_PREFIX_INCOMPLETE_ORDER_ID];
+
+      if (!orderId) {
+        return false;
+      }
+      return orderId;
+    },
+    getIncompleteOrderId: function() {
+      var orderId
+      if (is_user_logged_in) {
+        orderId =
+          $localStorage[LOCAL_PREFIX_INCOMPLETE_ORDER_ID + "_" + logged_in_user_id];
+      } else {
+        orderId = $cookies.get(LOCAL_PREFIX_INCOMPLETE_ORDER_ID);
+      }
+
+      if (!orderId) {
+        return false;
+      }
+      return orderId;
+    },
+    saveIncompleteOrderId: function(order_id) {
+      if (is_user_logged_in) {
+        $localStorage[LOCAL_PREFIX_INCOMPLETE_ORDER_ID + "_" + logged_in_user_id] = order_id;
+      } else {
+        var date = new Date();
+        var expireDate = new Date(
+          date.setHours(date.getHours() + 1)
+        ).toUTCString();
+
+        $cookies.put(LOCAL_PREFIX_INCOMPLETE_ORDER_ID, order_id, {
+          expires: expireDate
+        });
+      }
+    },
   };
 });
 

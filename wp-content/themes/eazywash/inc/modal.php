@@ -81,6 +81,8 @@
                                             </div>
                                             <input type="text" name="phone" class="form-control" ng-model="signupdata.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
                                         </div>
+                                        <label id="phone-error" class="error" for="phone"></label>
+
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-primary" id="register-btn" ng-disabled="loading">{{'text.register_now' | translate}}</button>
@@ -169,6 +171,7 @@
                                                     </div>
                                                     <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />                                                
                                                 </div>
+                                                <label id="phone-error" class="error" for="phone"></label>
                                             </div>
 
                                             <div class="form-group col-sm-12">
@@ -494,6 +497,7 @@
                                                 </div>
                                                 <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
                                             </div>
+                                            <label id="phone-error" class="error" for="phone"></label>
                                         </div>
                                     </form>
                                 </div>
@@ -508,7 +512,7 @@
                             <div ng-include="'loader.html'" ng-if="loading"></div>
                         </wz-step>
 
-                        <wz-step wz-title="{{isUserLoggedIn && showAddressDetailStep?'5':'6'}}" wz-heading-title="{{Steps.address_detail}}" wz-disabled="{{(isUserLoggedIn && showAddressDetailStep == false) || (!isUserLoggedIn && set_order_system == 'quick')}}" canenter="validateStep">
+                        <wz-step wz-title="{{isUserLoggedIn && showAddressDetailStep?'5':'6'}}" wz-heading-title="{{Steps.address_detail}}" wz-disabled="{{(isUserLoggedIn && showAddressDetailStep == false) || (!isUserLoggedIn && set_order_system == 'QUICK')}}" canenter="validateStep">
                             <div class="row title my-3">
                                 <div class="col-sm-12 col-12">
                                     <h4 class="pull-left">{{'request_pickup_enter_address_details' | translate}}</h4>
@@ -539,7 +543,7 @@
                             <div ng-include="'loader.html'" ng-if="loading"></div>
                         </wz-step>
 
-                        <wz-step wz-title="{{isUserLoggedIn && showPaymentDetailStep?(showAddressDetailStep?'6':'5'):'7'}}" wz-heading-title="{{Steps.payment_detail}}" wz-disabled="{{(isUserLoggedIn && showPaymentDetailStep == false) || (!isUserLoggedIn && set_order_system == 'quick')}}" canenter="validateStep">
+                        <wz-step wz-title="{{isUserLoggedIn && showPaymentDetailStep?(showAddressDetailStep?'6':'5'):'7'}}" wz-heading-title="{{Steps.payment_detail}}" wz-disabled="{{(isUserLoggedIn && showPaymentDetailStep == false) || (!isUserLoggedIn && set_order_system == 'QUICK')}}" canenter="validateStep">
                             <div class="row title my-3">
                                 <div class="col-sm-10 col-10">
                                     <h4 class="pull-left">{{'request_pickup_enter_payemnt_details' | translate}}</h4>
@@ -670,7 +674,7 @@
                             <p>{{'request_pickup_order_success_message' | translate}}</p>
                             <p ng-if="!isUserLoggedIn">{{'request_pickup_order_success_information' | translate}}</p>
                             <div class="text-center">
-                                <button type="button" class="round_button action-btn" data-toggle="modal" data-target="#summaryModal">{{'view_summary' | translate}}</button>
+                                <button type="button" class="round_button action-btn" data-toggle="modal" data-target="#summaryModal" ng-if="set_order_system == 'FULL'">{{'view_summary' | translate}}</button>
                                 <button type="button" class="round_button action-btn" ng-click="closeOrder()">{{'text.close' | translate}}</button>
                             </div>
                         </div>

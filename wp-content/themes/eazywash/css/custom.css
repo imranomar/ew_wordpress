@@ -2,7 +2,6 @@
 h4
 {
   margin-bottom: 1rem;
-  color: #ff00c6 ;
   line-height: 30px;
   font-weight:bold;
 
@@ -534,6 +533,10 @@ tr {
   text-transform: capitalize;
 }
 
+button:focus {
+  outline: none !important;;
+}
+  
 /* CREATE ORDER ENDS HERE */
 @media only screen and (max-width: 1000px) {
   .modal .price-logo img {

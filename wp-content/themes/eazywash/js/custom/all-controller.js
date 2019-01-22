@@ -1659,7 +1659,6 @@ app.controller("OrdersummaryCtrl", function(
   }
 
   function saveUserDetails(partialInfo) {
-    debugger;
     if (partialInfo && !validationByStepTitle($scope.Steps.partial_user_detail))
       return;
     else if (!validationByStepTitle($scope.Steps.user_detail)) return;
@@ -1802,8 +1801,15 @@ app.controller("OrdersummaryCtrl", function(
               saveLocalData($scope.localData);
             }
 
-            if (nextAllowed) $scope.Wizard.next();
-            else $scope.changeAddress(result);
+            if (nextAllowed) {
+              if(!$scope.isUserLoggedIn)
+                $scope.createOrder(true);
+              else
+                $scope.Wizard.next();
+
+            } else { 
+              $scope.changeAddress(result);
+            }
           } else {
             $scope.addressErr = true;
             $scope.addressErrorMessage = res.Message;
@@ -2038,10 +2044,11 @@ app.controller("OrdersummaryCtrl", function(
   };
 
   /* Create Order */
-  $scope.createOrder = function() {
+  $scope.createOrder = function(asIncomplete) {
     $scope.err = false;
 
     var request_data = {};
+
     if ($scope.isUserLoggedIn == true || $scope.set_order_system == "FULL") {
       if (!$scope.getAddress) {
         $scope.err = true;
@@ -2049,7 +2056,7 @@ app.controller("OrdersummaryCtrl", function(
         return;
       }
 
-      if (!$scope.getPayment) {
+      if (!asIncomplete && !$scope.getPayment) {
         $scope.err = true;
         $scope.errorMessage = "Please add payment details";
         return;
@@ -2059,7 +2066,7 @@ app.controller("OrdersummaryCtrl", function(
       var simpleDate = new Date(confuseDate).toISOString().substr(0, 10);
 
       request_data = {
-        payment_id: $scope.getPayment.id,
+        payment_id: $scope.getPayment?$scope.getPayment.id: null,
         drop_date: simpleDate,
         drop_time_from: $scope.localData.deliveryTime.time_from,
         drop_time_to: $scope.localData.deliveryTime.time_to,
@@ -2098,6 +2105,17 @@ app.controller("OrdersummaryCtrl", function(
       : "authenticate_ajax_call";
     request_data["sub_action"] = "create_order";
 
+    if(asIncomplete)
+      request_data["is_completed"] = false;
+    else
+      request_data["is_completed"] = true;
+
+
+    var orderId = LocalDataService.getIncompleteOrderId();
+    if(orderId)
+      request_data["id"] = orderId;
+
+
     for (let key in request_data) {
       if (!request_data[key]) {
         request_data[key] = "0";
@@ -2110,12 +2128,17 @@ app.controller("OrdersummaryCtrl", function(
       .then(
         function(data) {
           if (data.Success == true) {
-            $scope.orderCreationDone = true;
-            $scope.orderSummary = $scope.localData;
+            if(asIncomplete) {
+              var result = data.data;
 
-            //$timeout(function() {
+              LocalDataService.saveIncompleteOrderId(result.data.id);
+              $scope.Wizard.next();
+            } else {
+              $scope.orderCreationDone = true;
+              $scope.orderSummary = $scope.localData;
+
               removeLoalStorageAndGoToDashboard();
-            //}, 3000);
+            }
           } else {
             $scope.err = true;
             $scope.errorMessage = data.Message;
