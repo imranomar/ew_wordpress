@@ -2156,7 +2156,7 @@ app.controller("OrdersummaryCtrl", function(
 
   /* Cancel Order */
   $scope.onCancelOrder = function() {
-    if (getObjectLength($scope.localData.pickupDate) > 0) {
+    if (getObjectLength($scope.localData.pickupDate) > 0 || getObjectLength($scope.localData.userDetails) > 0) {
       var confirmation = confirm(
         $filter("translate")("request_pickup_order_cancel_confirmation")
       );
