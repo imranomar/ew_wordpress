@@ -1639,11 +1639,12 @@ app.controller("OrdersummaryCtrl", function(
 
                 // Save local storage
                 saveLocalData($scope.localData);
+              } 
 
-                if (jQuery("#vaultAddModal").is(":visible"))
+              if (jQuery("#vaultAddModal").is(":visible"))
                   $rootScope.closeModal("#vaultAddModal");
-                else $scope.Wizard.next();
-              }
+                else 
+                  $scope.Wizard.next();
             } else {
               $scope.paymentErr = true;
               $scope.paymentErrorMessage =

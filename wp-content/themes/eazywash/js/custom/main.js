@@ -14,7 +14,7 @@ const translationFolderPath  = siteUrl + 'wp-content/themes/eazywash/translation
 //initialise and setup facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
-      appId            : '630548993961819',
+      appId            : '757262277993732',
       autoLogAppEvents : true,
       xfbml            : true,
       version          : 'v2.12'
@@ -47,20 +47,19 @@ const translationFolderPath  = siteUrl + 'wp-content/themes/eazywash/translation
         if(response.status === 'connected'){
             FB.api('/me', { locale: 'en_US', fields: 'name, email' },
               function(res) {
-                $.ajax({
+                jQuery.ajax({
                       type: "POST",
                       url: ajaxUrl,
                       data: {
                         "full_name": res.name,
                         "email": res.email,
                         "facebook_id": res.id,
-                        "password": '',
-                        "phone": '',
-                        "sex": '',
-                        "action": 'customer_create'
+                        "sex": '1',
+                        "allow_login": true,
+                        "action": 'ajax_call',
+                        "sub_action": 'fb_login_register'
                       },
-                      success: function (ress) {
-                        console.log(ress.id);
+                      success: function (response) {
 
                         // let check = document.getElementsByClassName('rememberMeCheck')[0];
                         // localStorage.setItem('laundryUser', ress.id);
@@ -78,7 +77,31 @@ const translationFolderPath  = siteUrl + 'wp-content/themes/eazywash/translation
                           
                         //test();
 
-                        location.reload();
+                        //location.reload();
+                        var res = JSON.parse(response);
+
+                        if (res.Success == true) {
+                          // let date = new Date();
+                          // localStorage.setItem("laundryUser", res.data.id);
+
+                          // let date1 = new Date(
+                          //   date.setHours(date.getHours() + 1)
+                          // ).toUTCString();
+                          // document.cookie = "laundryCookie=y; expires=" + date1;
+
+                          window.location.reload();
+                        } else {
+                          if (res.data.length > 0) {
+                            var fieldErrors = res.data;
+                            var firstFieldError = fieldErrors[0];
+
+                            alert(firstFieldError.message
+                              ? firstFieldError.message
+                              : res.Message);
+                          } else {
+                            alert(res.Message);
+                          }
+                        }
                       },
                       error: function(err){
                         console.log(err);
@@ -89,7 +112,7 @@ const translationFolderPath  = siteUrl + 'wp-content/themes/eazywash/translation
                     function test(){
                       FCMPlugin.getToken(function(token){
                         let x = localStorage.getItem('laundryUser');
-                      $.ajax({
+                      jQuery.ajax({
                         type: "PUT",
                         url: baseUrl+'customersapi/update/?id='+x,
                         data: {

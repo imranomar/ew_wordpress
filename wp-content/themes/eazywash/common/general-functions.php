@@ -205,6 +205,11 @@ function ajax_call() {
 				endif;
 			break;
 
+			case "fb_login_register":
+				$method = 'POST';
+				$url = 'customersapi/fb_login_register';
+				break;
+
 			case "save_user_info":
 				$method = 'POST';
 				$url = 'customersapi/adduserinfo';
@@ -497,7 +502,7 @@ function callAPI($method, $parital_url, $data) {
 	$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	curl_close($curl);
 	$isValidJson = isJson($result);
-	//echo 'ok'.$isValidJson;die;
+	//echo 'ok'.$result;die;
 	if($isValidJson) {
 		$final_result = json_decode($result, true);
 		

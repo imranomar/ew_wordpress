@@ -84,7 +84,9 @@ span.required {
 }
 
 .small-fixed-width-btn {
-  min-width: 95px;
+  min-width: 85px;
+  font-size: 14px;
+  padding: 6px;
 } 
 
 .round_button:hover {
@@ -358,6 +360,12 @@ tr {
 
 .text-captalize {
   text-transform: capitalize;
+}
+
+.large-check {
+  position: absolute;
+  right: 15px;
+  font-size: 30px;
 }
 
 .modal {
