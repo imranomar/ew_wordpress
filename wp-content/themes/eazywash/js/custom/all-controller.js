@@ -1385,11 +1385,11 @@ app.controller("OrdersummaryCtrl", function(
         name = "Today";
         price = $scope.optionsData.same_day_pickup_price;
         subname = days[d.getDay()];
-      } else if (d.getDate() == new Date().getDate() + 1) {
+      } else if (d.getDate() == new Date().addDays(1).getDate()) {
         // if day is day after
         name = "Tomorrow";
         subname = days[d.getDay()];
-      } else if (d.getDate() == new Date().getDate() + 2) {
+      } else if (d.getDate() == new Date().addDays(2).getDate()) {
         // if day is day after
         name = "Day After Tomorrow";
         subname = days[d.getDay()];
@@ -1466,15 +1466,14 @@ app.controller("OrdersummaryCtrl", function(
       price = "";
       label = "";
       subname = "";
-
       let d = new Date(date.setDate(date.getDate() + 1));
-      if (d.getDate() == new Date().getDate() + 1) {
+      if (d.getDate() == new Date().addDays(1).getDate()) {
         // if day is day after
         name = "Tomorrow";
         price = $scope.optionsData.next_day_delivery_price;
         subname = days[d.getDay()];
 
-      } else if (d.getDate() == pickupD.getDate() + 1) {
+      } else if (d.getDate() == pickupD.addDays(1).getDate()) {
         // if  day is tomorrow
         // name = 'day after';
         name = "Next day delievery";
@@ -1521,7 +1520,6 @@ app.controller("OrdersummaryCtrl", function(
     array.length = 15;
     $scope.deliveryDateList = array;
   }
-
   $scope.loadMoreDeliveryDates = function() {
     $scope.showAlldeliveryDateList = true;
   };
@@ -1608,7 +1606,7 @@ app.controller("OrdersummaryCtrl", function(
       return false;
     } else if (
       stepTitle == $scope.Steps.payment_detail &&
-      getObjectLength($scope.localData.paymentDetails) == 0
+      (!$scope.isUserLoggedIn && getObjectLength($scope.localData.paymentDetails) == 0)
     ) {
       return false;
     }
@@ -2181,7 +2179,6 @@ app.controller("OrdersummaryCtrl", function(
 
   // save onto local storage closed
   function getLocalStorageData() {
-    debugger;
     var order = LocalDataService.getOrderData(); //localStorage.getItem(getLocalStorageKeyOfOrder());
 
     let obj = {};

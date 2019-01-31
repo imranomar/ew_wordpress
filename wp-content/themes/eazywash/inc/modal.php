@@ -612,7 +612,7 @@
                                                                     localData.deliveryDate.price > 0 ||
                                                                         (localData.deliveryTime.price && localData.deliveryTime.price > 0)">
                                     <div class="row">
-                                        <div class="col-sm-3 col-3 mt-3 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="60"></div>
+                                        <div class="col-sm-3 col-3 mt-3 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="45"></div>
                                         <div class="col-sm-9 col-9">
                                             <div class="item item-body orderlistbody">
                                                 <strong>{{'request_pickup_extra_charges' | translate}}</strong><br>
@@ -856,7 +856,7 @@
                                                                     orderSummary.deliveryDate.price > 0 ||
                                                                         (orderSummary.deliveryTime.price && orderSummary.deliveryTime.price > 0)">
                                     <div class="row">
-                                        <div class="col-sm-3 col-3 mt-3 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="60"></div>
+                                        <div class="col-sm-3 col-3 mt-3 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="45"></div>
                                         <div class="col-sm-9 col-9">
                                             <div class="item item-body orderlistbody">
                                                 <strong>{{'request_pickup_extra_charges' | translate}}</strong><br>
@@ -889,7 +889,7 @@
 
                                 <div class="card-box">
                                     <div class="row">
-                                        <div class="col-sm-3 col-3 mt-4 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="60"></div>
+                                        <div class="col-sm-3 col-3 mt-4 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="45"></div>
                                         <div class="col-sm-9 col-9">
                                             <strong>{{'payement_details_text' | translate}}</strong><br>
 
@@ -908,7 +908,7 @@
 
                                 <div class="card-box">
                                     <div class="row">
-                                        <div class="col-sm-3 col-3 mt-1 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="60"></div>
+                                        <div class="col-sm-3 col-3 mt-1 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="45"></div>
                                         <div class="col-sm-9 col-9">
                                         <strong>{{'address_details_text' | translate}}</strong><br>
                                             <span ng-if="getAddress != null">
@@ -957,7 +957,7 @@
     <script type="text/ng-template" id="vault-card.html">
         <div class="card-box">
             <div class="row">
-                <div class="col-sm-3 col-3 text-center" ng-class="$index > -1?'mt-2':'mt-3'"><img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="60"></div>
+                <div class="col-sm-3 col-3 text-center" ng-class="$index > -1?'mt-2':'mt-4'"><img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="45"></div>
                 <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
                     <div ng-hide="$index > -1"><strong>{{'payement_details_text' | translate}}</strong></div>
                     <div ng-if="getPayment.payment_type">
@@ -973,7 +973,7 @@
 
                 <div class="col-sm-3 p-0 col-3" ng-hide="$index > -1">
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
-                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length == 1">{{'text.add' | translate}}</a>
+                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length == 1">{{'text.change' | translate}}</a>
                 </div>
             </div>
         </div>
@@ -983,7 +983,7 @@
     <script type="text/ng-template" id="address-card.html">
         <div class="card-box">
             <div class="row">
-                <div class="col-sm-3 col-3 text-center" ng-class="$index > -1?'':'mt-1'"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="60"></div>
+                <div class="col-sm-3 col-3 text-center" ng-class="$index > -1?'mt-1':'mt-1'"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="45"></div>
                 <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
                     <div ng-hide="$index > -1"><strong>{{'address_details_text' | translate}}</strong></div>
                     <span ng-if="getAddress != null">
@@ -994,7 +994,7 @@
                 </div>
                 <div class="col-sm-3 col-3 p-0" ng-hide="$index > -1">
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">{{'text.change' | translate}}</a>
-                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length == 1">{{'text.add' | translate}}</a>
+                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length == 1">{{'text.change' | translate}}</a>
                 </div>
             </div>
         </div>

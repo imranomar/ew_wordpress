@@ -206,7 +206,7 @@ span.required {
 }
 
 #requestPickupModal .round_button.action-btn {
-  margin: 10px;
+  margin: 20px 10px 10px;
 }
 
 .lighter-text
@@ -546,18 +546,12 @@ button:focus {
 }
   
 /* CREATE ORDER ENDS HERE */
-@media only screen and (max-width: 1000px) {
-  .modal .price-logo img {
-    margin-top: -70px;
-    width: 70%;
-  }
-
-  .modal .price-logo .category {
+@media only screen and (max-width: 992px) {
+  .price-logo .category {
     position: absolute;
-    top: -56%;
-    left: 37%;
+    top: -48%;
+    left: 34%;
     margin: 0;
-    width: 40px !important;
   }
 
   .modal .price-heading h3 {
@@ -569,6 +563,14 @@ button:focus {
   }
 }
 @media only screen and (max-width: 576px) {
+
+  .price-logo .category {
+    position: absolute;
+    top: -30%;
+    left: 45%;
+    margin: 0;
+}
+
   .fixed-width-btn {
       min-width: 90px;
   }
@@ -619,4 +621,14 @@ button:focus {
 
  
   
+}
+
+
+@media only screen and (max-width: 380px) {
+  .price-logo .category {
+    position: absolute;
+    top: -30%;
+    left: 42%;
+    margin: 0;
+  }
 }

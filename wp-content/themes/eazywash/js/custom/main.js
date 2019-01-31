@@ -143,7 +143,11 @@ const translationFolderPath  = siteUrl + 'wp-content/themes/eazywash/translation
     },{ scope: 'email' });
  }
 
-
+ Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
 
 jQuery(document).ready(function(){
   jQuery(".login-form-handler a").click(function() {
