@@ -130,7 +130,7 @@
   "validation_message_phone_required": "Please enter phone number",
   "validation_message_street_required": "Please enter street name",
   "validation_message_floor_required": "Please enter floor",
-  "validation_message_pobox_required": "Please enter PO box number",
+  "validation_message_pobox_required": "Please enter PO box",
   "validation_message_city_required": "Please enter city",
   "validation_message_old_password_required": "Please enter old password",
   "validation_message_new_password_required": "Please enter new password",

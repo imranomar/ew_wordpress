@@ -161,10 +161,9 @@ app.controller("AppController", function(
       floor: {
         required: true
       },
-      // pobox: {
-      //   required: true,
-      //   number: true
-      // },
+      pobox: {
+        required: true
+      },
       unit_number: {
         required: true
       },
@@ -183,11 +182,11 @@ app.controller("AppController", function(
           return $filter("translate")("validation_message_floor_required");
         }
       },
-      // pobox: {
-      //   required: function() {
-      //     return $filter("translate")("validation_message_pobox_required");
-      //   }
-      // },
+      pobox: {
+        required: function() {
+          return $filter("translate")("validation_message_pobox_required");
+        }
+      },
       city: {
         required: function() {
           return $filter("translate")("validation_message_city_required");

@@ -94,7 +94,7 @@ while(have_posts()) : the_post(); ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card mb-3 p-4" ng-repeat="address in addresses">
-                                        <div class="form-group row">
+                                       <div class="form-group row">
                                             <label for="streetname" class="col-4 form-label">{{'address_details.street_name' | translate}}</label>
                                             <div class="col-8">
                                                 <label> <span>{{address.street_name}} </span> <span ng-if="address.as_default == 1" class="text-success"><i class="fa fa-check"></i></span></label>
@@ -113,12 +113,12 @@ while(have_posts()) : the_post(); ?>
                                             </div>
                                         </div>
 
-                                        <!-- <div class="form-group row">
-                                            <label for="pincode" class="col-4 form-label">{{'address_details.pobox' | translate}}</label>
+                                        <div class="form-group row">
+                                            <label for="pincode" class="col-4 form-label">{{'address_details.po_box' | translate}}</label>
                                             <div class="col-8">
                                                 <label> <span>{{address.pobox}}</span></label>
                                             </div>
-                                        </div> -->
+                                        </div>
 
                                         <div class="form-group row">
                                             <label for="city" class="col-4 form-label">{{'address_details.city' | translate}}</label>
@@ -250,15 +250,16 @@ while(have_posts()) : the_post(); ?>
                                 <input type="text" name="floor" class="form-control" placeholder="{{'address_details.floor' | translate}}" ng-model="addressDetails.floor" />
                             </div>
 
-                            <!-- <div class="form-group">
-                                <input type="text" name="pobox" class="form-control" placeholder="{{'address_details.po_box' | translate}}"" ng-model="addressDetails.pobox" />
-                            </div> -->
-                            
                             <div class="form-group">
                                 <label for="unit_number" class="form-label">{{'address_details.unit_number' | translate}} <span class="required">*</span></label>
                                 <input type="text" name="unit_number" class="form-control" placeholder="{{'address_details.unit_number' | translate}}"" ng-model="addressDetails.unit_number" />
                             </div>
 
+                            <div class="form-group">
+                                <label for="pobox" class="form-label">{{'address_details.po_box' | translate}} <span class="required">*</span></label>
+                                <input type="text" name="pobox" class="form-control" placeholder="{{'address_details.po_box' | translate}}"" ng-model="addressDetails.pobox" />
+                            </div>
+                            
                             <div class="form-group">
                                 <label for="city" class="form-label">{{'address_details.city' | translate}} <span class="required">*</span></label>
                                 <select ng-model="addressDetails.city_id" name="city" class="form-control">

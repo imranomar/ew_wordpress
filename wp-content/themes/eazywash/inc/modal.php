@@ -705,7 +705,7 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                                <button class="round_button action-btn pull-right" ng-disabled="loading" ng-click="!loading && performAction('SAVE_ADDRESS_DETAILS', false)">{{'text.save' | translate}}</button>
+                                <button class="round_button action-btn pull-right m-0" ng-disabled="loading" ng-click="!loading && performAction('SAVE_ADDRESS_DETAILS', false)">{{'text.save' | translate}}</button>
                             </div>
                         </div>
                     </form>
@@ -765,7 +765,7 @@
                     </div>
                 </div>
                 <div class="modal-footer text-center">
-                    <button type="button" class="round_button action-btn" ng-click="openAddAddressModal()">{{'text.add' | translate}}</button>
+                    <button type="button" class="round_button action-btn m-0" ng-click="openAddAddressModal()">{{'text.add' | translate}}</button>
                 </div>
                 <div ng-include="'loader.html'" ng-if="loading"></div>
             </div>
@@ -795,7 +795,7 @@
                 </div>
 
                 <div class="modal-footer text-center">
-                    <button type="button" class="round_button action-btn" ng-click="openAddVaultModal()">{{'text.add' | translate}}</button>
+                    <button type="button" class="round_button action-btn m-0" ng-click="openAddVaultModal()">{{'text.add' | translate}}</button>
                 </div>
                 <div ng-include="'loader.html'" ng-if="loading"></div>
             </div>
@@ -897,10 +897,10 @@
                                                 <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> 
                                             </div>
                                             <div  ng-if="getPayment.number">
-                                                {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
+                                                {{'request_pikcup_card_end_with' | translate}}:- <span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
                                             </div>
                                             <div>
-                                                {{'text.expiry' | translate}} : - <span class="borderdotdot">  {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
+                                                {{'text.expiry' | translate}} :- <span class="borderdotdot">  {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -913,7 +913,9 @@
                                         <strong>{{'address_details_text' | translate}}</strong><br>
                                             <span ng-if="getAddress != null">
                                                 <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}}</div>
-                                                <div>{{'address_details.unit_number' | translate}} : {{getAddress.unit_number}}</div>
+                                                <div>{{'address_details.unit_number' | translate}} :- {{getAddress.unit_number}}</div>
+                                                <div>{{'address_details.po_box' | translate}} :- {{getAddress.pobox}}</div>
+
                                                 <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
                                             </span>
                                         </div>
@@ -964,10 +966,10 @@
                         <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="fa fa-check" ng-class="$index > -1?'large-check':''"></i></span>
                     </div>
                     <div  ng-if="getPayment.number">
-                        {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
+                        {{'request_pikcup_card_end_with' | translate}} :- <span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
                     </div>
                     <div>
-                        {{'text.expiry' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
+                        {{'text.expiry' | translate}} :- <span class="borderdotdot"> {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
                     </div>
                 </div>
 
@@ -988,7 +990,8 @@
                     <div ng-hide="$index > -1"><strong>{{'address_details_text' | translate}}</strong></div>
                     <span ng-if="getAddress != null">
                         <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="fa fa-check"  ng-class="$index > -1?'large-check':''"></i></span></div>
-                        <div>{{'address_details.unit_number' | translate}} : {{getAddress.unit_number}}</div>
+                        <div>{{'address_details.unit_number' | translate}} :- {{getAddress.unit_number}}</div>
+                        <div>{{'address_details.po_box' | translate}} :- {{getAddress.pobox}}</div>
                         <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
                     </span>
                 </div>
@@ -1005,6 +1008,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
+                
                 <div class="form-group">
                     <label class="font-weight-bold">{{'address_details.street_name' | translate}}</label>
                     <input type="text" name="street_name" class="form-control" ng-disabled="loading" ng-model="addressDetails.street_name" />
@@ -1015,13 +1019,14 @@
                     <input type="text" name="floor" class="form-control" ng-disabled="loading" ng-model="addressDetails.floor" />
                 </div>
 
-                <!-- <div class="form-group">
-                    <input type="text" name="pobox" class="form-control" ng-disabled="loading" ng-model="addressDetails.pobox" />
-                </div> -->
-
                 <div class="form-group">
                     <label class="font-weight-bold">{{'address_details.unit_number' | translate}}</label>
                     <input type="text" name="unit_number" class="form-control" ng-disabled="loading" ng-model="addressDetails.unit_number" />
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.po_box' | translate}}</label>
+                    <input type="text" name="pobox" class="form-control" ng-disabled="loading" ng-model="addressDetails.pobox" />
                 </div>
 
                 <div class="form-group">

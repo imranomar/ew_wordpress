@@ -131,7 +131,7 @@
 "validation_message_phone_required": "Indtast venligst telefonnummer",
 "validation_message_street_required": "Indtast venligst gadenavn",
 "validation_message_floor_required": "Indtast venligst gulv",
-"validation_message_pobox_required": "Indtast venligst PO box nummer",
+"validation_message_pobox_required": "Indtast venligst PO box",
 "validation_message_city_required": "Indtast venligst by",
 "validation_message_old_password_required": "Indtast venligst den gamle adgangskode",
 "validation_message_new_password_required": "Indtast venligst ny adgangskode",
