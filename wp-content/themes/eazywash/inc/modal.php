@@ -955,7 +955,7 @@
 
     <!--Vault Card Template-->
     <script type="text/ng-template" id="vault-card.html">
-        <div class="card-box">
+        <div class="card-box vault-card">
             <div class="row">
                 <div class="col-sm-3 col-3 text-center" ng-class="$index > -1?'mt-2':'mt-4'"><img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="45"></div>
                 <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
@@ -981,7 +981,7 @@
 
     <!--Address Card Template-->
     <script type="text/ng-template" id="address-card.html">
-        <div class="card-box">
+        <div class="card-box address-card">
             <div class="row">
                 <div class="col-sm-3 col-3 text-center" ng-class="$index > -1?'mt-1':'mt-1'"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="45"></div>
                 <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
