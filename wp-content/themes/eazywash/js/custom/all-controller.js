@@ -2064,7 +2064,7 @@ app.controller("OrdersummaryCtrl", function(
       var simpleDate = new Date(confuseDate).toISOString().substr(0, 10);
 
       request_data = {
-        payment_id: $scope.getPayment?$scope.getPayment.id: null,
+        vault_id: $scope.getPayment?$scope.getPayment.id: null,
         drop_date: simpleDate,
         drop_time_from: $scope.localData.deliveryTime.time_from,
         drop_time_to: $scope.localData.deliveryTime.time_to,
