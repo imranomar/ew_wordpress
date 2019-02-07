@@ -162,7 +162,7 @@ app.factory("LocalDataService", function($cookies, $localStorage) {
           date.setHours(date.getHours() + 1)
         ).toUTCString();
 
-        $cookies.put(LOCAL_PREFIX_MYORDER, data, {
+        $cookies.put(LOCAL_PREFIX_MYORDER, JSON.stringify(data), {
           expires: expireDate
         });
       }
@@ -181,9 +181,14 @@ app.factory("LocalDataService", function($cookies, $localStorage) {
       }
 
       if (!orderDetails) {
-        return false;
+        return null;
       }
-      return orderDetails;
+
+      if (is_user_logged_in) {
+        return orderDetails;
+      } else {
+        return JSON.parse(orderDetails);
+      }
     },
     removeOrderData: function() {
       debugger;

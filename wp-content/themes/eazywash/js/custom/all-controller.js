@@ -292,12 +292,14 @@ app.controller("LoginCtrl", function(
             if (data.Success == true && data.data != 0) {
               if(jQuery("#requestPickupModal").is(":visible")) {
                 var order = LocalDataService.getOrderData();
-                var keysToRemove = ["userDetails", "addressDetails", "paymentDetails"];
-                angular.forEach(keysToRemove, function(index, key) {
-                  delete order[key]; 
-                });
+                if(order) {
+                  var keysToRemove = ["userDetails", "addressDetails", "paymentDetails"];
+                  angular.forEach(keysToRemove, function(key) {
+                    delete order[key]; 
+                  });
+                  LocalDataService.saveOrderDataForUser(data.data, order);
+                }
 
-                LocalDataService.saveOrderDataForUser(data.data, order);
                 LocalDataService.removeGuestUserOrderData();
               }
               window.location.reload();
@@ -1182,7 +1184,7 @@ app.controller("OrdersummaryCtrl", function(
 
     var request_data = {
       action: "order_creation_data",
-      customer_id: getObjectLength($scope.localData) > 0 ? $scope.localData.userDetails.id : -1
+      customer_id:  !$scope.isUserLoggedIn ? $scope.localData.userDetails.id : -1
     };
 
     CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
@@ -1635,7 +1637,7 @@ app.controller("OrdersummaryCtrl", function(
                 $scope.localData.paymentDetails = $scope.getPayment;
 
                 // Save local storage
-                saveLocalData($scope.localData);
+                LocalDataService.saveOrderData($scope.localData);
               } 
 
               if (jQuery("#vaultAddModal").is(":visible"))
@@ -1723,7 +1725,7 @@ app.controller("OrdersummaryCtrl", function(
               }
 
               // Save local storage
-              saveLocalData($scope.localData);
+              LocalDataService.saveOrderData($scope.localData);
             }
             $scope.Wizard.next();
           } else {
@@ -1796,7 +1798,7 @@ app.controller("OrdersummaryCtrl", function(
             if (!$scope.isUserLoggedIn) {
               // Save local storage
               $scope.localData.addressDetails = result;
-              saveLocalData($scope.localData);
+              LocalDataService.saveOrderData($scope.localData);
             }
 
             if (nextAllowed) {
@@ -1857,7 +1859,7 @@ app.controller("OrdersummaryCtrl", function(
       if (!$scope.isUserLoggedIn) {
         $scope.localData.paymentDetails = vaultDetail;
 
-        saveLocalData($scope.localData);
+        LocalDataService.saveOrderData($scope.localData);
       }
 
       $rootScope.closeModal("#vaultChangeModal");
@@ -1890,7 +1892,7 @@ app.controller("OrdersummaryCtrl", function(
 
               if (!$scope.isUserLoggedIn) {
                 $scope.localData.paymentDetails = vaultDetail;
-                saveLocalData($scope.localData);
+                LocalDataService.saveOrderData($scope.localData);
               }
 
               $rootScope.closeModal("#vaultAddModal");
@@ -1938,7 +1940,7 @@ app.controller("OrdersummaryCtrl", function(
 
             if (!$scope.isUserLoggedIn) {
               $scope.localData.addressDetails = address;
-              saveLocalData($scope.localData);
+              LocalDataService.saveOrderData($scope.localData);
             }
 
             $rootScope.closeModal("#addressAddModal");
@@ -2035,7 +2037,7 @@ app.controller("OrdersummaryCtrl", function(
         break;
     }
 
-    saveLocalData($scope.localData);
+    LocalDataService.saveOrderData($scope.localData);
 
     // Check Validation
     $scope.checkValidation();
@@ -2178,14 +2180,14 @@ app.controller("OrdersummaryCtrl", function(
 
   // save onto local storage closed
   function getLocalStorageData() {
-    var order = LocalDataService.getOrderData(); //localStorage.getItem(getLocalStorageKeyOfOrder());
+    return LocalDataService.getOrderData(); //localStorage.getItem(getLocalStorageKeyOfOrder());
 
-    let obj = {};
-    if (order) {
-      obj = JSON.parse(order);
-      return obj;
-    }
-    return null;
+    // let obj = {};
+    // if (order) {
+    //   obj = JSON.parse(order);
+    //   return obj;
+    // }
+    // return null;
   }
 
   function getObjectLength(obj) {
@@ -2200,10 +2202,9 @@ app.controller("OrdersummaryCtrl", function(
     //window.location.reload();
   }
 
-  function saveLocalData(data) {
-    let obj = JSON.stringify(data);
-    LocalDataService.saveOrderData(obj);
-  }
+  // function saveLocalData(data) {
+  //   LocalDataService.saveOrderData(data);
+  // }
 
   $scope.displayCityName = function(cityId) {
     var cityText = "N/A";
