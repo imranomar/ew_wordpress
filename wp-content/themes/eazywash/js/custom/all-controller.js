@@ -19,7 +19,7 @@ app.controller("AppController", function(
 
     jQuery(".paymentIframeContainer").html("");
     jQuery(".paymentIframeContainer:visible").html(
-      '<iframe id="paymentIframe" name="paymentIframe" width="100%" height="450px"></iframe>'
+      '<iframe id="paymentIframe" name="paymentIframe" width="100%" height="610px"></iframe>'
     );
     var doc = document.getElementById("paymentIframe").contentWindow.document;
     doc.open();

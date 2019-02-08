@@ -88,7 +88,7 @@ $favicon = $theme_options['site-favicon']['url'];
 		<li class="login-required logout-form-handler menu-item"><a href="javascipt:void(0)">{{'menu_link_logout' | translate}}</a></li>
 		<?php endif; ?>
 		<li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)" data-type="login">{{'menu_link_login' | translate}}</a></li>
-		<li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)" data-type="register">{{'menu_link_register' | translate}}</a></li>
+		<!-- <li class="login-not-required login-form-handler menu-item"><a href="javascipt:void(0)" data-type="register">{{'menu_link_register' | translate}}</a></li> -->
 		  
 		<li ng-class="{'current-menu-item': SelectedLang == 'en'}">
 			<a href="javascript:void(0)" ng-click="changeLanguage('en')" class="pr-0">ENG</a>

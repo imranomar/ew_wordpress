@@ -22,11 +22,11 @@
                                 <form name="LoginForm" ng-submit="!loading && loginsubmit(LoginForm)" autocomplete="off" ng-validate="loginValidationOptions">
                                     <div class="form-group">
                                         <label for="email" class="form-label">{{'basic_details.email' | translate}} <span class="required">*</span></label>
-                                        <input type="text" name="email" ng-model="logindata.email" tabindex="1" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-disabled="loading" />
+                                        <input id="email" type="text" name="email" ng-model="logindata.email" class="form-control" placeholder="{{'basic_details.email' | translate}}" ng-disabled="loading" autofocus />
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="form-label">{{'basic_details.password' | translate}} <span class="required">*</span></label>
-                                        <input type="password" name="password" ng-model="logindata.password" class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-disabled="loading" />
+                                        <input id="password" type="password" name="password" ng-model="logindata.password"  class="form-control" placeholder="{{'basic_details.password' | translate}}" ng-disabled="loading" />
                                     </div>
 
                                     <div class="form-group">
@@ -62,7 +62,7 @@
                                 <form name="RegisterForm" autocomplete="off" ng-submit="!loading && signupsubmitform(RegisterForm)" ng-validate="basicDetailsValidationOptions">
                                     <div class="form-group">
                                         <label for="fullname" class="form-label">{{'basic_details.name' | translate}} <span class="required">*</span></label>
-                                        <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="signupdata.name" ng-disabled="loading" />
+                                        <input type="text" name="fullname" class="form-control" placeholder="{{'basic_details.name' | translate}}" ng-model="signupdata.name" ng-disabled="loading" autofocus />
                                     </div>
                                     <div class="form-group">
                                         <label for="email" class="form-label">{{'basic_details.email' | translate}} <span class="required">*</span></label>
@@ -74,15 +74,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="phone" class="form-label">{{'basic_details.phone' | translate}} <span class="required">*</span></label>
-                                        <div class="input-group mb-3">
-
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><strong>+45</strong></span>
                                             </div>
                                             <input type="text" name="phone" class="form-control" ng-model="signupdata.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
                                         </div>
                                         <label id="phone-error" class="error" for="phone"></label>
-
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="form-control btn btn-primary" id="register-btn" ng-disabled="loading">{{'text.register_now' | translate}}</button>
@@ -149,12 +147,12 @@
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
+                            
+                            <form name="{{Steps.partial_user_detail}}" id="{{Steps.partial_user_detail}}" ng-validate="userDetailsValidationOptions">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}</p>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}</p>
-
-                                    <form name="{{Steps.partial_user_detail}}" id="{{Steps.partial_user_detail}}" ng-validate="userDetailsValidationOptions">
                                         <div class="row">
                                             <div class="form-group col-sm-12">
                                                 <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
@@ -184,15 +182,16 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <button class="round_button action-btn pull-right" ng-click="performAction('SAVE_USER_PARTIAL_INFORMATION')">{{'text.next' | translate}}</button>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button class="round_button action-btn pull-right" ng-click="performAction('SAVE_USER_PARTIAL_INFORMATION')">{{'text.next' | translate}}</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
+
                             <div ng-include="'loader.html'" ng-if="loading"></div>
                         </wz-step>
 
@@ -470,14 +469,13 @@
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div> -->
                             </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}. {{'text.click_here' | translate}} {{'text.to' | translate}} <a href="javascript:void(0)" ng-if="userErrorMessage.indexOf(userDetails.email) !== -1" ng-click="showModal('#loginForm');">{{'text.login' | translate}}</a></p>
-                                    <form name="{{Steps.user_detail}}" id="{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
+                            <form name="{{Steps.user_detail}}" id="{{Steps.user_detail}}" ng-validate="basicDetailsValidationOptions">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}. {{'text.click_here' | translate}} {{'text.to' | translate}} <a href="javascript:void(0)" ng-if="userErrorMessage.indexOf(userDetails.email) !== -1" ng-click="showModal('#loginForm');">{{'text.login' | translate}}</a></p>
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
-                                            <input type="text" name="fullname" class="form-control" ng-model="userDetails.full_name" ng-disabled="loading" />
+                                            <input type="text" name="fullname" class="form-control" ng-model="userDetails.full_name" ng-disabled="loading" autofocus />
                                         </div>
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.email' | translate}}</label>
@@ -499,16 +497,17 @@
                                             </div>
                                             <label id="phone-error" class="error" for="phone"></label>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="round_button action-btn pull-right" ng-click="performAction('SAVE_USER_DETAILS')">{{'text.next' | translate}}</button>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button class="round_button action-btn pull-right" ng-click="performAction('SAVE_USER_DETAILS')">{{'text.next' | translate}}</button>
+                                        <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
+
                             <div ng-include="'loader.html'" ng-if="loading"></div>
                         </wz-step>
 
@@ -522,24 +521,25 @@
                                 </div> -->
                             </div>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
-                                    <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">
-                                        <div ng-include="'address-form.html'" ></div>
-                                    </form>
+                            <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
+                                            <div ng-include="'address-form.html'" ></div>
+                                        
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">
-                                <div ng-include="'address-form.html'"></div>
-                            </form> -->
+                                <!-- <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">
+                                    <div ng-include="'address-form.html'"></div>
+                                </form> -->
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                                    <button class="round_button action-btn pull-right" ng-click="performAction('SAVE_ADDRESS_DETAILS', true)">{{'text.next' | translate}}</button>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button class="round_button action-btn pull-right" ng-click="performAction('SAVE_ADDRESS_DETAILS', true)">{{'text.next' | translate}}</button>
+                                        <button class="round_button action-btn pull-left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                             <div ng-include="'loader.html'" ng-if="loading"></div>
                         </wz-step>
 
@@ -1011,7 +1011,7 @@
                 
                 <div class="form-group">
                     <label class="font-weight-bold">{{'address_details.street_name' | translate}}</label>
-                    <input type="text" name="street_name" class="form-control" ng-disabled="loading" ng-model="addressDetails.street_name" />
+                    <input type="text" name="street_name" class="form-control" ng-disabled="loading" ng-model="addressDetails.street_name" autofocus />
                 </div>
 
                 <div class="form-group">
