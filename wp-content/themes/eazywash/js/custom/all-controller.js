@@ -1340,12 +1340,14 @@ app.controller("OrdersummaryCtrl", function(
       break;
 
       case $scope.Steps.user_detail:
-        $scope.userDetails = angular.copy($scope.localData.userDetails);
-      break;
+        if(!$scope.isUserLoggedIn && getObjectLength($scope.localData.userDetails) != 0)
+          $scope.userDetails = angular.copy($scope.localData.userDetails);
+          break;
 
       case $scope.Steps.address_detail:
-        $scope.addressDetails = angular.copy($scope.localData.addressDetails);
-      break;
+        if(!$scope.isUserLoggedIn && getObjectLength($scope.localData.addressDetails) != 0)
+          $scope.addressDetails = angular.copy($scope.localData.addressDetails);
+          break;
 
       case $scope.Steps.payment_detail:
         $timeout(function() {
