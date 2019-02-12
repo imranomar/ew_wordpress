@@ -305,7 +305,7 @@
                                     </div>
                                     </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-6">
+                                                    <div class="col-sm-6 col-5">
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <!-- we do not have one hour slot option now -->
@@ -317,7 +317,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-3 col-3">
+                                                    <div class="col-sm-3 col-4">
                                                     <div class="blueBtn">
                             <div class="blueBtnInner">
                                                         <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
@@ -348,12 +348,12 @@
                                     </div>
                                     </div>
                                                     </div>
-                                                    <div class="col-sm-6 mt-1 col-6">
+                                                    <div class="col-sm-6 mt-1 col-5">
                                                         <div class="title">
                                                             <h5> {{'request_pickup_leave_at_door' | translate}} </h5>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3 col-3">
+                                                    <div class="col-sm-3 col-4">
                                                     <div class="blueBtn">
                             <div class="blueBtnInner">
                                                         <span class="round_button small-fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
@@ -473,7 +473,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-6">
+                                                    <div class="col-sm-6 col-5">
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <h6 class="text-captalize"> {{'text.between' | translate}} </h6>
@@ -481,7 +481,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3 col-3">
+                                                    <div class="col-sm-3 col-4">
                                                         <div class="blueBtn">
                                                             <div class="blueBtnInner">
                                                                 <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
@@ -507,12 +507,12 @@
                                                         </div>
                                                     </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-6">
+                                                    <div class="col-sm-6 col-5">
                                                         <div class="item ">
                                                             <h5> {{'request_drop_leave_at_door' | translate}} </h5>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3 col-3">
+                                                    <div class="col-sm-3 col-4">
                                                         <div class="blueBtn">
                                                             <div class="blueBtnInner">
                                                                 <span class="round_button small-fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
@@ -1097,7 +1097,7 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
+                    <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-5'">
                         <div ng-hide="$index > -1"><strong>{{'payement_details_text' | translate}}</strong></div>
                         <div ng-if="getPayment.payment_type">
                             <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="fa fa-check" ng-class="$index > -1?'large-check':''"></i></span>
@@ -1110,7 +1110,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-3 col-3" ng-hide="$index > -1">
+                    <div class="col-sm-3 col-4" ng-hide="$index > -1">
                         <div class="blueBtn">
                             <div class="blueBtnInner">
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn text-upper" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
@@ -1135,7 +1135,7 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
+                    <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-5'">
                         <div ng-hide="$index > -1"><strong>{{'address_details_text' | translate}}</strong></div>
                         <span ng-if="getAddress != null">
                             <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="fa fa-check"  ng-class="$index > -1?'large-check':''"></i></span></div>
@@ -1144,7 +1144,7 @@
                             <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
                         </span>
                     </div>
-                    <div class="col-sm-3 col-3" ng-hide="$index > -1">
+                    <div class="col-sm-3 col-4" ng-hide="$index > -1">
                         <div class="blueBtn">
                             <div class="blueBtnInner">
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">{{'text.change' | translate}}</a>
