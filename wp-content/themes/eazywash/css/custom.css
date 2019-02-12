@@ -108,9 +108,8 @@ span.required {
 }
 .summaryBox {
   background-color: #fff;
-  border: 1px solid #ddd;
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-  padding: 0 0 10px 0;
+  padding: 8px;
 }
 .card-box
 {
@@ -148,6 +147,12 @@ span.required {
 {
   margin-bottom: .1rem;
   text-align: left;
+}
+
+
+#requestPickupModal .summary-tabs h4 span {
+  font-weight: normal;
+  font-size: 1.2rem;
 }
 
 .tab1{
@@ -558,7 +563,7 @@ tr {
 .price-logo .category {
   position: absolute;
   top: -28%;
-  left: 40%;
+  left: 42%;
   margin: 0;
 }
 
@@ -644,6 +649,8 @@ button:focus {
   #requestPickupModal .card-box h5 {
     font-size: 1.1rem;
   }
+
+
 
   #requestPickupModal #div_slots .card-box h6 {
     margin-top:10px;

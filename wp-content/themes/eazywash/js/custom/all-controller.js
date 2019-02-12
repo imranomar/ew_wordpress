@@ -911,13 +911,20 @@ app.controller("DashboardCtrl", function(
 
   $scope.openVaultModal = function() {
     $rootScope.showModal("#vaultModal");
-    $scope.reloadPaymentWindow();
+    $scope.reloadPaymentWindow(false);
   };
 
-  $scope.reloadPaymentWindow = function() {
-    $timeout(function() {
-      $rootScope.loadAddPaymentMethodForm(logged_in_user_id);
-    }, 1000);
+  $scope.reloadPaymentWindow = function(confirmRequired) {
+    var confirmation = true;
+    
+    if(confirmRequired)
+      confirmation = confirm('Are you sure you want to reload the payment window? Otherwise Click "Save. card information for later use.');
+    
+    if(confirmation) {
+      $timeout(function() {
+        $rootScope.loadAddPaymentMethodForm(logged_in_user_id);
+      }, 1000);
+    }
   }
 
   $scope.openAddressModal = function(addressDetail, index) {
@@ -959,6 +966,7 @@ app.controller("PricingCtrl", function($scope, $rootScope, CommonService) {
   CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
       .then(
         function(data) {
+          debugger;
           if (data.Success == true) {
             var result  = data.data;
             if(result && result.length > 0) {
@@ -972,8 +980,8 @@ app.controller("PricingCtrl", function($scope, $rootScope, CommonService) {
                 }
                 pricings[category].push(item);
               });
-debugger;
-              $scope.prices = pricings;
+
+              $scope.prices = templatesAry(pricings);
             }
           }
         },
@@ -982,6 +990,14 @@ debugger;
       .finally(function() {
         $scope.loading = false;
       });
+
+      function templatesAry(arr) {
+        var ary = [];
+        angular.forEach(arr, function (val, key) {
+            ary.push({category_name: key, items: val});
+        });
+        return ary;
+    };
 });
 
 // Aboutus of Controller
@@ -1910,7 +1926,11 @@ app.controller("OrdersummaryCtrl", function(
   };
 
   $scope.reloadPaymentWindow = function() {
-    functionForPaymentDetail();
+    var confirmation = confirm('Are you sure you want to reload the payment window? Otherwise Click Save card information for later use.');
+    
+    if(confirmation) {
+      functionForPaymentDetail();
+    }
   }
 
   $scope.changeAddress = function(address) {

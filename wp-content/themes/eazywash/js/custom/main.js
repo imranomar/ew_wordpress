@@ -171,7 +171,7 @@ jQuery(document).ready(function(){
   });
 
   jQuery("#requestPickupModal, #loginForm").on('hidden.bs.modal', function(){
-    jQuery(this).find("label.error").remove();
+    jQuery(this).find("label.error").html('');
     jQuery(this).find(".form-control").removeClass('error');
   });
 

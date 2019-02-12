@@ -33,7 +33,9 @@
   "reload_Payment_window": "Genindlæs betalingsvindue",
   "click_here": "Klik her",
   "expiry": "Expiry",
-  "deliever": "Levering"
+  "deliever": "Levering",
+  "date": "Dato",
+  "time": "Tid"
 },
 "basic_details": {
   "name": "Navn",
@@ -49,7 +51,6 @@
   "city": "by",
   "unit_number": "Lokaler Antal"
 },
-
 "vault_details": {
   "card_type": "Kort type",
   "card_number": "Kortnummer",
@@ -76,7 +77,6 @@
 "menu_link_dashboard": "instrumentbræt",
 
 "footer_user_links": "BRUGERVEJLEDNINGER",
-"footer_contact_us": "KONTAKT OS",
 "footer_copyright": "Alle rettigheder forbeholdes",
 
 "login_form_title": "Log ind eller registrer dig",
@@ -92,7 +92,7 @@
 "request_drop_time_part_1": "Og hvilken tid vil du have os til ",
 "request_drop_time_part_2": " the laundry to you?",
 "request_drop_leave_at_door": "Lad mit tøj stå uden for døren på mit ansvar",
-"request_pickup_enter_basic_details": "Indtast grundlæggende detaljer",
+"request_pickup_enter_basic_details": "Opret din konto for hurtigt at bestille en bestilling næste gang",
 "request_pickup_enter_address_details": "Indtast adresseoplysninger",
 "request_pickup_enter_payemnt_details": "Vælg venligst din betalingsmetode",
 "request_pickup_order_summary": "Ordreoversigt",

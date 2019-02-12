@@ -545,10 +545,10 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <p class="alert alert-danger" ng-show="userErr">{{userErrorMessage}}. {{'text.click_here' | translate}} {{'text.to' | translate}} <a href="javascript:void(0)" ng-if="userErrorMessage.indexOf(userDetails.email) !== -1" ng-click="showModal('#loginForm');">{{'text.login' | translate}}</a></p>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.name' | translate}}</label>
                                             <input type="text" name="fullname" class="form-control" ng-model="userDetails.full_name" ng-disabled="loading" autofocus />
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.email' | translate}}</label>
 
@@ -558,7 +558,7 @@
                                             <label class="font-weight-bold">{{'basic_details.password' | translate}}</label>
                                             <input type="password" name="password" class="form-control" ng-model="userDetails.password" ng-disabled="loading" />
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label class="font-weight-bold">{{'basic_details.phone' | translate}}</label>
 
                                             <div class="input-group">
@@ -568,7 +568,7 @@
                                                 <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
                                             </div>
                                             <label id="phone-error" class="error" for="phone"></label>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -652,7 +652,10 @@
                                 <div class="row mb-4">
                                     <div class="col-sm-6 col-6">
                                         <div class="summaryBox text-center">
-                                            <h4>{{'text.pickup' | translate}}</h4>
+                                            <h4>
+                                                {{'text.pickup' | translate}}<br>
+                                                <span>{{'text.date' | translate}} / {{'text.time' | translate}}</span>
+                                            </h4>
                                             <div>
                                                 <span class="text-captalize">{{localData.pickupDate.name}} {{localData.pickupDate.shortDate}}</span>
                                                 <br>
@@ -667,7 +670,11 @@
                                     </div>
                                     <div class="col-sm-6 col-6">
                                         <div class="summaryBox text-center">
-                                            <h4>{{'text.delivery' | translate}}</h4>
+                                            <h4>
+                                                {{'text.delivery' | translate}}
+                                                <br />
+                                                <span>{{'text.date' | translate}} / {{'text.time' | translate}}</span>
+                                            </h4>
                                             <div>
                                                 <span class="text-captalize">{{localData.deliveryDate.name}} {{localData.deliveryDate.shortDate}}</span> <br>
                                                 <span class="para2heading" ng-if="localData.pickupTime.leaveAtdoor != 'y'">
@@ -908,7 +915,10 @@
                                 <div class="row mb-4">
                                     <div class="col-sm-6 col-6">
                                         <div class="summaryBox text-center">
-                                            <h4>{{'text.pickup' | translate}}</h4>
+                                            <h4>
+                                                {{'text.pickup' | translate}}<br>
+                                                <span>{{'text.date' | translate}} / {{'text.time' | translate}}</span>
+                                            </h4>
                                             <div>
                                                 <span class="text-captalize">{{orderSummary.pickupDate.name}} {{orderSummary.pickupDate.shortDate}}</span>
                                                 <br>
@@ -921,7 +931,10 @@
                                     </div>
                                     <div class="col-sm-6 col-6">
                                         <div class="summaryBox text-center">
-                                            <h4>{{'text.delivery' | translate}}</h4>
+                                            <h4>
+                                                {{'text.delivery' | translate}}<br>
+                                                <span>{{'text.date' | translate}} / {{'text.time' | translate}}</span>
+                                            </h4>
                                             <div>
                                                 <span class="text-captalize">{{orderSummary.deliveryDate.name}} {{orderSummary.deliveryDate.shortDate}}</span> <br>
                                                 <span class="para2heading" ng-if="orderSummary.pickupTime.leaveAtdoor != 'y'">
@@ -937,8 +950,8 @@
                                                                 (orderSummary.pickupTime.price && orderSummary.pickupTime.price > 0) ||
                                                                     orderSummary.deliveryDate.price > 0 ||
                                                                         (orderSummary.deliveryTime.price && orderSummary.deliveryTime.price > 0)">
-                                    <div class="row">
-                                        <div class="container-fluid">
+                                    <div class="container-fluid">
+                                        <div class="row">
                                             <div class="col-sm-3 col-3 text-center">
                                                 <div class="boxImage">
                                                     <div class="boxImageInner">
@@ -980,7 +993,7 @@
                                 <div class="card-box">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-sm-3 col-3 mt-4 text-center">
+                                            <div class="col-sm-3 col-3 text-center">
                                                 <div class="boxImage">
                                                     <div class="boxImageInner">
                                                         <img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="45">
@@ -1007,7 +1020,7 @@
                                 <div class="card-box">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-sm-3 col-3 mt-1 text-center">
+                                            <div class="col-sm-3 col-3 text-center">
                                                 <div class="boxImage">
                                                     <div class="boxImageInner">
                                                         <img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="45">

@@ -33,7 +33,9 @@
     "reload_Payment_window": "Reload Payment Window",
     "click_here": "Click here",
     "expiry": "Expiry",
-    "deliever": "deliever"
+    "deliever": "deliever",
+    "date": "Date",
+    "time": "Time"
   },
   "basic_details": {
     "name": "Name",
@@ -90,7 +92,7 @@
   "request_drop_time_part_1": "And what time do you want us to ",
   "request_drop_time_part_2": " the laundry to you?",
   "request_drop_leave_at_door": "Leave my laundry outside the door at my responsibility",
-  "request_pickup_enter_basic_details": "Tell us about yourself!",
+  "request_pickup_enter_basic_details": "Create your account to quickly place an order next time",
   "request_pickup_enter_address_details": "Where can we pick-up your laundry from?",
   "request_pickup_enter_payemnt_details": "Kindly select your payment method",
   "request_pickup_enter_payemnt_note":"Note: you will be charged after your laundry is delievered to you",

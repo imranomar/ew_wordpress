@@ -345,12 +345,11 @@ img.bottom-img {
 
 .price{
     background-color: #e1f3fc;
-    min-height: 600px;
+    min-height: 400px;
 }
 
 .price-active{
     background-color: #1fb8e4;
-    height: 650px;
 }
 
 .price, .price-active {
