@@ -33,7 +33,7 @@
                                         <button type="submit" id="login-btn" class="form-control btn btn-primary">{{'text.login' | translate}}</button>
                                     </div>
 
-                                    
+
                                     <div class="form-group text-center">
                                         <a href="javascript:void(0)" id="forgot-pwd-link" class="text-decoration-none" onclick="openForgotPasswordModal()">
                                             {{'forgot_password' | translate}}
@@ -55,7 +55,7 @@
                     <div id="register" class="tab-pane fade" ng-controller="SignupCtrl">
                         <div class="row">
                             <div class="col-md-12">
-      
+
                                 <p class="alert alert-danger" ng-show="err">{{errorMessage}} <a href="javascript:jQuery('#loginForm .nav-tabs>li:first>a').tab('show');" data-target="#login" ng-if="errorMessage.indexOf(signupdata.email) !== -1" >{{'text.login' | translate}}</a></p>
                                 <p class="alert alert-danger" ng-show="required"> {{field}} !!!</p>
 
@@ -147,7 +147,7 @@
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
                                 </div>
                             </div>
-                            
+
                             <form name="{{Steps.partial_user_detail}}" id="{{Steps.partial_user_detail}}" ng-validate="userDetailsValidationOptions">
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -167,7 +167,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><strong>+45</strong></span>
                                                     </div>
-                                                    <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />                                                
+                                                    <input type="text" name="phone" class="form-control" ng-model="userDetails.phone" ui-mask="99-99-99-99" ng-disabled="loading" />
                                                 </div>
                                                 <label id="phone-error" class="error" for="phone"></label>
                                             </div>
@@ -198,7 +198,7 @@
                         <wz-step wz-title="1" wz-heading-title="{{Steps.pickup_date}}" canenter="validateStep">
                             <div class="row my-3 title">
                                 <div class="col-sm-10 pr-0 col-10">
-                                    <h4 class="pull-left">{{'request_pickup_date' | translate}}</h4>
+                                    <h4 class="pull-left">{{'request_pickup_date_part_1' | translate}} <span class="highlight">{{'text.pickup' | translate}}</span> {{'request_pikcup_date_part_2' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
@@ -213,20 +213,30 @@
                                         }">
                                 <div class="col-sm-12" ng-class="{'active': localData.pickupDate && (localData.pickupDate.date | date: 'yyyy-mm-dd') == (value.date | date: 'yyyy-mm-dd') }">
                                     <div class="card-box">
-                                        <div class="row">
-                                            <div class="col-sm-8 col-8">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <h5 class="text-capitalize">{{value.name}}</h5>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-sm-8 col-8">
+                                                    <div class="boxImage">
+                                                        <div class="boxImageInner">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <h5 class="text-capitalize">{{value.name}}</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12 lighter-text">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}} </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12 lighter-text">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}} </div>
+                                                <div class="col-sm-4 col-4">
+                                                    <div class="boxImage">
+                                                        <div class="boxImageInner">
+                                                            <span class="round_button fixed-width-btn pull-right" ng-if="value.price"> + {{value.price | currency}}</span>
+                                                            <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-4 col-4">
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price"> + {{value.price | currency}}</span>
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -265,7 +275,7 @@
                         <wz-step wz-title="2" wz-heading-title="{{Steps.pickup_time}}" canenter="validateStep">
                             <div class="row my-3 title">
                                 <div class="col-sm-10 pr-0 col-10">
-                                    <h4 class="pull-left">{{'request_pickup_time' | translate}}</h4>
+                                    <h4 class="pull-left">{{'request_pickup_time_part_1' | translate}} <span class="highlight">{{'text.pickup' | translate}}</span> {{'request_pickup_time_part_2' | translate}}</h4>
                                 </div>
                                 <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
@@ -336,7 +346,7 @@
                         <wz-step wz-title="3" wz-disabled="{{!isUserLoggedIn && set_order_system == 'QUICK'}}" wz-heading-title="{{Steps.drop_date}}" canenter="validateStep">
                             <div class="row my-3 title">
                                 <div class="col-sm-12 col-12">
-                                    <h4 class="pull-left">{{'request_drop_date' | translate}}</h4>
+                                <h4 class="pull-left">{{'request_drop_date_part_1' | translate}}<span class="highlight">{{'text.deliever' | translate}}</span> {{'request_drop_date_part_2' | translate}}</h4>
                                 </div>
                                 <!-- <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
@@ -401,7 +411,7 @@
                         <wz-step wz-title="4" wz-disabled="{{!isUserLoggedIn && set_order_system == 'QUICK'}}" wz-heading-title="{{Steps.drop_time}}" canenter="validateStep">
                             <div class="row my-3 title">
                                 <div class="col-sm-12 col-12">
-                                    <h4 class="pull-left">{{'request_drop_time' | translate}}</h4>
+                                <h4 class="pull-left">{{'request_drop_time_part_1' | translate}}<span class="highlight">{{'text.deliever' | translate}}</span> {{'request_drop_time_part_2' | translate}}</h4>
                                 </div>
                                 <!-- <div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
@@ -526,7 +536,7 @@
                                     <div class="col-sm-12">
                                         <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
                                             <div ng-include="'address-form.html'" ></div>
-                                        
+
                                     </div>
                                 </div>
                                 <!-- <form name="{{Steps.address_detail}}" id="{{Steps.address_detail}}" ng-validate="addressDetailsValidationOptions">
@@ -577,8 +587,8 @@
                             <p class="alert alert-danger col-sm-12" ng-show="err">{{errorMessage}}</p>
                             <div class="summary-tabs">
                                 <div class="row mb-4">
-                                    <div class="col-sm-6 col-6 pr-0">
-                                        <div class="text-center">
+                                    <div class="col-sm-6 col-6">
+                                        <div class="summaryBox text-center">
                                             <h4>{{'text.pickup' | translate}}</h4>
                                             <div>
                                                 <span class="text-captalize">{{localData.pickupDate.name}} {{localData.pickupDate.shortDate}}</span>
@@ -592,8 +602,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-6 pl-0">
-                                        <div class="text-center">
+                                    <div class="col-sm-6 col-6">
+                                        <div class="summaryBox text-center">
                                             <h4>{{'text.delivery' | translate}}</h4>
                                             <div>
                                                 <span class="text-captalize">{{localData.deliveryDate.name}} {{localData.deliveryDate.shortDate}}</span> <br>
@@ -611,32 +621,40 @@
                                                                 (localData.pickupTime.price && localData.pickupTime.price > 0) ||
                                                                     localData.deliveryDate.price > 0 ||
                                                                         (localData.deliveryTime.price && localData.deliveryTime.price > 0)">
-                                    <div class="row">
-                                        <div class="col-sm-3 col-3 mt-3 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="45"></div>
-                                        <div class="col-sm-9 col-9">
-                                            <div class="item item-body orderlistbody">
-                                                <strong>{{'request_pickup_extra_charges' | translate}}</strong><br>
-                                                <div ng-show="localData.pickupDate.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> + {{localData.pickupDate.price | currency}} -
-                                                    {{localData.pickupDate.name}} {{'text.pickup' | translate}}
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-3 text-center">
+                                                <div class="boxImage">
+                                                    <div class="boxImageInner">
+                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="45">
+                                                    </div>
                                                 </div>
-
-
-                                                <div ng-show="localData.pickupTime.price && localData.pickupTime.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> + {{localData.pickupTime.price  | currency}} - {{'request_pickup_fixed_time_pickup' | translate}}
-                                                </div>
-
                                             </div>
+                                            <div class="col-sm-9 col-9">
+                                                <div class="item item-body orderlistbody">
+                                                    <strong>{{'request_pickup_extra_charges' | translate}}</strong><br>
+                                                    <div ng-show="localData.pickupDate.price > 0">
+                                                        <i class="glyphicon glyphicon-plus"> </i> + {{localData.pickupDate.price | currency}} -
+                                                        {{localData.pickupDate.name}} {{'text.pickup' | translate}}
+                                                    </div>
 
-                                            <div class="item item-body orderlistbody">
 
-                                                <div ng-show="localData.deliveryDate.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> + {{localData.deliveryDate.price | currency}} - {{'request_pickup_next_day_delivery' | translate}}
+                                                    <div ng-show="localData.pickupTime.price && localData.pickupTime.price > 0">
+                                                        <i class="glyphicon glyphicon-plus"> </i> + {{localData.pickupTime.price  | currency}} - {{'request_pickup_fixed_time_pickup' | translate}}
+                                                    </div>
+
                                                 </div>
 
+                                                <div class="item item-body orderlistbody">
 
-                                                <div ng-show="localData.deliveryTime.price && localData.deliveryTime.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> + {{localData.deliveryTime.price | currency}} - {{'request_pickup_fixed_time_drop' | translate}}
+                                                    <div ng-show="localData.deliveryDate.price > 0">
+                                                        <i class="glyphicon glyphicon-plus"> </i> + {{localData.deliveryDate.price | currency}} - {{'request_pickup_next_day_delivery' | translate}}
+                                                    </div>
+
+
+                                                    <div ng-show="localData.deliveryTime.price && localData.deliveryTime.price > 0">
+                                                        <i class="glyphicon glyphicon-plus"> </i> + {{localData.deliveryTime.price | currency}} - {{'request_pickup_fixed_time_drop' | translate}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -686,7 +704,7 @@
 
     <div ng-include="'copyright.html'"></div>
 
-    
+
     <!-- New Address Modal -->
     <div class="modal fade" id="addressAddModal" role="dialog"  data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
@@ -824,8 +842,8 @@
                         <div class="col-sm-12">
                             <div class="summary-tabs" ng-if="orderSummary">
                                 <div class="row mb-4">
-                                    <div class="col-sm-6 col-6 pr-0">
-                                        <div class="text-center">
+                                    <div class="col-sm-6 col-6">
+                                        <div class="summaryBox text-center">
                                             <h4>{{'text.pickup' | translate}}</h4>
                                             <div>
                                                 <span class="text-captalize">{{orderSummary.pickupDate.name}} {{orderSummary.pickupDate.shortDate}}</span>
@@ -837,8 +855,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-6 pl-0">
-                                        <div class="text-center">
+                                    <div class="col-sm-6 col-6">
+                                        <div class="summaryBox text-center">
                                             <h4>{{'text.delivery' | translate}}</h4>
                                             <div>
                                                 <span class="text-captalize">{{orderSummary.deliveryDate.name}} {{orderSummary.deliveryDate.shortDate}}</span> <br>
@@ -856,31 +874,39 @@
                                                                     orderSummary.deliveryDate.price > 0 ||
                                                                         (orderSummary.deliveryTime.price && orderSummary.deliveryTime.price > 0)">
                                     <div class="row">
-                                        <div class="col-sm-3 col-3 mt-3 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="45"></div>
-                                        <div class="col-sm-9 col-9">
-                                            <div class="item item-body orderlistbody">
-                                                <strong>{{'request_pickup_extra_charges' | translate}}</strong><br>
-                                                <div ng-show="orderSummary.pickupDate.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> + {{orderSummary.pickupDate.price | currency}} -
-                                                    {{orderSummary.pickupDate.name}} {{'text.pickup' | translate}}
+                                        <div class="container-fluid">
+                                            <div class="col-sm-3 col-3 text-center">
+                                                <div class="boxImage">
+                                                    <div class="boxImageInner">
+                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/dollar.png" width="45">
+                                                    </div>
                                                 </div>
-
-
-                                                <div ng-show="orderSummary.pickupTime.price && orderSummary.pickupTime.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> + {{orderSummary.pickupTime.price  | currency}} - {{'request_pickup_fixed_time_pickup' | translate}}
-                                                </div>
-
                                             </div>
+                                            <div class="col-sm-9 col-9">
+                                                <div class="item item-body orderlistbody">
+                                                    <strong>{{'request_pickup_extra_charges' | translate}}</strong><br>
+                                                    <div ng-show="orderSummary.pickupDate.price > 0">
+                                                        <i class="glyphicon glyphicon-plus"> </i> + {{orderSummary.pickupDate.price | currency}} -
+                                                        {{orderSummary.pickupDate.name}} {{'text.pickup' | translate}}
+                                                    </div>
 
-                                            <div class="item item-body orderlistbody">
 
-                                                <div ng-show="orderSummary.deliveryDate.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> + {{orderSummary.deliveryDate.price | currency}} - {{'request_pickup_next_day_delivery' | translate}}
+                                                    <div ng-show="orderSummary.pickupTime.price && orderSummary.pickupTime.price > 0">
+                                                        <i class="glyphicon glyphicon-plus"> </i> + {{orderSummary.pickupTime.price  | currency}} - {{'request_pickup_fixed_time_pickup' | translate}}
+                                                    </div>
+
                                                 </div>
 
+                                                <div class="item item-body orderlistbody">
 
-                                                <div ng-show="orderSummary.deliveryTime.price && orderSummary.deliveryTime.price > 0">
-                                                    <i class="glyphicon glyphicon-plus"> </i> + {{orderSummary.deliveryTime.price | currency}} - {{'request_pickup_fixed_time_drop' | translate}}
+                                                    <div ng-show="orderSummary.deliveryDate.price > 0">
+                                                        <i class="glyphicon glyphicon-plus"> </i> + {{orderSummary.deliveryDate.price | currency}} - {{'request_pickup_next_day_delivery' | translate}}
+                                                    </div>
+
+
+                                                    <div ng-show="orderSummary.deliveryTime.price && orderSummary.deliveryTime.price > 0">
+                                                        <i class="glyphicon glyphicon-plus"> </i> + {{orderSummary.deliveryTime.price | currency}} - {{'request_pickup_fixed_time_drop' | translate}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -888,36 +914,52 @@
                                 </div>
 
                                 <div class="card-box">
-                                    <div class="row">
-                                        <div class="col-sm-3 col-3 mt-4 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="45"></div>
-                                        <div class="col-sm-9 col-9">
-                                            <strong>{{'payement_details_text' | translate}}</strong><br>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-3 mt-4 text-center">
+                                                <div class="boxImage">
+                                                    <div class="boxImageInner">
+                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="45">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-9 col-9">
+                                                <strong>{{'payement_details_text' | translate}}</strong><br>
 
-                                            <div ng-if="getPayment.payment_type">
-                                                <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> 
-                                            </div>
-                                            <div  ng-if="getPayment.number">
-                                                {{'request_pikcup_card_end_with' | translate}}:- <span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
-                                            </div>
-                                            <div>
-                                                {{'text.expiry' | translate}} :- <span class="borderdotdot">  {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
+                                                <div ng-if="getPayment.payment_type">
+                                                    <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span>
+                                                </div>
+                                                <div  ng-if="getPayment.number">
+                                                    {{'request_pikcup_card_end_with' | translate}}:- <span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
+                                                </div>
+                                                <div>
+                                                    {{'text.expiry' | translate}} :- <span class="borderdotdot">  {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="card-box">
-                                    <div class="row">
-                                        <div class="col-sm-3 col-3 mt-1 text-center"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="45"></div>
-                                        <div class="col-sm-9 col-9">
-                                        <strong>{{'address_details_text' | translate}}</strong><br>
-                                            <span ng-if="getAddress != null">
-                                                <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}}</div>
-                                                <div>{{'address_details.unit_number' | translate}} :- {{getAddress.unit_number}}</div>
-                                                <div>{{'address_details.po_box' | translate}} :- {{getAddress.pobox}}</div>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-3 mt-1 text-center">
+                                                <div class="boxImage">
+                                                    <div class="boxImageInner">
+                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="45">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-9 col-9">
+                                                <strong>{{'address_details_text' | translate}}</strong><br>
+                                                <span ng-if="getAddress != null">
+                                                    <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}}</div>
+                                                    <div>{{'address_details.unit_number' | translate}} :- {{getAddress.unit_number}}</div>
+                                                    <div>{{'address_details.po_box' | translate}} :- {{getAddress.pobox}}</div>
 
-                                                <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
-                                            </span>
+                                                    <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -974,8 +1016,46 @@
                 </div>
 
                 <div class="col-sm-3 p-0 col-3" ng-hide="$index > -1">
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn mt-3 text-upper" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
-                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn mt-3 text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length == 1">{{'text.change' | translate}}</a>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn text-upper" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
+                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length == 1">{{'text.change' | translate}}</a>
+                </div>
+            </div>
+        </div>
+    </script>
+
+     <!--Vault Card Template-->
+     <script type="text/ng-template" id="vault-card.html">
+        <div class="card-box vault-card">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-3 text-center">
+                        <div class="boxImage">
+                            <div class="boxImageInner">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/credit-card.png" width="45">
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
+                        <div ng-hide="$index > -1"><strong>{{'payement_details_text' | translate}}</strong></div>
+                        <div ng-if="getPayment.payment_type">
+                            <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="fa fa-check" ng-class="$index > -1?'large-check':''"></i></span>
+                        </div>
+                        <div  ng-if="getPayment.number">
+                            {{'request_pikcup_card_end_with' | translate}} :- <span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
+                        </div>
+                        <div>
+                            {{'text.expiry' | translate}} :- <span class="borderdotdot"> {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 p-0 col-3" ng-hide="$index > -1">
+                        <div class="blueBtn">
+                            <div class="blueBtnInner">
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn text-upper" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
+                                <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length == 1">{{'text.change' | translate}}</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -984,59 +1064,32 @@
     <!--Address Card Template-->
     <script type="text/ng-template" id="address-card.html">
         <div class="card-box address-card">
-            <div class="row">
-                <div class="col-sm-3 col-3 text-center" ng-class="$index > -1?'mt-1':'mt-1'"><img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="45"></div>
-                <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
-                    <div ng-hide="$index > -1"><strong>{{'address_details_text' | translate}}</strong></div>
-                    <span ng-if="getAddress != null">
-                        <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="fa fa-check"  ng-class="$index > -1?'large-check':''"></i></span></div>
-                        <div>{{'address_details.unit_number' | translate}} :- {{getAddress.unit_number}}</div>
-                        <div>{{'address_details.po_box' | translate}} :- {{getAddress.pobox}}</div>
-                        <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
-                    </span>
-                </div>
-                <div class="col-sm-3 col-3 p-0" ng-hide="$index > -1">
-                    <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button mt-3 small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">{{'text.change' | translate}}</a>
-                    <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper mt-3" ng-click="openAddAddressModal()" ng-if="AllAddresses.length == 1">{{'text.change' | translate}}</a>
-                </div>
-            </div>
-        </div>
-    </script>
-
-    <!--Address Form Template-->
-    <script type="text/ng-template" id="address-form.html">
-        <div class="row">
-            <div class="col-sm-12">
-                <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
-                
-                <div class="form-group">
-                    <label class="font-weight-bold">{{'address_details.street_name' | translate}}</label>
-                    <input type="text" name="street_name" class="form-control" ng-disabled="loading" ng-model="addressDetails.street_name" autofocus />
-                </div>
-
-                <div class="form-group">
-                    <label class="font-weight-bold">{{'address_details.floor' | translate}}</label>
-                    <input type="text" name="floor" class="form-control" ng-disabled="loading" ng-model="addressDetails.floor" />
-                </div>
-
-                <div class="form-group">
-                    <label class="font-weight-bold">{{'address_details.unit_number' | translate}}</label>
-                    <input type="text" name="unit_number" class="form-control" ng-disabled="loading" ng-model="addressDetails.unit_number" />
-                </div>
-
-                <div class="form-group">
-                    <label class="font-weight-bold">{{'address_details.po_box' | translate}}</label>
-                    <input type="text" name="pobox" class="form-control" ng-disabled="loading" ng-model="addressDetails.pobox" />
-                </div>
-
-                <div class="form-group">
-                    <label class="font-weight-bold">{{'address_details.city' | translate}}</label>
-                    <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control" required>
-                        <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
-                        <option ng-repeat="value in cityData"  value="{{value.id}}">
-                            {{value.title}}
-                        </option>
-                    </select>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-3 text-center">
+                        <div class="boxImage">
+                            <div class="boxImageInner">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/address.png" width="45">
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-class="$index > -1?'col-sm-9 col-9':'col-sm-6 col-6'">
+                        <div ng-hide="$index > -1"><strong>{{'address_details_text' | translate}}</strong></div>
+                        <span ng-if="getAddress != null">
+                            <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="fa fa-check"  ng-class="$index > -1?'large-check':''"></i></span></div>
+                            <div>{{'address_details.unit_number' | translate}} :- {{getAddress.unit_number}}</div>
+                            <div>{{'address_details.po_box' | translate}} :- {{getAddress.pobox}}</div>
+                            <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
+                        </span>
+                    </div>
+                    <div class="col-sm-3 col-3 p-0" ng-hide="$index > -1">
+                        <div class="blueBtn">
+                            <div class="blueBtnInner">
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">{{'text.change' | translate}}</a>
+                                <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper" ng-click="openAddAddressModal()" ng-if="AllAddresses.length == 1">{{'text.change' | translate}}</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1123,10 +1176,10 @@
                 <div class="row">
                     <div class="col-sm-4 price" ng-repeat="(key, price) in prices" ng-class="{'price-active': $odd}">
                         <div class="price-logo text-center">
-                            <img class="img-fluid" ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/price-top{{$odd?'-active':''}}.png" alt="price">
-                            <img ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/upper.png" class="category upper" alt="upper" width="50" ng-if="key.toLowerCase().indexOf('upper') > -1" /> 
-                            <img ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/lower.png" class="category lower" alt="lower" width="50" ng-if="key.toLowerCase().indexOf('lower') > -1" /> 
-                            <img ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/non-wearable.png" class="category non-wearable" width="50" alt="non wearable" ng-if="key.toLowerCase().indexOf('non') > -1" />
+                            <img class="img-fluid" ng-src="<?php echo esc_url(get_template_directory_uri()); ?>/images/price-top{{$odd?'-active':''}}.png" alt="price">
+                            <img ng-src="<?php echo esc_url(get_template_directory_uri()); ?>/images/upper.png" class="category upper" alt="upper" width="50" ng-if="key.toLowerCase().indexOf('upper') > -1" />
+                            <img ng-src="<?php echo esc_url(get_template_directory_uri()); ?>/images/lower.png" class="category lower" alt="lower" width="50" ng-if="key.toLowerCase().indexOf('lower') > -1" />
+                            <img ng-src="<?php echo esc_url(get_template_directory_uri()); ?>/images/non-wearable.png" class="category non-wearable" width="50" alt="non wearable" ng-if="key.toLowerCase().indexOf('non') > -1" />
                         </div>
                         <div class="price-heading mt-2 text-center">
                             <h3>{{key}}</h3>

@@ -32,7 +32,8 @@
     "edit": "Edit",
     "reload_Payment_window": "Reload Payment Window",
     "click_here": "Click here",
-    "expiry": "Expiry"
+    "expiry": "Expiry",
+    "deliever": "deliever"
   },
   "basic_details": {
     "name": "Name",
@@ -42,11 +43,11 @@
     "email": "Email"
   },
   "address_details": {
-      "street_name": "Street Name",
+      "street_name": "Street and building number",
       "floor": "Floor",
-      "po_box": "P.O. Box",
+      "po_box": "Post Code",
       "city": "City",
-      "unit_number": "Unit No."
+      "unit_number": "Premises Number"
   },
   "vault_details": {
     "card_type": "Card Type",
@@ -79,12 +80,15 @@
   "login_form_title": "Login or Register",
   "logout_form_heading_text": "Do you want to log out?",
 
-  "request_pickup": "Laundry Pickup Request",
-  "request_pickup_date": "Please select the date you want us to come and pickup your laundry",
-  "request_pickup_time": "Please select the time slot you want us to come and pickup your laundry",
+  "request_pickup_date_part_1": "Please select the date you want us to come and",
+  "request_pikcup_date_part_2": "your laundry",
+  "request_pickup_time_part_1": "Please select the time slot you want us to come and",
+  "request_pickup_time_part_2": " your laundry",
   "request_pickup_leave_at_door": "I'll leave my laundry outside the door at my responsibility",
-  "request_drop_date": "Tell us what date do want us to deliever the laundry to you:",
-  "request_drop_time": "And what time do you want us to deliever the laundry to you?",
+  "request_drop_date_part_1": "Tell us what date do want us to ",
+  "request_drop_date_part_2":" the laundry to you:",
+  "request_drop_time_part_1": "And what time do you want us to ",
+  "request_drop_time_part_2": " the laundry to you?",
   "request_drop_leave_at_door": "Leave my laundry outside the door at my responsibility",
   "request_pickup_enter_basic_details": "Tell us about yourself!",
   "request_pickup_enter_address_details": "Where can we pick-up your laundry from?",

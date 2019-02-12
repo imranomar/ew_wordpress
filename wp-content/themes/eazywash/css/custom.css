@@ -71,7 +71,7 @@ span.required {
   background-color: #20b9e5;
   color: #fff;
   font-weight: 500;
-
+  cursor: pointer;
 }
 
 .round_button_icon
@@ -106,19 +106,36 @@ span.required {
   border: 2px solid;
   margin-top: 3px;
 }
-
+.summaryBox {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+  padding: 0 0 10px 0;
+}
 .card-box
 {
   background-color: white;
   border-radius: 3px;
-  /* border: 1px solid #ccc; */
+  /* border: 1px solid #ccc;  */
   min-height: 66px;
   margin-bottom: 10px;
   display: inline-block;
   width: 100%;
-  padding: 0.5rem!important;
+  padding:8px !important; 
+  min-height: 66px;
   font-size: 15px;
+  cursor: pointer!important;
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+}
+
+/*----*/
+.blueBtn,.leftText,.boxImage {
+  display: table;
+  height:100%;
+}
+.blueBtnInner,.leftTextInner,.boxImageInner {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .card-box h5
@@ -544,6 +561,33 @@ tr {
 button:focus {
   outline: none !important;;
 }
+
+.highlight {
+  color: #20b9e5 !important;
+  border-bottom: 2px solid #20b9e5 !important; 
+  text-transform: lowercase !important;
+}
+
+/* .card-box {
+  background-color: #eee;
+  max-width: 500px;
+  margin: 0 auto 20px;
+}
+
+.card-box img {
+  max-width: 100%;
+}
+.card-box .image {
+  width: 50%;
+}
+.card-box .image, .card-box .button, .card-box .text {
+  height: 13vh;
+  display: table;
+}
+.card-box .imageInner,.card-box .buttonInner, .card-box .textInner {
+  display: table-cell;
+  vertical-align: middle;
+} */
   
 /* CREATE ORDER ENDS HERE */
 @media only screen and (max-width: 992px) {

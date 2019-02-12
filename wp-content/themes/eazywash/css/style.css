@@ -345,12 +345,12 @@ img.bottom-img {
 
 .price{
     background-color: #e1f3fc;
-    height: 280px;
+    min-height: 600px;
 }
 
 .price-active{
     background-color: #1fb8e4;
-    height: 350px;
+    height: 650px;
 }
 
 .price, .price-active {
@@ -396,6 +396,8 @@ section.pricing {
     text-align: center;
     font-weight: 400;
     margin-bottom: 0.5rem;
+    float: left;
+    width: 100%;
 }
 
 .price-text .cust-button {

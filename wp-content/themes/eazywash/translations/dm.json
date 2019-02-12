@@ -32,7 +32,8 @@
   "edit": "Redigere",
   "reload_Payment_window": "Genindlæs betalingsvindue",
   "click_here": "Klik her",
-  "expiry": "Expiry"
+  "expiry": "Expiry",
+  "deliever": "Levering"
 },
 "basic_details": {
   "name": "Navn",
@@ -42,11 +43,11 @@
   "email": "E-mail"
 },
 "address_details": {
-  "street_name": "Gadenavn",
+  "street_name": "Gade og bygningsnummer",
   "floor": "Etage",
-  "po_box": "P. O. Boks",
+  "po_box": "Postnummer",
   "city": "by",
-  "unit_number": "Enhedsnummer"
+  "unit_number": "Lokaler Antal"
 },
 
 "vault_details": {
@@ -81,12 +82,15 @@
 "login_form_title": "Log ind eller registrer dig",
 "logout_form_heading_text": "Vil du logge ud?",
 
-"request_pickup": "Anmodning afhentning",
-"request_pickup_date": "Vælg Pickup Date",
-"request_pickup_time": "Vælg Pickup Time",
+"request_pickup_date_part_1": "Vælg venligst den dato, du vil have, at vi kommer og",
+"request_pikcup_date_part_2": "dit vasketøj",
+"request_pickup_time_part_1": "Vælg den tidsslot, du vil have, at vi kommer og",
+"request_pickup_time_part_2":"dit vasketøj",
 "request_pickup_leave_at_door": "Jeg laver mit vasketøj uden for døren på mit ansvar",
-"request_drop_date": "Vælg Drop Date",
-"request_drop_time": "Vælg Drop Time",
+"request_drop_date_part_1": "Fortæl os hvilken dato vi vil have ",
+"request_drop_date_part_2": " Tøjvask til dig:",
+"request_drop_time_part_1": "Og hvilken tid vil du have os til ",
+"request_drop_time_part_2": " the laundry to you?",
 "request_drop_leave_at_door": "Lad mit tøj stå uden for døren på mit ansvar",
 "request_pickup_enter_basic_details": "Indtast grundlæggende detaljer",
 "request_pickup_enter_address_details": "Indtast adresseoplysninger",
