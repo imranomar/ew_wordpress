@@ -617,12 +617,13 @@
 
                         <wz-step wz-title="{{isUserLoggedIn && showPaymentDetailStep?(showAddressDetailStep?'6':'5'):'7'}}" wz-heading-title="{{Steps.payment_detail}}" wz-disabled="{{(isUserLoggedIn && showPaymentDetailStep == false) || (!isUserLoggedIn && set_order_system == 'QUICK')}}" canenter="validateStep">
                             <div class="row title my-3">
-                                <div class="col-sm-10 col-10">
+                                <div class="col-sm-12 col-12">
                                     <h4 class="pull-left">{{'request_pickup_enter_payemnt_details' | translate}}</h4>
+                                    <label>{{'request_pickup_enter_payemnt_note' | translate}}</label>
                                 </div>
-                                <div class="col-sm-2 col-2">
+                                <!--<div class="col-sm-2 col-2">
                                     <button type="button" class="close pull-right" ng-click="onCancelOrder()">&times;</button>
-                                </div>
+                                </div>-->
                             </div>
 
                             <div ng-include="'vault-form.html'"></div>
@@ -804,6 +805,7 @@
                     <div class="row title my-3 mx-0">
                         <div class="col-sm-10 col-10">
                             <h4 class="pull-left ml-2">{{'add_vault' | translate}}</h4>
+                            <label>{{'request_pickup_enter_payemnt_note' | translate}}</label>
                         </div>
 
                         <div class="col-sm-2 col-2">
