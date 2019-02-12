@@ -20,7 +20,7 @@ get_header(); while(have_posts()) : the_post(); ?>
 	<div class="container">
 		<div class="col-sm-12 col-xl-10 mx-auto">
 			<div class="row">
-				<div class="col-sm-4 price" ng-repeat="(key, price) in prices | orderBy: '-category_name'" ng-class="{'price-active': $odd}">
+				<div class="col-sm-4 price" ng-repeat="price in prices | orderBy: '-category_name'" ng-class="{'price-active': $odd}">
 					<div class="price-logo text-center">
 						<img class="img-fluid" ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/price-top{{$odd?'-active':''}}.png" alt="price">
 						<img ng-src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/upper.png" class="category upper" alt="upper" width="50" ng-if="price.category_name.toLowerCase().indexOf('upper') > -1" /> 

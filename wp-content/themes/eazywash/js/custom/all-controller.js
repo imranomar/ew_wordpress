@@ -962,7 +962,7 @@ app.controller("PricingCtrl", function($scope, $rootScope, CommonService) {
     sub_action: "pricing"
   };
 
-  $scope.prices = {};
+  $scope.prices = [];
   CommonService.CallAjaxUsingPostRequest(ajaxUrl, request_data)
       .then(
         function(data) {

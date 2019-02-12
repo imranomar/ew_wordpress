@@ -292,7 +292,7 @@ while(have_posts()) : the_post(); ?>
                         
                         <div class="paymentIframeContainer"></div>
                         <div class="text-center mt-4">
-                            <a href="javascript:void(0)" ng-click="reloadPaymentWindow()">{{'text.reload_Payment_window' | translate}}</a>
+                            <a href="javascript:void(0)" ng-click="reloadPaymentWindow(true)">{{'text.reload_Payment_window' | translate}}</a>
                         </div>
                         <button type="button" id="loadVaults" ng-click="loadVaults()" style="width:0;height:0;visibility:hidden;"></button>
                     </div>
