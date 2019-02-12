@@ -232,8 +232,8 @@
                                                 <div class="col-sm-4 col-4">
                                                     <div class="boxImage">
                                                         <div class="boxImageInner">
-                                                            <span class="round_button fixed-width-btn pull-right" ng-if="value.price"> + {{value.price | currency}}</span>
-                                                            <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
+                                                            <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price"> + {{value.price | currency}}</span>
+                                                            <span class="round_button small-fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -246,19 +246,29 @@
                             <div class="row" ng-if="!showAllpickupDateList">
                                 <div ng-click="loadMorePickupDates()" class="col-sm-12">
                                     <div class="card-box">
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <h5>{{'text.other' | translate}}</h5>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <div class="boxImage">
+                                                        <div class="boxImageInner">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <h5>{{'text.other' | translate}}</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">{{value.shortDate}} </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">{{value.shortDate}} </div>
+                                                <div class="col-sm-4">
+                                                    <div class="boxImage">
+                                                        <div class="boxImageInner">
+                                                            <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price">{{value.price | currency}}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price">{{value.price | currency}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -286,25 +296,35 @@
                                 <div class="row" ng-repeat="value in TimeSlots" ng-class="{'active': localData.pickupTime && localData.pickupTime.id == value.id }">
                                     <div class="col-sm-12">
                                         <div class="card-box" wz-next="performAction('SELECT_PICKUP_TIME', value)">
-                                            <div class="row">
-                                                <div class="col-sm-3 col-3 text-center">
-                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png" />
-                                                </div>
-                                                <div class="col-sm-6 col-6">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <!-- we do not have one hour slot option now -->
-                                                            <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
-                                                            <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
-                                                            <h6 class="text-capitalize"> {{'text.between' | translate}} </h6>
-                                                            <h5 class='larger'> {{value.time_from}}:00 to {{value.time_to}}:00 </h5>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-3 text-center">
+                                                    <div class="boxImage">
+                            <div class="boxImageInner">
+                                                        <img width="60" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png" />
+                                    </div>
+                                    </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-6">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <!-- we do not have one hour slot option now -->
+                                                                <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
+                                                                <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
+                                                                <h6 class="text-capitalize"> {{'text.between' | translate}} </h6>
+                                                                <h5 class='larger'> {{value.time_from}}:00 to {{value.time_to}}:00 </h5>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-sm-3 mt-3 col-3">
-                                                    <span class="round_button fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
-                                                    <span class="round_button fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
+                                                    <div class="col-sm-3 col-3">
+                                                    <div class="blueBtn">
+                            <div class="blueBtnInner">
+                                                        <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                                        <span class="round_button small-fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
+                                    </div>
+                                    </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -319,17 +339,27 @@
                                 <div class="row" ng-class="{'active': localData.pickupTime && localData.pickupTime.leaveAtdoor == 'y' }">
                                     <div class="col-sm-12">
                                         <div class='card-box' wz-next="performAction('SELECT_PICKUP_AT_DOOR', '')">
-                                            <div class="row">
-                                                <div class="col-sm-3 col-3 text-center">
-                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.png" />
-                                                </div>
-                                                <div class="col-sm-6 mt-1 col-6">
-                                                    <div class="title">
-                                                        <h5> {{'request_pickup_leave_at_door' | translate}} </h5>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-3 text-center">
+                                                    <div class="boxImage">
+                            <div class="boxImageInner">
+                                                        <img width="60" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.png" />
+                                    </div>
+                                    </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-3 mt-3 col-3">
-                                                    <span class="round_button fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
+                                                    <div class="col-sm-6 mt-1 col-6">
+                                                        <div class="title">
+                                                            <h5> {{'request_pickup_leave_at_door' | translate}} </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-3">
+                                                    <div class="blueBtn">
+                            <div class="blueBtnInner">
+                                                        <span class="round_button small-fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
+                                    </div>
+                                    </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -360,20 +390,26 @@
                                                 }">
                                 <div class="col-sm-12" ng-class="{'active': localData.deliveryDate && (localData.deliveryDate.date | date: 'yyyy-mm-dd') == (value.date | date: 'yyyy-mm-dd') }">
                                     <div class="card-box" >
-                                        <div class="row">
-                                            <div class="col-sm-8 col-8">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <h5 class='text-capitalize'>{{value.name}}</h5>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-sm-8 col-8">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <h5 class='text-capitalize'>{{value.name}}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 lighter-text">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}} </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12 lighter-text">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}} </div>
-                                                </div>
+                                                <div class="col-sm-4 col-4">
+                                                <div class="blueBtn">
+                            <div class="blueBtnInner">
+                                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price">+ {{value.price | currency}}</span>
+                                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
                                             </div>
-                                            <div class="col-sm-4 col-4">
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price">+ {{value.price | currency}}</span>
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
+                                            </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -383,20 +419,26 @@
                             <div class="row" ng-if="!showAlldeliveryDateList">
                                 <div class="col-sm-12" ng-click="loadMoreDeliveryDates()">
                                     <div class="card-box">
-                                        <div class="row">
-                                            <div class="col-sm-8 col-8">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <h5>{{'text.other' | translate}}</h5>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-sm-8 col-8">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <h5>{{'text.other' | translate}}</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">{{value.shortDate}} </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">{{value.shortDate}} </div>
+                                                <div class="col-sm-4 col-4">
+                                                <div class="blueBtn">
+                            <div class="blueBtnInner">
+                                                    <span class="round_button small-fixed-width-btn" ng-if="value.price">+ {{value.price | currency}}</span>
+                                            </div>
+                                            </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-4 col-4">
-                                                <span class="round_button fixed-width-btn" ng-if="value.price">+ {{value.price | currency}}</span>
-                                            </div>
+                                            </div>  
                                         </div>
                                     </div>
                                 </div>
@@ -422,21 +464,31 @@
                                 <div class="row" ng-repeat="value in TimeSlots" ng-class="{'active': localData.deliveryTime && localData.deliveryTime.id == value.id }">
                                     <div class="col-sm-12">
                                         <div class="card-box" wz-next="performAction('SELECT_DELIVERY_TIME', value)">
-                                            <div class="row">
-                                                <div class="col-sm-3 col-3 text-center">
-                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png" />
-                                                </div>
-                                                <div class="col-sm-6 col-6">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <h6 class="text-captalize"> {{'text.between' | translate}} </h6>
-                                                            <h5 class="text-upper larger"> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-3 text-center">
+                                                        <div class="boxImage">
+                                                            <div class="boxImageInner">
+                                                                <img width="60" ng-src="<?php echo get_template_directory_uri(); ?>/images/{{value.time_from}}.png" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-3 col-3">
-                                                <span class="round_button fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
-                                                    <span class="round_button fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
+                                                    <div class="col-sm-6 col-6">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <h6 class="text-captalize"> {{'text.between' | translate}} </h6>
+                                                                <h5 class="text-upper larger"> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-3">
+                                                        <div class="blueBtn">
+                                                            <div class="blueBtnInner">
+                                                                <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                                                <span class="round_button small-fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -446,17 +498,27 @@
                                 <div class="row" ng-class="{'active': localData.deliveryTime && localData.deliveryTime.leaveAtdoor == 'y' }">
                                     <div class="col-sm-12">
                                         <div class="card-box" wz-next="performAction('SELECT_DELIVERY_AT_DOOR', '')">
-                                            <div class="row">
-                                                <div class="col-sm-3 col-3 text-center">
-                                                    <img width="70" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.png" />
-                                                </div>
-                                                <div class="col-sm-6 col-6 mt-1">
-                                                    <div class="item ">
-                                                        <h5> {{'request_drop_leave_at_door' | translate}} </h5>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-3 text-center">
+                                                    <div class="boxImage">
+                                                        <div class="boxImageInner">
+                                                        <img width="60" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.png" />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-3 col-3 mt-3">
-                                                    <span class="round_button fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
+                                                    </div>
+                                                    <div class="col-sm-6 col-6">
+                                                        <div class="item ">
+                                                            <h5> {{'request_drop_leave_at_door' | translate}} </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-3">
+                                                        <div class="blueBtn">
+                                                            <div class="blueBtnInner">
+                                                                <span class="round_button small-fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1048,7 +1110,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-3 p-0 col-3" ng-hide="$index > -1">
+                    <div class="col-sm-3 col-3" ng-hide="$index > -1">
                         <div class="blueBtn">
                             <div class="blueBtnInner">
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#vaultChangeModal" class="round_button small-fixed-width-btn text-upper" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
@@ -1082,7 +1144,7 @@
                             <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
                         </span>
                     </div>
-                    <div class="col-sm-3 col-3 p-0" ng-hide="$index > -1">
+                    <div class="col-sm-3 col-3" ng-hide="$index > -1">
                         <div class="blueBtn">
                             <div class="blueBtnInner">
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#addressChangeModal" data-toggle="modal" class="round_button small-fixed-width-btn text-upper" ng-if="AllAddresses.length > 1">{{'text.change' | translate}}</a>
@@ -1091,6 +1153,46 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </script>
+
+
+    <!--Address Form Template-->
+    <script type="text/ng-template" id="address-form.html">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="alert alert-danger" ng-show="addressErr">{{addressErrorMessage}}</p>
+                
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.street_name' | translate}}</label>
+                    <input type="text" name="street_name" class="form-control" ng-disabled="loading" ng-model="addressDetails.street_name" autofocus />
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.floor' | translate}}</label>
+                    <input type="text" name="floor" class="form-control" ng-disabled="loading" ng-model="addressDetails.floor" />
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.unit_number' | translate}}</label>
+                    <input type="text" name="unit_number" class="form-control" ng-disabled="loading" ng-model="addressDetails.unit_number" />
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.po_box' | translate}}</label>
+                    <input type="text" name="pobox" class="form-control" ng-disabled="loading" ng-model="addressDetails.pobox" />
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.city' | translate}}</label>
+                    <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control" required>
+                        <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
+                        <option ng-repeat="value in cityData"  value="{{value.id}}">
+                            {{value.title}}
+                        </option>
+                    </select>
+                </div> -->
             </div>
         </div>
     </script>

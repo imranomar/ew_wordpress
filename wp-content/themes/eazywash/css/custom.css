@@ -19,7 +19,7 @@ h5
 
 h5.larger
 {
-  font-size: 1.85rem
+  font-size: 1.8rem
 }
 
 a:not([href]):not([tabindex]) {
@@ -121,7 +121,7 @@ span.required {
   margin-bottom: 10px;
   display: inline-block;
   width: 100%;
-  padding:8px !important; 
+  padding:8px 0 !important; 
   min-height: 66px;
   font-size: 15px;
   cursor: pointer!important;
@@ -131,7 +131,13 @@ span.required {
 /*----*/
 .blueBtn,.leftText,.boxImage {
   display: table;
-  height:100%;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+}
+
+.blueBtn {
+  text-align:right !important;
 }
 .blueBtnInner,.leftTextInner,.boxImageInner {
   display: table-cell;
@@ -141,6 +147,7 @@ span.required {
 .card-box h5
 {
   margin-bottom: .1rem;
+  text-align: left;
 }
 
 .tab1{
@@ -230,6 +237,7 @@ span.required {
 {
   color: #797979;
   text-transform: capitalize;
+  text-align: left;
 }
 
 .wizard-btn {
@@ -620,7 +628,7 @@ button:focus {
   }
 
   .small-fixed-width-btn {
-    min-width: 70px;
+    min-width: 90px;
   }
 
   .round_button {
