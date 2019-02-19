@@ -77,7 +77,6 @@ app.run(function(
 });
 
 app.factory("CommonService", function($http, $q, $httpParamSerializer) {
-  var LOCALSTORAGE_LANGUAGE = "locale";
 
   return {
     CallAjaxUsingPostRequest: function(url, dataObject) {

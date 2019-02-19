@@ -481,7 +481,9 @@ tr {
   text-decoration: none;
 }
 
-
+.page-heading {
+  color: #ff00c6;
+}
 
 .fb-btn:hover,
 .fb-btn :hover {

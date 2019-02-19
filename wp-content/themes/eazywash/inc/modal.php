@@ -754,7 +754,7 @@
 
                     <div class="row text-center" ng-if="orderCreationDone">
                         <div class="col-sm-12">
-                            <h2 class="text-success">
+                            <h2 class="page-heading">
                                 <i class="glyphicon glyphicon-ok-circle"></i>
                                 <br>
                                 <span>{{'request_pickup_order_success' | translate}}</span>
