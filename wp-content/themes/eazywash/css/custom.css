@@ -583,6 +583,24 @@ button:focus {
   text-transform: lowercase !important;
 }
 
+.fixedRequestPickupBtn {
+  position: absolute;
+  top: 75px;
+  right: 36px;
+}
+
+.summary-highlight {
+  color: #ff00c6 !important;
+  text-transform: capitalize;
+}
+
+.summary-highlight i {
+  font-size: 50px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+
 /* .card-box {
   background-color: #eee;
   max-width: 500px;

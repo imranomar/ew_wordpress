@@ -754,9 +754,8 @@
 
                     <div class="row text-center" ng-if="orderCreationDone">
                         <div class="col-sm-12">
-                            <h2 class="page-heading">
-                                <i class="glyphicon glyphicon-ok-circle"></i>
-                                <br>
+                            <h2 class="summary-highlight">
+                                <i class="fa fa-check-circle text-success"></i>
                                 <span>{{'request_pickup_order_success' | translate}}</span>
                             </h2>
                             <p>{{'request_pickup_order_success_message' | translate}}</p>

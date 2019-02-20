@@ -24,9 +24,9 @@ get_header(); ?>
 			<div class="slide-text">
 			  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam<br/>
 				  nonummy nibh euismod ut laoreet dolore magna. </p>
-				  <div class="buttons text-center">
+				  <!-- <div class="buttons text-center">
 					<a href="javascript:void(0)" class="cust-button request-pickup-handler" data-toggle="modal" data-target="#requestPickupModal">Pickup My Laundry Now</a>
-				  </div>
+				  </div> -->
 			</div>
 
 		</div>

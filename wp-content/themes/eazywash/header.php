@@ -114,6 +114,10 @@ $favicon = $theme_options['site-favicon']['url'];
 	</div>
 	 
       
+
+	<div class="buttons fixedRequestPickupBtn">
+		<a href="javascript:void(0)" class="cust-button request-pickup-handler" data-toggle="modal" data-target="#requestPickupModal">Pickup My Laundry Now</a>
+	</div>
   </div>
   
 
