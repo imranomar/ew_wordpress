@@ -343,7 +343,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-3 col-3 text-center">
                                                     <div class="boxImage">
-                            <div class="boxImageInner">
+                                                     <div class="boxImageInner">
                                                         <img width="60" ng-src="<?php echo get_template_directory_uri(); ?>/images/no_time.png" />
                                     </div>
                                     </div>
@@ -355,7 +355,7 @@
                                                     </div>
                                                     <div class="col-sm-3 col-4">
                                                     <div class="blueBtn">
-                            <div class="blueBtnInner">
+                                                          <div class="blueBtnInner">
                                                         <span class="round_button small-fixed-width-btn pull-right"> {{'text.free' | translate}}</span>
                                     </div>
                                     </div>
@@ -757,6 +757,7 @@
                             <h2 class="summary-highlight">
                                 <i class="fa fa-check-circle text-success"></i>
                                 <span>{{'request_pickup_order_success' | translate}}</span>
+
                             </h2>
                             <p>{{'request_pickup_order_success_message' | translate}}</p>
                             <p ng-if="!isUserLoggedIn">{{'request_pickup_order_success_information' | translate}}</p>

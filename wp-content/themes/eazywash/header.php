@@ -112,7 +112,12 @@ $favicon = $theme_options['site-favicon']['url'];
 				value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" />
 		</form>
 	</div>
-	 
+	<?php if(!is_front_page()) {?>
+
+ 		<div class="buttons fixedbutton">
+          <a href="javascript:void(0)" class="cust-button request-pickup-handler" data-toggle="modal" data-target="#requestPickupModal">Pickup My Laundry Now</a>
+      	</div>
+  	<?php } ?>
       
 
 	<div class="buttons fixedRequestPickupBtn">

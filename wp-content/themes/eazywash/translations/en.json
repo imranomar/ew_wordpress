@@ -56,7 +56,7 @@
     "card_number": "Card Number",
     "expiry_date": "Expiry Date",
     "exipry_month": "Expiry Month",
-    "ends_with": "ends with"
+    "ends_with": " ends with"
   },
 
   "menu_link_home": "Home",
@@ -110,7 +110,7 @@
   "request_pickup_order_success_information": "Your account is also created. Please login to skip extra steps to place order.",
   "request_pickup_order_cancel_confirmation": "Your order will be deleted. Do you want to cancel order?",
   "address_deletion_confirmation": "Do you want to delete address details?",
-  "deletion_confirmation": "Do you want to delete",
+  "deletion_confirmation": "Do you want to delete ",
   "change_address": "Change Address",
   "change_password": "Change Password",
   "new_password": "New Password",

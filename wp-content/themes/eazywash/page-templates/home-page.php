@@ -29,9 +29,12 @@ get_header(); ?>
 				  </div> -->
 			</div>
 
+
 		</div>
 
+
 	  </div>
+
   </div>
 </div>
 
@@ -43,8 +46,8 @@ get_header(); ?>
 	  <div class="col-sm-12 mt-5 text-center">
 		<h1>How it Works</h1>
 		<p>Investigationes demonstraverunt lectores legere me lius quod ii<br/> legunt saepius. Claritas est etiam processus dynamicus</p>
-
-		<div class="row workchain mt-5">
+        </div>
+		<div class="col-sm-12 workchain mt-5">
 			
 		  <div class="install workchain-div">
 			<div class="icon">

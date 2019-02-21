@@ -129,10 +129,14 @@ global $theme_options;
         <div class="col-sm-12 mt-4">
           <p><?php echo wp_strip_all_tags($theme_options['copyright-info']); ?></p>
         </div>
+        
       </div>
       <?php } ?>
 
   </div>
+
+
+
 </section>
 
 
