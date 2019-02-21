@@ -589,6 +589,10 @@ button:focus {
   right: 36px;
 }
 
+.mobile-btn {
+  display:none !important;
+}
+
 .summary-highlight {
   color: #ff00c6 !important;
   text-transform: capitalize;

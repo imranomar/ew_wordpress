@@ -139,7 +139,23 @@
     }
     
   
+    a.cust-button.request-pickup-handler {
+        width: auto;
+    }
+    
+    .fixedRequestPickupBtn {
+        position: fixed;
+        top: 75px;
+        z-index: 1;
+        text-align: center;
+        width: 100%;
+        display: none;
+        right: 0;
+    }
 
+    .mobile-btn {
+        display:inline-block !important;
+      }
     
 }
 

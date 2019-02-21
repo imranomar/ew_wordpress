@@ -112,23 +112,22 @@ $favicon = $theme_options['site-favicon']['url'];
 				value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" />
 		</form>
 	</div>
-	<?php if(!is_front_page()) {?>
-
- 		<div class="buttons fixedbutton">
-          <a href="javascript:void(0)" class="cust-button request-pickup-handler" data-toggle="modal" data-target="#requestPickupModal">Pickup My Laundry Now</a>
-      	</div>
+	<?php if(!is_front_page()) { ?>
+		<div class="buttons fixedRequestPickupBtn">
+			<a href="javascript:void(0)" class="cust-button request-pickup-handler" data-toggle="modal" data-target="#requestPickupModal">Pickup My Laundry Now</a>
+		</div>
   	<?php } ?>
       
 
-	<div class="buttons fixedRequestPickupBtn">
-		<a href="javascript:void(0)" class="cust-button request-pickup-handler" data-toggle="modal" data-target="#requestPickupModal">Pickup My Laundry Now</a>
-	</div>
   </div>
   
 
 </nav>
 
 <?php if(!is_front_page()) { ?>
+	<div class="buttons fixedRequestPickupBtn mobile-btn">
+		<a href="javascript:void(0)" class="cust-button request-pickup-handler" data-toggle="modal" data-target="#requestPickupModal">Pickup My Laundry Now</a>
+	</div>
 	<div class="page-heading text-center" <?php if($theme_options['page-header-bg-img']['url']) { echo "style='background-image: url(".$theme_options['page-header-bg-img']['url'].");'"; }?>>
 	<?php if($theme_options['header-logo']['url']) { ?>
 		<img class="img-fluid main-logo" src="<?php echo esc_url( $theme_options['header-logo']['url'] ); ?>" alt="<?php echo get_bloginfo('name'); ?>">
