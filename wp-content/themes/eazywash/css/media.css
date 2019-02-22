@@ -143,19 +143,17 @@
         width: auto;
     }
     
-    .fixedRequestPickupBtn {
-        position: fixed;
-        top: 75px;
-        z-index: 1;
-        text-align: center;
-        width: 100%;
-        display: none;
-        right: 0;
-    }
 
     .mobile-btn {
         display:inline-block !important;
       }
+
+      .fixedRequestPickupBtn {
+        display: none;
+        top: 105px;
+        right: 125px;
+        z-index: 1;
+    }
     
 }
 
@@ -217,7 +215,18 @@
         margin-top: 60px;
     }
 
+     .fixedRequestPickupBtn {
+        position: fixed;
+        top: 75px;
+        z-index: 1;
+        text-align: center;
+        width: 100%;
+        display: none;
+        right: 0;
+    }
+
 }
+
 @media only screen and (max-width: 576px) {
     .price, .price-active{
         margin-bottom: 10rem;
